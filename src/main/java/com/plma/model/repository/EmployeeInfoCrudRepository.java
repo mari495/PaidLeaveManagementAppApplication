@@ -6,7 +6,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.dbtest.db.model.entity.EmployeeInfo;
+import com.plma.model.entity.EmployeeInfo;
 
 public interface EmployeeInfoCrudRepository extends CrudRepository<EmployeeInfo, Integer>{
     @Query("SELECT * FROM Employee_Info WHERE join_date = :joinDate AND department_number = :department_number")

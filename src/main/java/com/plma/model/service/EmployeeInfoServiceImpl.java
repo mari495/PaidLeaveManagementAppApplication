@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dbtest.db.model.entity.Department;
-import com.dbtest.db.model.entity.EmployeeInfo;
-import com.dbtest.db.model.entity.EmployeeInfoDto;
-import com.dbtest.db.model.repository.DepartmentRepository;
-import com.dbtest.db.model.repository.EmployeeInfoCrudRepository;
-import com.dbtest.db.model.repository.PaidLeaveRepository;
+import com.plma.model.entity.Department;
+import com.plma.model.entity.EmployeeInfo;
+import com.plma.model.entity.EmployeeInfoDto;
+import com.plma.model.repository.DepartmentRepository;
+import com.plma.model.repository.EmployeeInfoCrudRepository;
+import com.plma.model.repository.PaidLeaveRepository;
 
 @Service
 @Transactional

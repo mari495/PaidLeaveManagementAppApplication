@@ -3,9 +3,9 @@ package com.plma.model.service;
 import java.sql.Date;
 import java.util.Optional;
 
-import com.dbtest.db.model.entity.Department;
-import com.dbtest.db.model.entity.EmployeeInfo;
-import com.dbtest.db.model.entity.EmployeeInfoDto;
+import com.plma.model.entity.Department;
+import com.plma.model.entity.EmployeeInfo;
+import com.plma.model.entity.EmployeeInfoDto;
 
 
 public interface EmployeeInfoService {
