@@ -1,4 +1,4 @@
-package com.plma.model.repository;
+package com.plma.model.repository;//nakasone
 
 import java.sql.Date;
 

@@ -1,4 +1,11 @@
-package com.plma.model.service;
+/*このクラスでは、データベースの従業員情報（EmployeeInfo）を操作するためのメソッドを提供しています。
+ * また、データベースから取得した情報をDTO（Data Transfer Object）に変換するためのメソッドも提供しています。
+ * DTOは、データの転送や表示に特化したオブジェクトであり、
+ * クライアントとサーバー間でデータのやり取りを行う際に使用されます。
+ * 
+ * */
+
+package com.plma.model.service;//nakasone
 
 import java.sql.Date;
 import java.util.List;
@@ -30,54 +37,54 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 	PaidLeaveRepository pl_repository;
 
 	@Override
-	public void insertEmployeeInfo(EmployeeInfo empinfo) {
+	public void insertEmployeeInfo(EmployeeInfo empinfo) {// 従業員情報をデータベースに挿入
 		repository.save(empinfo);
 	}
 
 	@Override
-	public Iterable<EmployeeInfo> selectAll() {
+	public Iterable<EmployeeInfo> selectAll() {// すべての従業員情報を取得
 		return repository.findAll();
 	}
 
 	@Override
-	public Optional<EmployeeInfo> findById(Integer code){
+	public Optional<EmployeeInfo> findById(Integer code){//指定された従業員コードに基づいて従業員情報を検索
 		return repository.findById(code);
 
 	}
 
 	@Override
-	public void deleteById(Integer code) {
+	public void deleteById(Integer code) {//指定された従業員コードに基づいて従業員情報を削除
 		repository.deleteById(code);
 	}
 
 	@Override
-	public boolean existsById(Integer code) {
+	public boolean existsById(Integer code) {//指定された従業員コードが存在するかどうかを確認
 		boolean result = repository.existsById(code);
 		return result;
 	}
 
 	@Override
-	public Iterable<EmployeeInfo> findByJoinDateAndDepartment(Date joinDate, Integer department_number){
+	public Iterable<EmployeeInfo> findByJoinDateAndDepartment(Date joinDate, Integer department_number){//入社日と部署番号に基づいて従業員情報を検索
 		return repository.findByJoinDateAndDepartment(joinDate, department_number);
 	}
 
 	@Override
-	public Iterable<EmployeeInfo> findByParams(String name, Integer department_number, Integer working_days){
+	public Iterable<EmployeeInfo> findByParams(String name, Integer department_number, Integer working_days){//名前、部署番号、所定労働日数に基づいて従業員情報を検索
 		return repository.findByParams(name, department_number, working_days);
 	}
 
 	@Override
-	public Iterable<Department> selectDepAll(){
+	public Iterable<Department> selectDepAll(){// すべての部署情報を取得
 		return dep_repository.findAll();
 	}
 
 	@Override
-	public	Optional<Department> findByDepartmentNumber(Integer department_number){
+	public	Optional<Department> findByDepartmentNumber(Integer department_number){//指定された部署番号に基づいて部署情報を検索
 		return dep_repository.findById(department_number);
 	}
 
 	@Override
-    public Iterable<EmployeeInfoDto> getAllEmployeeInfoDto() {
+    public Iterable<EmployeeInfoDto> getAllEmployeeInfoDto() {//すべての従業員情報を従業員情報DTO（EmployeeInfoDto）のリストとして取得
 
         // EmployeeInfoオブジェクトのリストを取得
     	Iterable<EmployeeInfo> iterable = selectAll();
@@ -86,7 +93,10 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
         // EmployeeInfoDtoオブジェクトのリストを返す
 		return employeeInfoDtoList;
     }
-
+/*EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換するためのメソッドです。
+ * このメソッドでは、部署番号と部署名のマッピングを作成し、
+EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDtoオブジェクトを作成
+ * */
 	private EmployeeInfoDto convertToDto(EmployeeInfo employeeInfo) {
     	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
     		    .collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
@@ -109,7 +119,7 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 	}
 
 	@Override
-	public Optional<EmployeeInfoDto> findByIdEmpDto(Integer code){
+	public Optional<EmployeeInfoDto> findByIdEmpDto(Integer code){//指定された従業員コードに基づいて従業員情報DTOを検索
 		Optional<EmployeeInfo> employeeInfo = findById(code);
 		Optional<EmployeeInfoDto> empinfodto = employeeInfo.map(this::convertToDto);
 		return empinfodto;
@@ -137,7 +147,9 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 		return employeeInfoDtoList;
 
 	}
-
+/*
+ * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド
+ * 部署番号と部署名のマッピングを作成し、EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換*/
 	private Iterable<EmployeeInfoDto> getEIDto(Iterable<EmployeeInfo> iterable){
         // 部署番号をキーとした部署名のMapを作成する処理
     	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
@@ -169,7 +181,7 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 		return employeeInfoDtoList;
 	}
 
-	private Integer getDepNameToNumber(String department_name) {
+	private Integer getDepNameToNumber(String department_name) {//、部署名を部署番号に変換するためのメソッドです。部署名と部署番号のマッピングを作成し、指定された部署名に対応する部署番号を返す
 	    Map<String, Integer> departmentNameToNumberMap = StreamSupport.stream(selectDepAll().spliterator(), false)
 	            .collect(Collectors.toMap(Department::getDepartment_name, Department::getDepartment_number));
 	    return departmentNameToNumberMap.get(department_name);
