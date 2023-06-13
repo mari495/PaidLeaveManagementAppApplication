@@ -196,7 +196,7 @@ public class ShinkitourokuSceneController {
 
         EmployeeInfo empinfo = new EmployeeInfo(
         );
-        
+        //IDはエラーがでる
         empinfo.setHurigana_lastname(lastname_hurigana_text.getText());
         empinfo.setHurigana_firstname(firstname_hurigana_text.getText());
         empinfo.setFirstname(firstname_text.getText());
@@ -205,6 +205,13 @@ public class ShinkitourokuSceneController {
         empinfo.setDepartment_number(Integer.parseInt(department.getValue()));//部署名
         empinfo.setCode("");//社員コードstringに変更
         
+        
+        // 項目を追加
+        //empinfo.setReference_date(Date.valueOf(reference_date.getValue()));
+        //empinfo.setAnnual_paid_leave_report_date(Date.valueOf(annualPaidLeaveReportDate));
+        empinfo.setGranted_paid_leave_days(10);
+        empinfo.setRemaining_paid_leave_days(10);
+
         
         
      // "join_date"から年の部分を取得
