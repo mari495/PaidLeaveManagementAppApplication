@@ -3,12 +3,14 @@ package com.plma.controller;//nakasone
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
 
@@ -30,9 +32,7 @@ public class ShinkitourokuSceneController {
 	
 	 @Autowired
 	private EmployeeInfoService Service;
-//仮作成不要なら除去
-	@Autowired
-	private SpringFXMLLoader fxmlLoader;
+
 
 	
 	//EmployeeInfoServiceImpl service;
@@ -205,12 +205,18 @@ public class ShinkitourokuSceneController {
         empinfo.setDepartment_number(Integer.parseInt(department.getValue()));//部署名
         empinfo.setCode("");//社員コードstringに変更
         
+        //関数あるか不明のため仮入れ
+     // 日付から半年後の日付を計算
+        LocalDate currentDate = LocalDate.of(Integer.parseInt(year.getValue()), Integer.parseInt(month.getValue()), Integer.parseInt(day.getValue()));
+        LocalDate halfYearLater = currentDate.plusMonths(6);
+        empinfo.setReference_date(Date.valueOf(halfYearLater.toString()));
+      //関数あるか不明のため仮入れ
+        // その日付から初めて迎える3月31日の日付を計算
+        LocalDate march31 = LocalDate.of(halfYearLater.getYear(), Month.MARCH, 31);
+        empinfo.setAnnual_paid_leave_report_date(Date.valueOf(march31.toString()));
         
-        // 項目を追加
-        //empinfo.setReference_date(Date.valueOf(reference_date.getValue()));
-        //empinfo.setAnnual_paid_leave_report_date(Date.valueOf(annualPaidLeaveReportDate));
-        empinfo.setGranted_paid_leave_days(10);
-        empinfo.setRemaining_paid_leave_days(10);
+        empinfo.setGranted_paid_leave_days(10);//仮入れ
+        empinfo.setRemaining_paid_leave_days(10);//仮入れ
 
         
         
