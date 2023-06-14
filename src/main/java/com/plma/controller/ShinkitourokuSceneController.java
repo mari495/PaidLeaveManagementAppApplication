@@ -125,19 +125,18 @@ public class ShinkitourokuSceneController {
 
 
         
-    	//ComboBoxに値を登録
+     // ComboBoxに値を登録
         for (int y = 2000; y < 2024; y++) {
-            year.getItems().add(y);
+            year.getItems().add(Integer.valueOf(y));
         }
 
         for (int m = 1; m < 13; m++) {
-            month.getItems().add(m);
+            month.getItems().add(Integer.valueOf(m));
         }
 
         for (int d = 1; d < 32; d++) {
-            day.getItems().add(d);
+            day.getItems().add(Integer.valueOf(d));
         }
-
     		
     		for(int dept = 101; dept < 107; dept++) {
     			department.getItems().add(Integer.toString(dept));
@@ -218,8 +217,11 @@ public class ShinkitourokuSceneController {
 
         EmployeeInfo empinfo1 = new EmployeeInfo(
         );
-       
-        empinfo1.setId(Integer.parseInt(null));
+     
+        //empinfo1.setId(null);
+        //empinfo1.setId(Integer.parseInt(null));
+        
+        
         empinfo1.setHurigana_lastname(lastname_hurigana_text.getText());
         empinfo1.setHurigana_firstname(firstname_hurigana_text.getText());
         empinfo1.setFirstname(firstname_text.getText());
@@ -229,11 +231,18 @@ public class ShinkitourokuSceneController {
         empinfo1.setCode("");//社員コードstringに変更
         
         
+        Integer yearValue = year.getValue();
+        Integer monthValue = month.getValue();
+        Integer dayValue = day.getValue();
+        if (yearValue == null || monthValue == null || dayValue == null) {
+        	System.out.println("日付が選択されていません");
+        	return; // もしくは適切な処理を行って終了させる
+        } else {
         
         //コンボボックスからintger型で取得→int型へ変更
-        int yearvalue = year.getValue();
-        int monthvalue = month.getValue();
-        int dayvalue = day.getValue();
+        int yearvalue =yearValue;
+        int monthvalue = monthValue;
+        int dayvalue = dayValue;
         
         
         LocalDate currentDate = LocalDate.of(yearvalue, monthvalue, dayvalue);
@@ -264,7 +273,7 @@ public class ShinkitourokuSceneController {
         empinfo1.setGranted_paid_leave_days(10);//仮入れ
         empinfo1.setRemaining_paid_leave_days(10);//仮入れ
 
-        
+        }
         
      //java.util.Date date = new java.util.Date();
        // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
