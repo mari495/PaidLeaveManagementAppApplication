@@ -176,27 +176,90 @@ public class ShinkitourokuSceneController {
 		}
     }
     
-    /*@FXML
-    void adddOnClick(ActionEvent event) {
+   @FXML
+    void addOnClick(ActionEvent event) {
 
     	
 
-    	EmployeeInfo empinfo = new EmployeeInfo(null
-    			,"XLM99M"
+    	EmployeeInfo empinfo2 = new EmployeeInfo(null
+    			,"1"
     			,Date.valueOf("2016-04-01")
-    			,"やまだ"
-    			,"たろう"
-    			,"山田"
-    			,"太郎"
-    			,100
-    			,300
+    			,firstname_hurigana_text.getText()
+    			,lastname_hurigana_text.getText()
+    			,firstname_text.getText()
+    			,lastname_text.getText()
+    			,Integer.parseInt(department.getValue())
+    			,Integer.parseInt(department1.getValue())
     			,Date.valueOf("2016-04-01")
     			,Date.valueOf("2016-04-01")
-    	    	,19
-    			,3);
+    	    	,19//仮入れ
+    			,3);//仮入れ
+
+        Integer yearValue = year.getValue();
+        Integer monthValue = month.getValue();
+        Integer dayValue = day.getValue();
+        if (yearValue == null || monthValue == null || dayValue == null) {
+        	System.out.println("日付が選択されていません");
+        	return; // もしくは適切な処理を行って終了させる
+        } else {
+        
+        //コンボボックスからintger型で取得→int型へ変更
+        int yearvalue =yearValue;
+        int monthvalue = monthValue;
+        int dayvalue = dayValue;
+        
+        
+        LocalDate currentDate = LocalDate.of(yearvalue, monthvalue, dayvalue);
+        Date joinDate = Date.valueOf(currentDate);
+        
+        empinfo2.setJoin_date(joinDate);//入社日
+        
+        
+     // 半年後の日付を計算
+        LocalDate currentDate2 = joinDate.toLocalDate(); // joinDate を LocalDate に変換
+        LocalDate halfYearLater = currentDate2.plusMonths(6); // 半年後の日付を計算
+        Date halfYearLaterDate = Date.valueOf(halfYearLater); // 半年後の日付を Date 型に変換
+        empinfo2.setReference_date(halfYearLaterDate);
+        
+        
+        
+        
+     // 最初の3月31日の日付を計算
+        int currentYear = currentDate.getYear(); // 現在の年を取得
+        LocalDate march31 = LocalDate.of(currentYear, Month.MARCH, 31); // 今年の3月31日の日付を計算
+        if (currentDate.isAfter(march31)) { // もし現在の日付が3月31日より後なら、来年の3月31日の日付を計算
+            march31 = march31.plusYears(1);
+        }
+        Date march31Date = Date.valueOf(march31); // 3月31日の日付を Date 型に変換
+        empinfo2.setAnnual_paid_leave_report_date(march31Date);
+        
+        
+        empinfo2.setGranted_paid_leave_days(10);//仮入れ
+        empinfo2.setRemaining_paid_leave_days(10);//仮入れ
+
+        }
+        
+     //java.util.Date date = new java.util.Date();
+       // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        
+        //empinfo1.setJoin_date(sqlDate);
+        
+        System.out.println(lastname_hurigana_text.getText());
+        System.out.println(firstname_hurigana_text.getText());
+        System.out.println(lastname_text.getText());
+        System.out.println(firstname_text.getText());
+        System.out.println(year.getValue());
+        System.out.println(month.getValue());
+        System.out.println(day.getValue());
+        System.out.println(department.getValue());
+        System.out.println(department1.getValue());
+        System.out.println("Year: " + year);
+        System.out.println("Month: " + month);
+        System.out.println("Day: " + day);
+        
 
 		try  {
-        	Service.insertEmployeeInfo(empinfo);
+        	Service.insertEmployeeInfo(empinfo2);
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getCause() instanceof InvocationTargetException) {
@@ -207,9 +270,9 @@ public class ShinkitourokuSceneController {
 
         closeWindow(event);
     
-    }*/
+    }
     @FXML
-	void addOnClick(ActionEvent event) {
+	void adddddOnClick(ActionEvent event) {
 
     	
         
@@ -218,7 +281,7 @@ public class ShinkitourokuSceneController {
         EmployeeInfo empinfo1 = new EmployeeInfo(
         );
      
-        //empinfo1.setId(null);
+        //empinfo1.setId(null);// IDをnullで設定
         //empinfo1.setId(Integer.parseInt(null));
         
         
