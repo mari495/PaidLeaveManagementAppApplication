@@ -183,17 +183,17 @@ public class ShinkitourokuSceneController {
 
     	EmployeeInfo empinfo2 = new EmployeeInfo(null
     			,"1"
-    			,Date.valueOf("2016-04-01")
+    			,null
     			,firstname_hurigana_text.getText()
     			,lastname_hurigana_text.getText()
     			,firstname_text.getText()
     			,lastname_text.getText()
     			,Integer.parseInt(department.getValue())
     			,Integer.parseInt(department1.getValue())
-    			,Date.valueOf("2016-04-01")
-    			,Date.valueOf("2016-04-01")
-    	    	,19//仮入れ
-    			,3);//仮入れ
+    			,null
+    			,null
+    	    	,null
+    			,null);
 
         Integer yearValue = year.getValue();
         Integer monthValue = month.getValue();
@@ -271,7 +271,7 @@ public class ShinkitourokuSceneController {
         closeWindow(event);
     
     }
-    @FXML
+    /*@FXML
 	void adddddOnClick(ActionEvent event) {
 
     	
@@ -367,6 +367,6 @@ public class ShinkitourokuSceneController {
         }
 
         closeWindow(event);
-    }
+    }*/
     
 }
