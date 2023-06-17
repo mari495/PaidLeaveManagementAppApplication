@@ -6,12 +6,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.MainSceneController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.ShinkitourokuSceneController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -59,19 +60,11 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="shinkitouroku_button" layoutX="56.0" layoutY="65.0" mnemonicParsing="false" onAction="#shinkitouroku_button_onClick" prefHeight="25.0" prefWidth="233.0" text="新規登録" />
-            <Button fx:id="syoumetu_button" layoutX="56.0" layoutY="116.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="233.0" text="有給休暇消滅接近者リスト" />
-            <Button fx:id="settei_button" layoutX="56.0" layoutY="322.0" mnemonicParsing="false" onAction="#settei_button_onClick" prefHeight="27.0" prefWidth="233.0" text="設定" />
-            <Button fx:id="misyouka_button" layoutX="56.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="233.0" text="有給休暇年5日未消化者リスト" />
-            <Button fx:id="yukyutouroku_button" layoutX="56.0" layoutY="216.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="233.0" text="有給休暇使用状況登録" />
-            <Button fx:id="kensaku_button" layoutX="56.0" layoutY="269.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="233.0" text="個人データ検索" />
-            <Text layoutX="320.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新しく従業員が入社した際の新規登録画面" wrappingWidth="233.33333333333337" />
-            <Text layoutX="320.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇未消化者情報" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="従業員が有給休暇を取得した際の有給休暇情報登録" wrappingWidth="283.3333943684896" />
-            <Text layoutX="320.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="名前や退職情報の更新" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="部署の追加" wrappingWidth="233.33333333333337" />
-            <Text layoutX="320.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇発生後２年経過接近者情報" wrappingWidth="233.33333333333337" />
-            <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メインメニュー" wrappingWidth="103.469970703125">
+            <Button fx:id="Menu_button" layoutX="520.0" layoutY="319.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="25.0" prefWidth="82.0" text="メニュー" />
+            <Text layoutX="33.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新しく追加する部署" wrappingWidth="103.33333333333348" />
+            <TextArea id="name_textArea" fx:id="apartment_text" layoutX="152.0" layoutY="45.0" prefHeight="27.0" prefWidth="115.0" />
+            <Button fx:id="add_button" layoutX="143.0" layoutY="317.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="27.0" prefWidth="325.0" text="登録" />
+            <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="部署名追加" wrappingWidth="214.80331420898438">
                <font>
                   <Font size="18.0" />
                </font>

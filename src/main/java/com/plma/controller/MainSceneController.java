@@ -22,7 +22,7 @@ import javafx.stage.Window;
 public class MainSceneController {
 	@Autowired
 	private SpringFXMLLoader fxmlLoader;
-	
+
     @FXML
     private ResourceBundle resources;
 
@@ -66,6 +66,54 @@ public class MainSceneController {
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.setTitle("新規社員登録");
+			stage.show();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+    }
+    @FXML
+    void kensaku_button_onClick(ActionEvent event) {
+    	System.out.println("検索画面に来た");
+		/*
+		 * 現在表示されている画面を閉じる
+		 */
+		Scene s = ((Node)event.getSource()).getScene();
+		Window window = s.getWindow();
+		window.hide();
+
+		/*
+		 * 新しい画面を生成する
+		 */
+		try {
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/kensakuScene.fxml"));
+	        Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("個人データ検索");
+			stage.show();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+    }
+    @FXML
+    void settei_button_onClick(ActionEvent event) {
+    	System.out.println("設定画面に来た");
+		/*
+		 * 現在表示されている画面を閉じる
+		 */
+		Scene s = ((Node)event.getSource()).getScene();
+		Window window = s.getWindow();
+		window.hide();
+
+		/*
+		 * 新しい画面を生成する
+		 */
+		try {
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/settei.fxml"));
+	        Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("設定");
 			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();

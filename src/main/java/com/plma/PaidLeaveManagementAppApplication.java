@@ -24,14 +24,14 @@ public class PaidLeaveManagementAppApplication extends Application{
         fxmlLoader = springContext.getBean(SpringFXMLLoader.class);
     	System.out.println("initされた");
     }
-	
+
 	public static void main(String[] args) {
-		
+
 		launch(args);
 	}
 
-	
-	
+
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -46,5 +46,5 @@ public class PaidLeaveManagementAppApplication extends Application{
 		}
 	}
 
-	
+
 }

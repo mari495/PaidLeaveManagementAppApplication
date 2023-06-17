@@ -29,12 +29,12 @@ import javafx.stage.Window;
 
 @Controller
 public class ShinkitourokuSceneController {
-	
+
 	 @Autowired
 	private EmployeeInfoService Service;
 
 
-	
+
 	//EmployeeInfoServiceImpl service;
     @FXML
     private ResourceBundle resources;
@@ -56,7 +56,7 @@ public class ShinkitourokuSceneController {
 
     @FXML
     private ComboBox<String> department1;
-    
+
     @FXML
     private ComboBox<Integer> month;
 
@@ -124,7 +124,7 @@ public class ShinkitourokuSceneController {
         assert year != null : "fx:id=\"year\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
 
 
-        
+
      // ComboBoxに値を登録
         for (int y = 2000; y < 2024; y++) {
             year.getItems().add(Integer.valueOf(y));
@@ -137,7 +137,7 @@ public class ShinkitourokuSceneController {
         for (int d = 1; d < 32; d++) {
             day.getItems().add(Integer.valueOf(d));
         }
-    		
+
     		for(int dept = 101; dept < 107; dept++) {
     			department.getItems().add(Integer.toString(dept));
     		}//仮入れ
@@ -148,11 +148,11 @@ public class ShinkitourokuSceneController {
     		for(int syaincode = 1; syaincode < 100; syaincode++) {
     			syaincode_ComboBox.getItems().add(Integer.toString(syaincode));
     		}
-        
-        
+
+
     }
-    
-    
+
+
     void closeWindow(ActionEvent event){
 		/*
 		 * 現在表示されている画面を閉じる
@@ -175,25 +175,23 @@ public class ShinkitourokuSceneController {
 			e.printStackTrace();
 		}
     }
-    
+
    @FXML
     void addOnClick(ActionEvent event) {
 
-    	
-
     	EmployeeInfo empinfo2 = new EmployeeInfo(null
-    			,"1"
-    			,null
+    			,null//社員コード別で登録
+    			,null//入社日別で登録
     			,firstname_hurigana_text.getText()
     			,lastname_hurigana_text.getText()
     			,firstname_text.getText()
     			,lastname_text.getText()
     			,Integer.parseInt(department.getValue())
     			,Integer.parseInt(department1.getValue())
-    			,null
-    			,null
-    	    	,null
-    			,null);
+    			,null/* 有給休暇発生日（基準日） */
+    			,null/* 年次有給休暇管理簿作成日 */
+    	    	,null//有給日数別で登録
+    			,null);//有給残日数別で登録
 
         Integer yearValue = year.getValue();
         Integer monthValue = month.getValue();
@@ -202,28 +200,28 @@ public class ShinkitourokuSceneController {
         	System.out.println("日付が選択されていません");
         	return; // もしくは適切な処理を行って終了させる
         } else {
-        
+
         //コンボボックスからintger型で取得→int型へ変更
         int yearvalue =yearValue;
         int monthvalue = monthValue;
         int dayvalue = dayValue;
-        
-        
+
+
         LocalDate currentDate = LocalDate.of(yearvalue, monthvalue, dayvalue);
         Date joinDate = Date.valueOf(currentDate);
-        
+
         empinfo2.setJoin_date(joinDate);//入社日
-        
-        
+
+
      // 半年後の日付を計算
         LocalDate currentDate2 = joinDate.toLocalDate(); // joinDate を LocalDate に変換
         LocalDate halfYearLater = currentDate2.plusMonths(6); // 半年後の日付を計算
         Date halfYearLaterDate = Date.valueOf(halfYearLater); // 半年後の日付を Date 型に変換
         empinfo2.setReference_date(halfYearLaterDate);
-        
-        
-        
-        
+
+
+
+
      // 最初の3月31日の日付を計算
         int currentYear = currentDate.getYear(); // 現在の年を取得
         LocalDate march31 = LocalDate.of(currentYear, Month.MARCH, 31); // 今年の3月31日の日付を計算
@@ -232,18 +230,18 @@ public class ShinkitourokuSceneController {
         }
         Date march31Date = Date.valueOf(march31); // 3月31日の日付を Date 型に変換
         empinfo2.setAnnual_paid_leave_report_date(march31Date);
-        
-        
-        empinfo2.setGranted_paid_leave_days(10);//仮入れ
-        empinfo2.setRemaining_paid_leave_days(10);//仮入れ
+
+
+        empinfo2.setGranted_paid_leave_days(0);//新規登録の時点では有給発生0日のため
+        empinfo2.setRemaining_paid_leave_days(0);//新規登録の時点では有給残数0日のため
 
         }
-        
+
      //java.util.Date date = new java.util.Date();
        // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        
+
         //empinfo1.setJoin_date(sqlDate);
-        
+
         System.out.println(lastname_hurigana_text.getText());
         System.out.println(firstname_hurigana_text.getText());
         System.out.println(lastname_text.getText());
@@ -256,7 +254,7 @@ public class ShinkitourokuSceneController {
         System.out.println("Year: " + year);
         System.out.println("Month: " + month);
         System.out.println("Day: " + day);
-        
+
 
 		try  {
         	Service.insertEmployeeInfo(empinfo2);
@@ -269,22 +267,22 @@ public class ShinkitourokuSceneController {
         }
 
         closeWindow(event);
-    
+
     }
     /*@FXML
 	void adddddOnClick(ActionEvent event) {
 
-    	
-        
-        
+
+
+
 
         EmployeeInfo empinfo1 = new EmployeeInfo(
         );
-     
+
         //empinfo1.setId(null);// IDをnullで設定
         //empinfo1.setId(Integer.parseInt(null));
-        
-        
+
+
         empinfo1.setHurigana_lastname(lastname_hurigana_text.getText());
         empinfo1.setHurigana_firstname(firstname_hurigana_text.getText());
         empinfo1.setFirstname(firstname_text.getText());
@@ -292,8 +290,8 @@ public class ShinkitourokuSceneController {
         empinfo1.setWorking_days(Integer.parseInt(department1.getValue()));//所定労働日数
         empinfo1.setDepartment_number(Integer.parseInt(department.getValue()));//部署名
         empinfo1.setCode("");//社員コードstringに変更
-        
-        
+
+
         Integer yearValue = year.getValue();
         Integer monthValue = month.getValue();
         Integer dayValue = day.getValue();
@@ -301,28 +299,28 @@ public class ShinkitourokuSceneController {
         	System.out.println("日付が選択されていません");
         	return; // もしくは適切な処理を行って終了させる
         } else {
-        
+
         //コンボボックスからintger型で取得→int型へ変更
         int yearvalue =yearValue;
         int monthvalue = monthValue;
         int dayvalue = dayValue;
-        
-        
+
+
         LocalDate currentDate = LocalDate.of(yearvalue, monthvalue, dayvalue);
         Date joinDate = Date.valueOf(currentDate);
-        
+
         empinfo1.setJoin_date(joinDate);//入社日
-        
-        
+
+
      // 半年後の日付を計算
         LocalDate currentDate2 = joinDate.toLocalDate(); // joinDate を LocalDate に変換
         LocalDate halfYearLater = currentDate2.plusMonths(6); // 半年後の日付を計算
         Date halfYearLaterDate = Date.valueOf(halfYearLater); // 半年後の日付を Date 型に変換
         empinfo1.setReference_date(halfYearLaterDate);
-        
-        
-        
-        
+
+
+
+
      // 最初の3月31日の日付を計算
         int currentYear = currentDate.getYear(); // 現在の年を取得
         LocalDate march31 = LocalDate.of(currentYear, Month.MARCH, 31); // 今年の3月31日の日付を計算
@@ -331,18 +329,18 @@ public class ShinkitourokuSceneController {
         }
         Date march31Date = Date.valueOf(march31); // 3月31日の日付を Date 型に変換
         empinfo1.setAnnual_paid_leave_report_date(march31Date);
-        
-        
+
+
         empinfo1.setGranted_paid_leave_days(10);//仮入れ
         empinfo1.setRemaining_paid_leave_days(10);//仮入れ
 
         }
-        
+
      //java.util.Date date = new java.util.Date();
        // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        
+
         //empinfo1.setJoin_date(sqlDate);
-        
+
         System.out.println(lastname_hurigana_text.getText());
         System.out.println(firstname_hurigana_text.getText());
         System.out.println(lastname_text.getText());
@@ -355,7 +353,7 @@ public class ShinkitourokuSceneController {
         System.out.println("Year: " + year);
         System.out.println("Month: " + month);
         System.out.println("Day: " + day);
-        
+
         try {
         	Service.insertEmployeeInfo(empinfo1);
         } catch (Exception e) {
@@ -368,5 +366,5 @@ public class ShinkitourokuSceneController {
 
         closeWindow(event);
     }*/
-    
+
 }

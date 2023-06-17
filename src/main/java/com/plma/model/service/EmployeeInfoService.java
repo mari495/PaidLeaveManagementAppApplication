@@ -22,20 +22,20 @@ public interface EmployeeInfoService {
 
     Iterable<Department> selectDepAll();
     Optional<Department> findByDepartmentNumber(Integer department_number);// 指定された部署番号に基づいて部署情報を検索
-    
+
     /*全ての従業員情報をDTO形式で取得します。DTOはEmployeeInfoDto型のオブジェクトであり、
      * 返されるオブジェクトはIterable<EmployeeInfoDto>型です。*/
     Iterable<EmployeeInfoDto> getAllEmployeeInfoDto();
-    
-    
+
+
     /*指定された従業員コードに基づいて従業員情報をDTO形式で検索します。
      * 返されるオブジェクトはOptional<EmployeeInfoDto>型です。*/
     Optional<EmployeeInfoDto> findByIdEmpDto(Integer code);
-    
+
     /* 入社日と部署名に基づいて従業員情報をDTO形式で検索します。
      * 返されるオブジェクトはIterable<EmployeeInfoDto>型です。*/
     Iterable<EmployeeInfoDto> findByJoinDateAndDepartmentDto(Date joinDate, String department_name);
-    
+
     /*名前、部署名、所定労働日数に基づいて従業員情報をDTO形式で検索します。
      * 返されるオブジェクトはIterable<EmployeeInfoDto>型です。*/
     Iterable<EmployeeInfoDto> findByParamsDto(String name, String department_name, Integer working_days);

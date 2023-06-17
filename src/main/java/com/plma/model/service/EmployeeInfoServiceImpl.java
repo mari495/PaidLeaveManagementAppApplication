@@ -2,7 +2,7 @@
  * また、データベースから取得した情報をDTO（Data Transfer Object）に変換するためのメソッドも提供しています。
  * DTOは、データの転送や表示に特化したオブジェクトであり、
  * クライアントとサーバー間でデータのやり取りを行う際に使用されます。
- * 
+ *
  * */
 
 package com.plma.model.service;//nakasone
