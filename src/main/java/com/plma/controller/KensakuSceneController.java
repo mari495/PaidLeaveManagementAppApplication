@@ -2,13 +2,13 @@ package com.plma.controller;//nakasone
 //import java.awt.TextArea;
 //import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.List;
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.plma.model.entity.EmployeeInfoDto;
+import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
 
 //import ch.qos.logback.core.pattern.parser.Node;
@@ -157,16 +157,24 @@ public class KensakuSceneController {
      // データベースから検索
 
         try {
-            List<EmployeeInfoDto> searchResults = service.findByParamsDto(
-                    firstname, lastname, firstnameHiragana, lastnameHiragana,
-                    selectedYear, selectedMonth, selectedDay,
-                    selectedDepartment, selectedDepartment1, selectedSyainCode);
+
+            Iterable<EmployeeInfo> searchResults = service.findByEightParams(
+            		null,
+            		Date.valueOf("2013-04-01"),
+            		null,
+            		null,
+            		null,
+                    null,
+                    null,
+                    null);
+
 
             // 検索結果の表示
-            for (EmployeeInfoDto emp : searchResults) {
+            for (EmployeeInfo emp : searchResults) {
                 System.out.println(emp);
                 // サンプルデータを1行追加
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

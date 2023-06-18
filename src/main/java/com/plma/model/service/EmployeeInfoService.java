@@ -40,4 +40,31 @@ public interface EmployeeInfoService {
      * 返されるオブジェクトはIterable<EmployeeInfoDto>型です。*/
     Iterable<EmployeeInfoDto> findByParamsDto(String name, String department_name, Integer working_days);
 
+    Iterable<EmployeeInfo> findByEightParamsWithDate(String code,
+													Date join_date,
+													String hurigana_lastname,
+													String hurigana_firstname,
+													String lastname,
+													String firstname,
+													Integer department_number,
+													Integer working_days);
+
+    Iterable<EmployeeInfo> findByEightParamsWithoutDate(String code,
+			String hurigana_lastname,
+			String hurigana_firstname,
+			String lastname,
+			String firstname,
+			Integer department_number,
+			Integer working_days);
+
+    Iterable<EmployeeInfo> findByEightParams(String code,
+			Date join_date,
+			String hurigana_lastname,
+			String hurigana_firstname,
+			String lastname,
+			String firstname,
+			Integer department_number,
+			Integer working_days);
+
+
 }

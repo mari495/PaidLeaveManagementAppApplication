@@ -147,6 +147,49 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 		return employeeInfoDtoList;
 
 	}
+
+	@Override
+	public Iterable<EmployeeInfo> findByEightParamsWithDate(String code,
+															Date join_date,
+															String hurigana_lastname,
+															String hurigana_firstname,
+															String lastname,
+															String firstname,
+															Integer department_number,
+															Integer working_days)
+	{
+		return repository.findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+    }
+
+	@Override
+	public Iterable<EmployeeInfo> findByEightParamsWithoutDate(String code,
+															String hurigana_lastname,
+															String hurigana_firstname,
+															String lastname,
+															String firstname,
+															Integer department_number,
+															Integer working_days)
+	{
+		return repository.findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+    }
+
+	public Iterable<EmployeeInfo> findByEightParams(String code,
+			Date join_date,
+			String hurigana_lastname,
+			String hurigana_firstname,
+			String lastname,
+			String firstname,
+			Integer department_number,
+			Integer working_days)
+	{
+		if (join_date == null) {
+		    return findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+		} else {
+		    return findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+		}
+
+	}
+
 /*
  * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド
  * 部署番号と部署名のマッピングを作成し、EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換*/
