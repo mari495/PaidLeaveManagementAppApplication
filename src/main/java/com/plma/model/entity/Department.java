@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Department {
-	/* 部署番号 */
 	@Id
+	private Integer id;
+	/* 部署番号 */
 	private Integer department_number;
 	/* 部署名 */
 	private String department_name;

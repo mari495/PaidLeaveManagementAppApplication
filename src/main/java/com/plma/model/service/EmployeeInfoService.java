@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.entity.EmployeeInfoDto;
+import com.plma.model.entity.PaidLeave;
 
 
 public interface EmployeeInfoService {
@@ -66,5 +67,6 @@ public interface EmployeeInfoService {
 			Integer department_number,
 			Integer working_days);
 
-
+    void insertDepartment(Department dm);
+    void insertPaidLeave(PaidLeave pl);
 }

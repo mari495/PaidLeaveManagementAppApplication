@@ -16,7 +16,7 @@ public class PaidLeave {
     @Id
     private Integer id;
     /* 社員コード */
-    private Integer code;
+    private String code;
     /* 有給休暇取得日 */
     private Date paid_leave_date;
 }

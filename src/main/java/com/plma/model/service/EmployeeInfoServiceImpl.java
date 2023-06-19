@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.entity.EmployeeInfoDto;
+import com.plma.model.entity.PaidLeave;
 import com.plma.model.repository.DepartmentRepository;
 import com.plma.model.repository.EmployeeInfoCrudRepository;
 import com.plma.model.repository.PaidLeaveRepository;
@@ -173,6 +174,7 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 		return repository.findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
     }
 
+	@Override
 	public Iterable<EmployeeInfo> findByEightParams(String code,
 			Date join_date,
 			String hurigana_lastname,
@@ -188,6 +190,16 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 		    return findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
 		}
 
+	}
+
+	@Override
+	public void insertDepartment(Department dm) {// 従業員情報をデータベースに挿入
+		dep_repository.save(dm);
+	}
+
+	@Override
+	public void insertPaidLeave(PaidLeave pl) {
+		pl_repository.save(pl);
 	}
 
 /*
