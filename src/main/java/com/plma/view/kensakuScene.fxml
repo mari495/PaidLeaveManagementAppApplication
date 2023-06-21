@@ -89,6 +89,8 @@
             <Button fx:id="kensaku_button" layoutX="520.0" layoutY="242.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="82.0" text="検索" />
             <Text layoutX="27.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索したい項目を設定して検索ボタンを押してください" wrappingWidth="406.6666564941406" />
             <Text layoutX="27.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="すべての項目を入力する必要はありません" wrappingWidth="406.6666564941406" />
+            <Button fx:id="All_button" layoutX="520.0" layoutY="283.0" mnemonicParsing="false" onAction="#allBtn_OnClick" prefHeight="25.0" prefWidth="82.0" text="全データ取得" />
+            <Text layoutX="27.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="全データ取得を押すと、全データが表示されます" wrappingWidth="406.6666564941406" />
       </children>
     </AnchorPane>
   </children>

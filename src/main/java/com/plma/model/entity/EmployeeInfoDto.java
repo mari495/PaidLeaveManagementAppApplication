@@ -1,4 +1,11 @@
-package com.plma.model.entity;
+/*
+ * このコードでは、TableViewとTableColumnを使用して列にデータを表示しています。
+ * 例えば、id_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("id"))は、
+ * id_colというTableColumnにEmployeeInfoDtoオブジェクトのgetId()メソッドを呼び出して値を取得し、
+ * その値を表示するように設定しています。
+ * 同様に、他の列もそれぞれ対応するプロパティ名と型を指定して設定しています。
+ * */
+package com.plma.model.entity;//nakasone
 
 import java.sql.Date;
 

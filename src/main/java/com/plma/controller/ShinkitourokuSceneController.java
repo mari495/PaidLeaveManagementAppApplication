@@ -138,7 +138,8 @@ public class ShinkitourokuSceneController {
             day.getItems().add(Integer.valueOf(d));
         }
 
-    		for(int dept = 101; dept < 107; dept++) {
+    		for(int dept = 101; dept < 107; dept++) {//DepartmentのDBから登録されているデータをもってくる処理に変更
+    			
     			department.getItems().add(Integer.toString(dept));
     		}//仮入れ
     		for(int dept1 = 1; dept1 < 6; dept1++) {
@@ -186,7 +187,7 @@ public class ShinkitourokuSceneController {
     			,lastname_hurigana_text.getText()
     			,firstname_text.getText()
     			,lastname_text.getText()
-    			,Integer.parseInt(department.getValue())
+    			,Integer.parseInt(department.getValue())//departmentテキストに変更
     			,Integer.parseInt(department1.getValue())
     			,null/* 有給休暇発生日（基準日） */
     			,null/* 年次有給休暇管理簿作成日 */

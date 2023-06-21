@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.ShinkitourokuSceneController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.AddapartmentSceneController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -62,8 +62,8 @@
         </Label>
             <Button fx:id="Menu_button" layoutX="520.0" layoutY="319.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="25.0" prefWidth="82.0" text="メニュー" />
             <Text layoutX="33.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新しく追加する部署" wrappingWidth="103.33333333333348" />
-            <TextArea id="name_textArea" fx:id="apartment_text" layoutX="152.0" layoutY="45.0" prefHeight="27.0" prefWidth="115.0" />
-            <Button fx:id="add_button" layoutX="143.0" layoutY="317.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="27.0" prefWidth="325.0" text="登録" />
+            <TextArea id="name_textArea" fx:id="department_text" layoutX="152.0" layoutY="45.0" prefHeight="27.0" prefWidth="115.0" />
+            <Button fx:id="add_button" layoutX="143.0" layoutY="317.0" mnemonicParsing="false" onAction="#adddepartmentnameOnClick" prefHeight="27.0" prefWidth="325.0" text="登録" />
             <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="部署名追加" wrappingWidth="214.80331420898438">
                <font>
                   <Font size="18.0" />

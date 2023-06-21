@@ -2,19 +2,21 @@ package com.plma.controller;//nakasone
 //import java.awt.TextArea;
 //import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
-import java.util.Optional;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
+import com.plma.model.shareddata.SharedData;
 
 //import ch.qos.logback.core.pattern.parser.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,9 +33,15 @@ import javafx.stage.Window;
 public class KensakuSceneController {
 
 	@Autowired
+	private SpringFXMLLoader fxmlLoader;
+
+	@Autowired
 	EmployeeInfoService service;
 	//EmployeeInfoServiceImpl service;
 
+	@Autowired
+	SharedData sd;
+	
 	@FXML
 	private Button menu_button;
 
@@ -41,13 +49,16 @@ public class KensakuSceneController {
     private Button kensaku_button;
 
     @FXML
+    private Button All_button;
+
+    @FXML
     private ComboBox<Integer> day;
 
     @FXML
-    private ComboBox<String> department;
+    private ComboBox<Integer> department;
 
     @FXML
-    private ComboBox<String> department1;
+    private ComboBox<Integer> department1;
 
     @FXML
     private TextArea firstname_hurigana_text;
@@ -75,6 +86,7 @@ public class KensakuSceneController {
         assert menu_button != null : "fx:id=\"Menu_button\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
         assert kensaku_button != null : "fx:id=\"kensaku_button\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
         assert day != null : "fx:id=\"day\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
+        assert All_button != null : "fx:id=\"day\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
         assert department != null : "fx:id=\"department\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
         assert department1 != null : "fx:id=\"department1\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
         assert firstname_hurigana_text != null : "fx:id=\"firstname_hurigana_text\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
@@ -100,12 +112,12 @@ public class KensakuSceneController {
             day.getItems().add(Integer.valueOf(d));
         }
 
-    		for(int dept = 101; dept < 107; dept++) {
-    			department.getItems().add(Integer.toString(dept));
-    		}//仮入れ
-    		for(int dept1 = 1; dept1 < 6; dept1++) {
-    			department1.getItems().add(Integer.toString(dept1));
-    		}
+        for (int dept = 101; dept < 107; dept++) {
+            department.getItems().add(dept);
+        }
+        for (int dept1 = 1; dept1 < 6; dept1++) {
+            department1.getItems().add(dept1);
+        }
     		//仮入れ
     		for(int syaincode = 1; syaincode < 100; syaincode++) {
     			syaincode_ComboBox.getItems().add(Integer.toString(syaincode));
@@ -127,7 +139,7 @@ public class KensakuSceneController {
 		 * 新しい画面を生成する
 		 */
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -138,37 +150,64 @@ public class KensakuSceneController {
 		}
     }
 
+    @FXML//全取得
+    void allBtn_OnClick(ActionEvent event) {
 
-    @FXML
+    	Iterable<com.plma.model.entity.EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
+
+        for (com.plma.model.entity.EmployeeInfoDto model : employeeInfoDtoList) {
+            System.out.println(model.getCode());
+        }
+
+        try {
+        	for(com.plma.model.entity.EmployeeInfoDto emp : employeeInfoDtoList) {
+        		System.out.println(emp);
+
+        		
+        	}
+		}catch(Exception e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof InvocationTargetException) {
+				Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
+				targetException.printStackTrace();
+			}
+		}
+    }
+    
+    @FXML//&&条件による検索
     void kensaku_button_onClick(ActionEvent event) {
 
-    	// Comboboxから入力された情報を取得
-        String firstname =Optional.ofNullable(firstname_text.getText()).filter(s -> !s.isEmpty()).orElse(null);
-        String lastname =  Optional.ofNullable(lastname_text.getText()).filter(s -> !s.isEmpty()).orElse(null);
-        String firstnameHiragana =  Optional.ofNullable(firstname_hurigana_text.getText()).filter(s -> !s.isEmpty()).orElse(null);
-        String lastnameHiragana = Optional.ofNullable(lastname_hurigana_text.getText()).filter(s -> !s.isEmpty()).orElse(null);
-        Integer selectedYear = Optional.ofNullable(year.getPromptText()).filter(s -> !s.isEmpty()).map(Integer::parseInt).orElse(null);
 
-        Integer selectedMonth = Optional.ofNullable(month.getPromptText()).filter(s -> !s.isEmpty()).map(Integer::parseInt).orElse(null);
-        Integer selectedDay = Optional.ofNullable(day.getPromptText()).filter(s -> !s.isEmpty()).map(Integer::parseInt).orElse(null);
-        String selectedDepartment = Optional.ofNullable(department.getPromptText()).filter(s -> !s.isEmpty()).orElse(null);
-        String selectedDepartment1 = Optional.ofNullable(department1.getPromptText()).filter(s -> !s.isEmpty()).orElse(null);
-        String selectedSyainCode = Optional.ofNullable(syaincode_ComboBox.getPromptText()).filter(s -> !s.isEmpty()).orElse(null);
-     // データベースから検索
-
+     // コンボボックスの値から日付を作成
+     LocalDate selectedDate = LocalDate.of(year.getValue(), month.getValue(), day.getValue());
+     // java.sql.Dateに変換
+     Date date = Date.valueOf(selectedDate);
+     
+  
         try {
 
             Iterable<EmployeeInfo> searchResults = service.findByEightParams(
-            		null,
-            		Date.valueOf("2013-04-01"),
-            		null,
-            		null,
-            		null,
-                    null,
-                    null,
-                    null);
-
-
+            		syaincode_ComboBox.getPromptText(),//社員コード
+            		date,//入社日
+            		 firstname_hurigana_text.getText(),//名前ふりがな
+            		lastname_hurigana_text.getText(),//苗字ふりがな
+            		firstname_text.getText(),//名前
+            		 lastname_text.getText(),//苗字
+            		 department.getValue(),    //部署名      		
+            		 department1.getValue());//所定労働日数
+            System.out.println(syaincode_ComboBox.getValue());
+            System.out.println(firstname_hurigana_text.getText());
+            System.out.println( lastname_text.getText());
+            System.out.println( firstname_hurigana_text.getText());
+            System.out.println(lastname_hurigana_text.getText());
+            System.out.println(year.getValue());
+            System.out.println(month.getValue());
+            System.out.println(day.getValue());
+            System.out.println(department.getPromptText());
+            System.out.println(department1.getValue());
+            
+            sd.setEmployeeInfo(searchResults);
+           
             // 検索結果の表示
             for (EmployeeInfo emp : searchResults) {
                 System.out.println(emp);
