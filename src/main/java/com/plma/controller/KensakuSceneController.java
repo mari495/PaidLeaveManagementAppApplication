@@ -112,10 +112,10 @@ public class KensakuSceneController {
             day.getItems().add(Integer.valueOf(d));
         }
 
-        for (int dept = 101; dept < 107; dept++) {
+        for (int dept = 101; dept < 107; dept++) {//部署名
             department.getItems().add(dept);
         }
-        for (int dept1 = 1; dept1 < 6; dept1++) {
+        for (int dept1 = 1; dept1 < 6; dept1++) {//所定労働日数
             department1.getItems().add(dept1);
         }
     		//仮入れ
@@ -203,14 +203,16 @@ public class KensakuSceneController {
             System.out.println(year.getValue());
             System.out.println(month.getValue());
             System.out.println(day.getValue());
-            System.out.println(department.getPromptText());
+            System.out.println(department.getValue());
             System.out.println(department1.getValue());
             
             sd.setEmployeeInfo(searchResults);
            
             // 検索結果の表示
+            
             for (EmployeeInfo emp : searchResults) {
-                System.out.println(emp);
+            	//System.out.println("searchResults is empty.");
+                System.out.println("emp="+emp);
                 // サンプルデータを1行追加
             }
 

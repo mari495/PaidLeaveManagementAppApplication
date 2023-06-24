@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.plma.model.entity.Department;
-import com.plma.model.repository.DepartmentRepository;
-import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
@@ -24,12 +22,12 @@ import javafx.stage.Window;
 @Controller
 public class AddapartmentSceneController {
 
-	 @Autowired
+	@Autowired
 	private EmployeeInfoService service;
-	 @Autowired
-		DepartmentRepository dep_repository;
-	 @Autowired
-		PaidLeaveRepository pl_repository;
+	 //@Autowired
+		//DepartmentRepository dep_repository;
+	 //@Autowired
+		//PaidLeaveRepository pl_repository;
 
     @FXML
     private Button Menu_button;
@@ -69,16 +67,19 @@ public class AddapartmentSceneController {
     void adddepartmentnameOnClick(ActionEvent event) {
     	//departmentナンバーはとりあえず100から振っていく感じで作成
     	
-    	
-    	Department adddepartment = new Department(null,null, department_text.getText());
+
+    	 // 部門番号を固定で100から振っていく
+        //Integer nextDepartmentNumber = 100;
+       //１仮入れ
+    	Department adddepartment = new Department(null,1, department_text.getText());
     	
         try  {
         	
-            int currentRowCount = (int) dep_repository.count();
-            Integer nextDepartmentNumber = currentRowCount + 100;
-            adddepartment.setDepartment_number(nextDepartmentNumber);
+            //int currentRowCount = (int) dep_repository.count();
+           // Integer nextDepartmentNumber = currentRowCount + 100;
+            //adddepartment.setDepartment_number(nextDepartmentNumber);
             // Departmentをデータベースに保存
-            service.insertDepartment(adddepartment);
+        	service.insertDepartment(adddepartment);
             
         } catch (Exception e) {
             e.printStackTrace();

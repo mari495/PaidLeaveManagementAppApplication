@@ -193,7 +193,7 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	}
 
 	@Override
-	public void insertDepartment(Department dm) {// 従業員情報をデータベースに挿入
+	public void insertDepartment(Department dm) {
 		dep_repository.save(dm);
 	}
 

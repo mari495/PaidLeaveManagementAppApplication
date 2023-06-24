@@ -4,12 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.HItKensakuViewController">
    <children>
-      <TableView fx:id="datatable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="1083.0">
+      <TableView fx:id="datatable" layoutX="14.0" layoutY="14.0" prefHeight="357.0" prefWidth="1083.0">
         <columns>
             <TableColumn fx:id="id_col" prefWidth="50.00000190734863" text="登録ID" />
           <TableColumn fx:id="code_col" prefWidth="78.6666488647461" text="社員コード" />
@@ -26,15 +25,9 @@
             <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="83.99993896484375" text="有給休暇残日" />
         </columns>
       </TableView>
-      <Button fx:id="findCodeBtn" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" onAction="#findCodeBtn_OnClick" prefHeight="32.0" prefWidth="105.0" text="社員コードで検索" />
-      <TextField fx:id="codeBox" layoutX="132.0" layoutY="332.0" prefHeight="25.0" prefWidth="64.0" />
-      <Label fx:id="resultFindCode" layoutX="211.0" layoutY="336.0" prefHeight="17.0" prefWidth="117.0" text="←社員コード入力" />
-      <Button fx:id="updateBtn" layoutX="14.0" layoutY="372.0" mnemonicParsing="false" onAction="#updateBtn_OnClick" prefHeight="32.0" prefWidth="283.0" text="指定した社員コードの入社日を1990-04-01に変更します" />
-      <TextField fx:id="updateBox" layoutX="309.0" layoutY="375.0" prefHeight="25.0" prefWidth="64.0" />
-      <Label fx:id="resultUpdate" layoutX="388.0" layoutY="379.0" prefHeight="17.0" prefWidth="117.0" text="←社員コード入力" />
-      <Button fx:id="deleteBtn" layoutX="14.0" layoutY="497.0" mnemonicParsing="false" onAction="#deleteBtn_OnClick" prefHeight="32.0" prefWidth="84.0" text="削除" />
-      <TextField fx:id="deleteBox" layoutX="112.0" layoutY="500.0" prefHeight="25.0" prefWidth="64.0" />
+      <Button fx:id="updateBtn" layoutX="14.0" layoutY="447.0" mnemonicParsing="false" onAction="#updateBtn_OnClick1" prefHeight="32.0" prefWidth="283.0" text="指定した社員コードの入社日を1990-04-01に変更します" />
+      <Label fx:id="resultUpdate" layoutX="388.0" layoutY="466.0" prefHeight="17.0" prefWidth="117.0" text="←社員コード入力" />
+      <Button fx:id="deleteBtn" layoutX="14.0" layoutY="497.0" mnemonicParsing="false" onAction="#deleteBtn_OnClick1" prefHeight="32.0" prefWidth="84.0" text="削除" />
       <Label fx:id="resultDelete" layoutX="196.0" layoutY="504.0" prefHeight="17.0" prefWidth="117.0" text="←社員コード入力" />
-      <Button fx:id="findJoinAndDepBtn" layoutX="14.0" layoutY="456.0" mnemonicParsing="false" onAction="#findJoinAndDepBtn_OnClick" prefHeight="32.0" prefWidth="299.0" text="入社日が2013-04-02かつ総務部のデータを検索します" />
    </children>
 </AnchorPane>

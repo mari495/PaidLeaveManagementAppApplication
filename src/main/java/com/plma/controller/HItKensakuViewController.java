@@ -1,11 +1,9 @@
-/*package com.plma.controller;
+package com.plma.controller;
 
 import java.awt.Button;
+import java.awt.Label;
 import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
-import java.util.Optional;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.swing.table.TableColumn;
@@ -34,6 +32,17 @@ public class HItKensakuViewController {
 	@Autowired
 	SharedData sd;
 
+	
+	@FXML
+	private TableView tableView;
+
+	@FXML
+	private TableColumn firstNameColumn;
+
+	@FXML
+	private TableColumn lastNameColumn;
+
+	// 他のカラムも同様に宣言します
 	@FXML
 	private ResourceBundle resources;
 
@@ -41,13 +50,13 @@ public class HItKensakuViewController {
 	private URL location;
 
 	@FXML
-	private TableColumn<?, ?> annual_paid_leave_report_date_col;
+	private TableColumn annual_paid_leave_report_date_col;
 
 	@FXML
-	private TableColumn<?, ?> code_col;
+	private TableColumn code_col;
 
 	@FXML
-	private TableView<?> datatable;
+	private TableView datatable;
 
 	@FXML
 	private TextField deleteBox;
@@ -56,34 +65,34 @@ public class HItKensakuViewController {
 	private Button deleteBtn;
 
 	@FXML
-	private TableColumn<?, ?> department_col;
+	private TableColumn department_col;
 
 	@FXML
-	private TableColumn<?, ?> firstname_col;
+	private TableColumn firstname_col;
 
 	@FXML
-	private TableColumn<?, ?> granted_paid_leave_days_col;
+	private TableColumn granted_paid_leave_days_col;
 
 	@FXML
-	private TableColumn<?, ?> hurigana_first_col;
+	private TableColumn hurigana_first_col;
 
 	@FXML
-	private TableColumn<?, ?> hurigana_last_col;
+	private TableColumn hurigana_last_col;
 
 	@FXML
-	private TableColumn<?, ?> id_col;
+	private TableColumn id_col;
 
 	@FXML
-	private TableColumn<?, ?> joindate_col;
+	private TableColumn joindate_col;
 
 	@FXML
-	private TableColumn<?, ?> lastname_col;
+	private TableColumn lastname_col;
 
 	@FXML
-	private TableColumn<?, ?> reference_date_col;
+	private TableColumn reference_date_col;
 
 	@FXML
-	private TableColumn<?, ?> remaining_paid_leave_days_col;
+	private TableColumn remaining_paid_leave_days_col;
 
 	@FXML
 	private Label resultDelete;
@@ -98,19 +107,13 @@ public class HItKensakuViewController {
 	private Button updateBtn;
 
 	@FXML
-	private TableColumn<?, ?> working_days_col;
+	private TableColumn working_days_col;
+	
+	
+	
+
 
 	@FXML
-	void deleteBtn_OnClick(ActionEvent event) {
-
-	}
-
-	@FXML
-	void updateBtn_OnClick(ActionEvent event) {
-	}
-
-
-	@FXML//型合わせる
 	void initialize() {
 		assert annual_paid_leave_report_date_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert code_col != null : "fx:id=\"code_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
@@ -134,56 +137,29 @@ public class HItKensakuViewController {
 		assert working_days_col != null : "fx:id=\"working_days_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 
 
+		Iterable<EmployeeInfo> result = sd.getEmployeeInfo();//resultから各columnに入れていく
+	    // テーブルカラムとEmployeeInfoクラスのプロパティをバインドします
+	    //firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+	    //lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+	    // 他のカラムも同様にバインドします
+
+	    // テーブルビューにデータをセットします
+	    //tableView.setItems(FXCollections.observableArrayList(result));
+		// resultの内容をSystem.out.printlnで表示する
+	    for (EmployeeInfo employee : result) {
+	        System.out.println(employee);
+	    }
+		
+		
 
 	}
 
 
 
-	@FXML
-	void updateBtn_OnClick(ActionEvent event) {
-		clearTable();
-
-		Optional<EmployeeInfo> optional = service.findById(Integer.parseInt(updateBox.getText()));
-		EmployeeInfo empinfo;
-
-		if (optional.isPresent()) {
-			empinfo = optional.get();
-		} else {
-			System.out.println("Value was null");
-			return;
-		}
-
-		empinfo.setJoin_date(Date.valueOf("1990-04-01"));
-
-		try {
-			service.insertEmployeeInfo(empinfo);
-			allBtn_OnClick(event);
-
-		}catch(Exception e){
-			e.printStackTrace();
-			if (e.getCause() instanceof InvocationTargetException) {
-				Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
-				targetException.printStackTrace();
-			}
-		}
-
-	} 
-
-
-	@FXML
-	void deleteBtn_OnClick(ActionEvent event) {
-
-		if(service.existsById(Integer.parseInt(deleteBox.getText()))) {
-			service.deleteById(Integer.parseInt(deleteBox.getText()));
-			clearTable();
-			allBtn_OnClick(event);
-		}else {
-			System.out.println("Value was null");
-		}
-
-	}
+	 
 
 
 
-	//Iterable<EmployeeInfo> result = sd.getEmployeeInfo();//resultから各columnに入れていく
-}*/
+
+}
