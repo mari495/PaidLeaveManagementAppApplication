@@ -2,11 +2,13 @@ package com.plma.controller;//nakasone
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import com.plma.SpringFXMLLoader;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +23,8 @@ public class SetteiSceneController {
 
     @FXML
     private Button Menu_button;
-
+    @Autowired
+	private SpringFXMLLoader fxmlLoader;
 
    /*@FXML
     void Addapartment_button_onClick(ActionEvent event) {
@@ -41,7 +44,7 @@ public class SetteiSceneController {
 		 * 新しい画面を生成する
 		 */
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -65,7 +68,7 @@ public class SetteiSceneController {
 				 * 新しい画面を生成する
 				 */
 				try {
-					Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/addapartmentnameScene.fxml"));
+					Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/addapartmentnameScene.fxml"));
 					Scene scene = new Scene(parent);
 					Stage stage = new Stage();
 					stage.setScene(scene);

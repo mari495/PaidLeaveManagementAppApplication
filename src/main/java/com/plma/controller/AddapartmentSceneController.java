@@ -6,12 +6,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.Department;
+import com.plma.model.repository.DepartmentRepository;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,9 +24,11 @@ import javafx.stage.Window;
 public class AddapartmentSceneController {
 
 	@Autowired
+	private SpringFXMLLoader fxmlLoader;
+	@Autowired
 	private EmployeeInfoService service;
-	 //@Autowired
-		//DepartmentRepository dep_repository;
+	 @Autowired
+		DepartmentRepository dep_repository;
 	 //@Autowired
 		//PaidLeaveRepository pl_repository;
 
@@ -51,7 +54,7 @@ public class AddapartmentSceneController {
 		 * 新しい画面を生成する
 		 */
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -71,13 +74,14 @@ public class AddapartmentSceneController {
     	 // 部門番号を固定で100から振っていく
         //Integer nextDepartmentNumber = 100;
        //１仮入れ
-    	Department adddepartment = new Department(null,1, department_text.getText());
+    	 int currentRowCount = (int) dep_repository.count();
+         Integer nextDepartmentNumber = currentRowCount + 100;
+         //adddepartment.setDepartment_number(nextDepartmentNumber);
+    	Department adddepartment = new Department(null,nextDepartmentNumber, department_text.getText());
     	
         try  {
         	
-            //int currentRowCount = (int) dep_repository.count();
-           // Integer nextDepartmentNumber = currentRowCount + 100;
-            //adddepartment.setDepartment_number(nextDepartmentNumber);
+           
             // Departmentをデータベースに保存
         	service.insertDepartment(adddepartment);
             
