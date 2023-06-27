@@ -201,6 +201,11 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	public void insertPaidLeave(PaidLeave pl) {
 		pl_repository.save(pl);
 	}
+	
+	@Override
+	public Iterable<Department> getDepartment() {// すべての従業員情報を取得
+		return dep_repository.findAll();
+	}
 
 /*
  * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド

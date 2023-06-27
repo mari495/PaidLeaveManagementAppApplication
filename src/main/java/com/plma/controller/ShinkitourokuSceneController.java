@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
 
@@ -32,10 +33,7 @@ public class ShinkitourokuSceneController {
 
 	 @Autowired
 	private EmployeeInfoService Service;
-
-
-
-	//EmployeeInfoServiceImpl service;
+	 //EmployeeInfoServiceImpl service;
     @FXML
     private ResourceBundle resources;
 
@@ -138,10 +136,28 @@ public class ShinkitourokuSceneController {
             day.getItems().add(Integer.valueOf(d));
         }
 
-    		for(int dept = 101; dept < 107; dept++) {//DepartmentのDBから登録されているデータをもってくる処理に変更
+     /*修正後のコード
+        Iterable<Department> department = new ArrayList<>();
+     // リストに要素を追加する処理
+
+        for (Department dep : department) {
+            Iterable<Department> departmentName = Service.getDepartment();
+            department1.getItems().add(departmentName);
+        }*/
+        
+       
+        Iterable<Department> departments = Service.getDepartment();
+
+        for (Department dep : departments) {
+            String departmentName = dep.getDepartment_name();
+            department.getItems().add(departmentName);
+        }
+    		/*for(int dept = 101; dept < 107; dept++) {//DepartmentのDBから登録されているデータをもってくる処理に変更
     			
     			department.getItems().add(Integer.toString(dept));
-    		}//仮入れ
+    		}//仮入れ*/
+    		
+    		
     		for(int dept1 = 1; dept1 < 6; dept1++) {
     			department1.getItems().add(Integer.toString(dept1));
     		}
