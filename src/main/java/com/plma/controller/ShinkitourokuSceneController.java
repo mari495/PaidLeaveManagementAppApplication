@@ -136,26 +136,16 @@ public class ShinkitourokuSceneController {
             day.getItems().add(Integer.valueOf(d));
         }
 
-     /*修正後のコード
-        Iterable<Department> department = new ArrayList<>();
-     // リストに要素を追加する処理
-
-        for (Department dep : department) {
-            Iterable<Department> departmentName = Service.getDepartment();
-            department1.getItems().add(departmentName);
-        }*/
+  
         
-       
+       //DepartmentDBからgetDepartment_nameを取得して表示
         Iterable<Department> departments = Service.getDepartment();
 
         for (Department dep : departments) {
             String departmentName = dep.getDepartment_name();
             department.getItems().add(departmentName);
         }
-    		/*for(int dept = 101; dept < 107; dept++) {//DepartmentのDBから登録されているデータをもってくる処理に変更
-    			
-    			department.getItems().add(Integer.toString(dept));
-    		}//仮入れ*/
+    		
     		
     		
     		for(int dept1 = 1; dept1 < 6; dept1++) {
@@ -192,24 +182,45 @@ public class ShinkitourokuSceneController {
 			e.printStackTrace();
 		}
     }
+    
+    
+  //部署名追加する際にDepartmentDBよりDepartment_numberを取得メソッド
+    private Integer getDepartmentNumber(String departmentName) {
+        Iterable<Department> departments = Service.getDepartment();
 
+        for (Department department : departments) {
+            if (department.getDepartment_name().equals(departmentName)) {
+                return department.getDepartment_number();
+            }
+        }
+
+        return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
+    }
+    
+    
    @FXML
     void addOnClick(ActionEvent event) {
 
     	EmployeeInfo empinfo2 = new EmployeeInfo(null
-    			,null//社員コード別で登録
+    			,syaincode_ComboBox.getValue() // ComboBoxから選択されたテキストを取得
     			,null//入社日別で登録
     			,firstname_hurigana_text.getText()
     			,lastname_hurigana_text.getText()
     			,firstname_text.getText()
     			,lastname_text.getText()
-    			,Integer.parseInt(department.getValue())//departmentテキストに変更
+    			,null/* 下で追加 */
     			,Integer.parseInt(department1.getValue())
     			,null/* 有給休暇発生日（基準日） */
     			,null/* 年次有給休暇管理簿作成日 */
     	    	,null//有給日数別で登録
     			,null);//有給残日数別で登録
-
+    	
+    	//部署名追加
+    	 String selectedDepartment = department.getValue();
+    	    Integer departmentNumber = getDepartmentNumber(selectedDepartment);
+    	    empinfo2.setDepartment_number(departmentNumber);
+    		
+    	
         Integer yearValue = year.getValue();
         Integer monthValue = month.getValue();
         Integer dayValue = day.getValue();
@@ -258,7 +269,7 @@ public class ShinkitourokuSceneController {
        // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
         //empinfo1.setJoin_date(sqlDate);
-
+        System.out.println(syaincode_ComboBox.getValue());
         System.out.println(lastname_hurigana_text.getText());
         System.out.println(firstname_hurigana_text.getText());
         System.out.println(lastname_text.getText());
@@ -286,102 +297,6 @@ public class ShinkitourokuSceneController {
         closeWindow(event);
 
     }
-    /*@FXML
-	void adddddOnClick(ActionEvent event) {
-
-
-
-
-
-        EmployeeInfo empinfo1 = new EmployeeInfo(
-        );
-
-        //empinfo1.setId(null);// IDをnullで設定
-        //empinfo1.setId(Integer.parseInt(null));
-
-
-        empinfo1.setHurigana_lastname(lastname_hurigana_text.getText());
-        empinfo1.setHurigana_firstname(firstname_hurigana_text.getText());
-        empinfo1.setFirstname(firstname_text.getText());
-        empinfo1.setLastname(lastname_text.getText());
-        empinfo1.setWorking_days(Integer.parseInt(department1.getValue()));//所定労働日数
-        empinfo1.setDepartment_number(Integer.parseInt(department.getValue()));//部署名
-        empinfo1.setCode("");//社員コードstringに変更
-
-
-        Integer yearValue = year.getValue();
-        Integer monthValue = month.getValue();
-        Integer dayValue = day.getValue();
-        if (yearValue == null || monthValue == null || dayValue == null) {
-        	System.out.println("日付が選択されていません");
-        	return; // もしくは適切な処理を行って終了させる
-        } else {
-
-        //コンボボックスからintger型で取得→int型へ変更
-        int yearvalue =yearValue;
-        int monthvalue = monthValue;
-        int dayvalue = dayValue;
-
-
-        LocalDate currentDate = LocalDate.of(yearvalue, monthvalue, dayvalue);
-        Date joinDate = Date.valueOf(currentDate);
-
-        empinfo1.setJoin_date(joinDate);//入社日
-
-
-     // 半年後の日付を計算
-        LocalDate currentDate2 = joinDate.toLocalDate(); // joinDate を LocalDate に変換
-        LocalDate halfYearLater = currentDate2.plusMonths(6); // 半年後の日付を計算
-        Date halfYearLaterDate = Date.valueOf(halfYearLater); // 半年後の日付を Date 型に変換
-        empinfo1.setReference_date(halfYearLaterDate);
-
-
-
-
-     // 最初の3月31日の日付を計算
-        int currentYear = currentDate.getYear(); // 現在の年を取得
-        LocalDate march31 = LocalDate.of(currentYear, Month.MARCH, 31); // 今年の3月31日の日付を計算
-        if (currentDate.isAfter(march31)) { // もし現在の日付が3月31日より後なら、来年の3月31日の日付を計算
-            march31 = march31.plusYears(1);
-        }
-        Date march31Date = Date.valueOf(march31); // 3月31日の日付を Date 型に変換
-        empinfo1.setAnnual_paid_leave_report_date(march31Date);
-
-
-        empinfo1.setGranted_paid_leave_days(10);//仮入れ
-        empinfo1.setRemaining_paid_leave_days(10);//仮入れ
-
-        }
-
-     //java.util.Date date = new java.util.Date();
-       // java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-        //empinfo1.setJoin_date(sqlDate);
-
-        System.out.println(lastname_hurigana_text.getText());
-        System.out.println(firstname_hurigana_text.getText());
-        System.out.println(lastname_text.getText());
-        System.out.println(firstname_text.getText());
-        System.out.println(year.getValue());
-        System.out.println(month.getValue());
-        System.out.println(day.getValue());
-        System.out.println(department.getValue());
-        System.out.println(department1.getValue());
-        System.out.println("Year: " + year);
-        System.out.println("Month: " + month);
-        System.out.println("Day: " + day);
-
-        try {
-        	Service.insertEmployeeInfo(empinfo1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e.getCause() instanceof InvocationTargetException) {
-                Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
-                targetException.printStackTrace();
-            }
-        }
-
-        closeWindow(event);
-    }*/
+    
 
 }
