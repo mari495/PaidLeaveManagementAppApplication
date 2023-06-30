@@ -4,20 +4,24 @@ import java.awt.Button;
 import java.awt.Label;
 import java.awt.TextField;
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfo;
+import com.plma.model.entity.EmployeeInfoDto;
 import com.plma.model.service.EmployeeInfoService;
 import com.plma.model.shareddata.SharedData;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 @Controller
 public class HItKensakuViewController {
@@ -31,68 +35,19 @@ public class HItKensakuViewController {
 
 	@Autowired
 	SharedData sd;
-
 	
-	@FXML
-	private TableView tableView;
+	/*@Autowired
+	EmployeeInfoDto employeeInfoDto;*/
+	
+	
 
-	@FXML
-	private TableColumn firstNameColumn;
-
-	@FXML
-	private TableColumn lastNameColumn;
-
-	// 他のカラムも同様に宣言します
 	@FXML
 	private ResourceBundle resources;
 
 	@FXML
 	private URL location;
 
-	@FXML
-	private TableColumn annual_paid_leave_report_date_col;
-
-	@FXML
-	private TableColumn code_col;
-
-	@FXML
-	private TableView datatable;
-
-	@FXML
-	private TextField deleteBox;
-
-	@FXML
-	private Button deleteBtn;
-
-	@FXML
-	private TableColumn department_col;
-
-	@FXML
-	private TableColumn firstname_col;
-
-	@FXML
-	private TableColumn granted_paid_leave_days_col;
-
-	@FXML
-	private TableColumn hurigana_first_col;
-
-	@FXML
-	private TableColumn hurigana_last_col;
-
-	@FXML
-	private TableColumn id_col;
-
-	@FXML
-	private TableColumn joindate_col;
-
-	@FXML
-	private TableColumn lastname_col;
-
-	@FXML
-	private TableColumn reference_date_col;
-
-	@FXML
-	private TableColumn remaining_paid_leave_days_col;
+	
 
 	@FXML
 	private Label resultDelete;
@@ -107,16 +62,145 @@ public class HItKensakuViewController {
 	private Button updateBtn;
 
 	@FXML
-	private TableColumn working_days_col;
-	
-	
+	private TextField deleteBox;
+
+	@FXML
+	private Button deleteBtn;
 	
 
+	@FXML
+	private TableColumn<EmployeeInfoDto, String> firstNameColumn;
 
+	@FXML
+	private TableColumn<EmployeeInfoDto, String> lastNameColumn;
+	@FXML
+	private TableColumn<EmployeeInfoDto, Date> annual_paid_leave_report_date_col;
+
+	@FXML
+	private TableColumn <EmployeeInfoDto, Integer>code_col;
+	
+	@FXML
+	private TableColumn <EmployeeInfoDto, String>department_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, String> firstname_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, Integer> granted_paid_leave_days_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, String> hurigana_first_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, String> hurigana_last_col;
+
+    @FXML
+    private TableColumn<EmployeeInfoDto, String> name_col;
+    
+	@FXML
+	private TableColumn <EmployeeInfoDto, Integer>id_col;
+
+	@FXML
+	private TableColumn <EmployeeInfoDto, Date>joindate_col;
+
+	@FXML
+	private TableColumn <EmployeeInfoDto, String>lastname_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, Date> reference_date_col;
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, Integer> remaining_paid_leave_days_col;
+
+
+
+	@FXML
+	private TableColumn<EmployeeInfoDto, Integer> working_days_col;
+
+    @FXML
+    private TableView<EmployeeInfoDto> datatable;
+	
+	
+    void setTableViewEmployeeInfoDto(EmployeeInfoDto emp) {
+    	
+		datatable.getItems().add(new EmployeeInfoDto(emp.getId(),
+				emp.getCode(),
+				emp.getJoin_date(),
+				emp.getHurigana_lastname(),
+				emp.getHurigana_firstname(),
+				emp.getLastname(),
+				emp.getFirstname(),
+				emp.getDepartment_name(),
+				emp.getWorking_days(),
+				emp.getReference_date(),
+				emp.getAnnual_paid_leave_report_date(),
+				emp.getGranted_paid_leave_days(),
+				emp.getRemaining_paid_leave_days()
+				));
+    }
+
+ // EmployeeInfoをEmployeeInfoDtoに変換するメソッド
+    @SuppressWarnings("null")
+	private EmployeeInfoDto convertToDto(EmployeeInfo emp) {
+    	EmployeeInfoDto empDto = null;
+    	
+    	//EmployeeInfoDto empDto = new EmployeeInfoDto();
+		// EmployeeInfoの各プロパティから値を取得し、EmployeeInfoDtoに設定する
+        empDto.setId(emp.getId());
+        empDto.setCode(emp.getCode());
+        empDto.setJoin_date(emp.getJoin_date());
+        empDto.setHurigana_lastname(emp.getHurigana_lastname());
+        empDto.setHurigana_firstname(emp.getHurigana_firstname());
+        empDto.setLastname(emp.getLastname());
+        empDto.setFirstname(emp.getFirstname());
+        empDto.setDepartment_name(String.valueOf(emp.getDepartment_number()));
+        empDto.setWorking_days(emp.getWorking_days());
+        empDto.setReference_date(emp.getReference_date());
+        empDto.setAnnual_paid_leave_report_date(emp.getAnnual_paid_leave_report_date());
+        empDto.setGranted_paid_leave_days(emp.getGranted_paid_leave_days());
+        empDto.setRemaining_paid_leave_days(emp.getRemaining_paid_leave_days());
+
+        return empDto;
+    }
+    
+    /*System.out.println(empDto)で各項目を出力するためにメソッド
+    @Override
+    public String toString() {
+        String id = null;
+		String code = null;
+		String joinDate = null;
+		String huriganaLastname= null;
+		String huriganaFirstname= null;
+		String lastname = null;
+		String firstname = null;
+		String departmentName= null;
+		String workingDays = null;
+		String referenceDate = null;
+		String annualPaidLeaveReportDate= null;
+		String grantedPaidLeaveDays= null;
+		String remainingPaidLeaveDays= null;
+		return "EmployeeInfoDto{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", joinDate='" + joinDate + '\'' +
+                ", huriganaLastname='" + huriganaLastname + '\'' +
+                ", huriganaFirstname='" + huriganaFirstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", workingDays=" + workingDays +
+                ", referenceDate='" + referenceDate + '\'' +
+                ", annualPaidLeaveReportDate='" + annualPaidLeaveReportDate + '\'' +
+                ", grantedPaidLeaveDays=" + grantedPaidLeaveDays +
+                ", remainingPaidLeaveDays=" + remainingPaidLeaveDays +
+                '}';
+    }*/
+    
 	@FXML
 	void initialize() {
 		assert annual_paid_leave_report_date_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert code_col != null : "fx:id=\"code_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
+		
 		assert datatable != null : "fx:id=\"datatable\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert deleteBox != null : "fx:id=\"deleteBox\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert deleteBtn != null : "fx:id=\"deleteBtn\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
@@ -135,31 +219,41 @@ public class HItKensakuViewController {
 		assert updateBox != null : "fx:id=\"updateBox\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert updateBtn != null : "fx:id=\"updateBtn\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert working_days_col != null : "fx:id=\"working_days_col\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
-
+		
+		id_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("id"));
+	        code_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("code"));
+	        joindate_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Date>("join_date"));
+			hurigana_last_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, String>("hurigana_lastname"));
+			hurigana_first_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, String>("hurigana_firstname"));
+			lastname_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, String>("lastname"));
+			firstname_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, String>("firstname"));
+			department_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, String>("department_name"));
+			working_days_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("working_days"));
+			reference_date_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Date>("reference_date"));
+			annual_paid_leave_report_date_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Date>("annual_paid_leave_report_date"));
+			granted_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("granted_paid_leave_days"));
+			remaining_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto, Integer>("remaining_paid_leave_days"));
 
 		Iterable<EmployeeInfo> result = sd.getEmployeeInfo();//resultから各columnに入れていく
-	    // テーブルカラムとEmployeeInfoクラスのプロパティをバインドします
-	    //firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-	    //lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		System.out.println("result"+result);
+		List<EmployeeInfoDto> resultDtoList = new ArrayList<>();
+		for (EmployeeInfo emp : result) {
+		    EmployeeInfoDto empDto = convertToDto(emp);
+		    resultDtoList.add(empDto);
+		    System.out.println("empDto"+empDto);
+		}
 
-	    // 他のカラムも同様にバインドします
+		for (EmployeeInfoDto empDto : resultDtoList) {
+			
+		    setTableViewEmployeeInfoDto(empDto);
+		}
 
-	    // テーブルビューにデータをセットします
-	    //tableView.setItems(FXCollections.observableArrayList(result));
-		// resultの内容をSystem.out.printlnで表示する
-	    for (EmployeeInfo employee : result) {
-	        System.out.println(employee);
-	    }
 		
+		 //empinfo1.setJoin_date(sqlDate);
+       	
 		
+	   
 
 	}
-
-
-
-	 
-
-
-
 
 }

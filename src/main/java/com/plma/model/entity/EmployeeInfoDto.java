@@ -210,4 +210,7 @@ public class EmployeeInfoDto {
 		this.granted_paid_leave_days = granted_paid_leave_days;
 		this.remaining_paid_leave_days = remaining_paid_leave_days;
 	}
+
+
+
 }

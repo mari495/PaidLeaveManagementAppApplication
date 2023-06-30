@@ -152,7 +152,7 @@ public class ShinkitourokuSceneController {
     			department1.getItems().add(Integer.toString(dept1));
     		}
     		//仮入れ
-    		for(int syaincode = 1; syaincode < 100; syaincode++) {
+    		for(int syaincode = 100; syaincode < 201; syaincode++) {
     			syaincode_ComboBox.getItems().add(Integer.toString(syaincode));
     		}
 
