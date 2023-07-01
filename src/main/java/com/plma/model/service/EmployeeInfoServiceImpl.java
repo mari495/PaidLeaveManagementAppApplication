@@ -98,7 +98,8 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
  * このメソッドでは、部署番号と部署名のマッピングを作成し、
 EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDtoオブジェクトを作成
  * */
-	private EmployeeInfoDto convertToDto(EmployeeInfo employeeInfo) {
+	@Override
+	public EmployeeInfoDto convertToDto(EmployeeInfo employeeInfo) {
     	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
     		    .collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
 

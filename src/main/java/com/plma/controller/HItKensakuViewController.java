@@ -123,7 +123,8 @@ public class HItKensakuViewController {
 	
     void setTableViewEmployeeInfoDto(EmployeeInfoDto emp) {
     	
-		datatable.getItems().add(new EmployeeInfoDto(emp.getId(),
+		datatable.getItems().add(new EmployeeInfoDto(
+				emp.getId(),
 				emp.getCode(),
 				emp.getJoin_date(),
 				emp.getHurigana_lastname(),
@@ -139,29 +140,6 @@ public class HItKensakuViewController {
 				));
     }
 
- // EmployeeInfoをEmployeeInfoDtoに変換するメソッド
-    @SuppressWarnings("null")
-	private EmployeeInfoDto convertToDto(EmployeeInfo emp) {
-    	EmployeeInfoDto empDto = null;
-    	
-    	//EmployeeInfoDto empDto = new EmployeeInfoDto();
-		// EmployeeInfoの各プロパティから値を取得し、EmployeeInfoDtoに設定する
-        empDto.setId(emp.getId());
-        empDto.setCode(emp.getCode());
-        empDto.setJoin_date(emp.getJoin_date());
-        empDto.setHurigana_lastname(emp.getHurigana_lastname());
-        empDto.setHurigana_firstname(emp.getHurigana_firstname());
-        empDto.setLastname(emp.getLastname());
-        empDto.setFirstname(emp.getFirstname());
-        empDto.setDepartment_name(String.valueOf(emp.getDepartment_number()));
-        empDto.setWorking_days(emp.getWorking_days());
-        empDto.setReference_date(emp.getReference_date());
-        empDto.setAnnual_paid_leave_report_date(emp.getAnnual_paid_leave_report_date());
-        empDto.setGranted_paid_leave_days(emp.getGranted_paid_leave_days());
-        empDto.setRemaining_paid_leave_days(emp.getRemaining_paid_leave_days());
-
-        return empDto;
-    }
     
     /*System.out.println(empDto)で各項目を出力するためにメソッド
     @Override
@@ -238,7 +216,7 @@ public class HItKensakuViewController {
 		System.out.println("result"+result);
 		List<EmployeeInfoDto> resultDtoList = new ArrayList<>();
 		for (EmployeeInfo emp : result) {
-		    EmployeeInfoDto empDto = convertToDto(emp);
+		    EmployeeInfoDto empDto = service.convertToDto(emp);
 		    resultDtoList.add(empDto);
 		    System.out.println("empDto"+empDto);
 		}

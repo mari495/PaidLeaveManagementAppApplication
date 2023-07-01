@@ -82,7 +82,10 @@ public class KensakuSceneController {
 	@FXML
 	private ComboBox<Integer> year;
 
-
+	public String getTextAreaContent(TextArea textArea) {
+	    String content = textArea.getText();
+	    return (content == null || content.isEmpty()) ? null : content;
+	}
 	@FXML
 	void initialize() {
 		assert menu_button != null : "fx:id=\"Menu_button\" was not injected: check your FXML file 'ShinkitourokuScene.fxml'.";
@@ -209,11 +212,25 @@ public class KensakuSceneController {
 	@FXML//複数の&&条件による検索
 	void kensaku_button_onClick(ActionEvent event) {
 
+		Date date = null;
+		
+		Integer yearItem = year.getSelectionModel().getSelectedItem();
+		Integer monthItem = month.getSelectionModel().getSelectedItem();
+		Integer dayItem = day.getSelectionModel().getSelectedItem();
+		
+		
+		
+		if(!(yearItem == null && monthItem == null && dayItem == null)) {
+			
 
-		// コンボボックスの値から日付を作成
-		LocalDate selectedDate = LocalDate.of(year.getValue(), month.getValue(), day.getValue());
-		// java.sql.Dateに変換
-		Date date = Date.valueOf(selectedDate);
+			
+						// コンボボックスの値から日付を作成
+			LocalDate selectedDate = LocalDate.of(year.getValue(), month.getValue(), day.getValue());
+			// java.sql.Dateに変換
+			date = Date.valueOf(selectedDate);
+		}
+
+		
 
 
 		try {
@@ -227,14 +244,16 @@ public class KensakuSceneController {
 			Iterable<EmployeeInfo> searchResults = service.findByEightParams(
 					syaincode_ComboBox.getPromptText(),//社員コード
 					date,//入社日
-					firstname_hurigana_text.getText(),//名前ふりがな
-					lastname_hurigana_text.getText(),//苗字ふりがな
-					firstname_text.getText(),//名前
-					lastname_text.getText(),//苗字
+					getTextAreaContent(firstname_hurigana_text),//名前ふりがな
+					getTextAreaContent(lastname_hurigana_text),//苗字ふりがな
+					getTextAreaContent(firstname_text),//名前
+					getTextAreaContent(lastname_text),//苗字
 					departmentNumber,    //部署名      		
 					department1.getValue());//所定労働日数
-			System.out.println(syaincode_ComboBox.getValue());
-			System.out.println(firstname_hurigana_text.getText());
+			System.out.println("----------------------------------------------");
+			System.out.println(syaincode_ComboBox.getPromptText());
+			System.out.println(date);
+			System.out.println(firstname_text.getText());
 			System.out.println( lastname_text.getText());
 			System.out.println( firstname_hurigana_text.getText());
 			System.out.println(lastname_hurigana_text.getText());
@@ -242,8 +261,77 @@ public class KensakuSceneController {
 			System.out.println(month.getValue());
 			System.out.println(day.getValue());
 			System.out.println(department.getValue());
+			System.out.println(departmentNumber);
 			System.out.println(department1.getValue());
+			System.out.println("----------------------------------------------");
 
+
+			/* // 選択された値を取得
+		    String selectedSyainCodeobject = syaincode_ComboBox.getValue();
+		    Integer selectedYearobject = year.getValue();
+		    Integer selectedMonthobject = month.getValue();
+		    Integer selectedDayobject = day.getValue();
+		    String selectedDepartmentobject = department.getValue();
+		    Integer selectedworkingdaysobject = department1.getValue();
+
+		    // 検索条件の設定
+		    EmployeeInfoSearchCriteria criteria = new EmployeeInfoSearchCriteria();
+
+		    // 社員コードの検索条件を追加
+		    if (selectedSyainCode != null) {
+		        criteria.setSyainCode(selectedSyainCode);
+		    }
+
+		    // 入社日の検索条件を追加
+		    if (selectedYear != null && selectedMonth != null && selectedDay != null) {
+		        LocalDate selectedDate = LocalDate.of(selectedYear, selectedMonth, selectedDay);
+		        Date date = Date.valueOf(selectedDate);
+		        criteria.setJoinedDate(date);
+		    }
+
+		    // 名前ふりがなの検索条件を追加
+		    if (!firstname_hurigana_text.getText().isEmpty()) {
+		        criteria.setFirstNameHurigana(firstname_hurigana_text.getText());
+		    }
+
+		    // 苗字ふりがなの検索条件を追加
+		    if (!lastname_hurigana_text.getText().isEmpty()) {
+		        criteria.setLastNameHurigana(lastname_hurigana_text.getText());
+		    }
+
+		    // 名前の検索条件を追加
+		    if (!firstname_text.getText().isEmpty()) {
+		        criteria.setFirstName(firstname_text.getText());
+		    }
+
+		    // 苗字の検索条件を追加
+		    if (!lastname_text.getText().isEmpty()) {
+		        criteria.setLastName(lastname_text.getText());
+		    }
+
+		    // 部署名の検索条件を追加
+		    if (selectedDepartment != null) {
+		        Integer departmentNumber = getDepartmentNumber(selectedDepartment);
+		        criteria.setDepartmentNumber(departmentNumber);
+		    }
+
+		    // 所定労働日数の検索条件を追加
+		    if (selectedDepartment1 != null) {
+		        criteria.setDepartment1(selectedDepartment1);
+		    }*/
+			
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			sd.setEmployeeInfo(searchResults);
 			/*
 			 * 現在表示されている画面を閉じる

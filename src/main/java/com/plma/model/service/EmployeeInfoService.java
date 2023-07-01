@@ -70,4 +70,5 @@ public interface EmployeeInfoService {
     void insertDepartment(Department dm);
     void insertPaidLeave(PaidLeave pl);
     Iterable<Department> getDepartment();
+	EmployeeInfoDto convertToDto(EmployeeInfo emp);
 }

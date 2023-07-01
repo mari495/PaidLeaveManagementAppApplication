@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.HItKensakuViewController">
    <children>
-      <TableView fx:id="datatable" layoutX="14.0" layoutY="14.0" prefHeight="357.0" prefWidth="1083.0">
+      <TableView fx:id="datatable" layoutX="8.0" layoutY="14.0" prefHeight="219.0" prefWidth="1105.0">
         <columns>
             <TableColumn fx:id="id_col" prefWidth="50.00000190734863" text="登録ID" />
           <TableColumn fx:id="code_col" prefWidth="78.6666488647461" text="社員コード" />
@@ -20,7 +20,7 @@
             <TableColumn fx:id="reference_date_col" prefWidth="88.66668701171875" text="基準日" />
             <TableColumn fx:id="annual_paid_leave_report_date_col" prefWidth="99.33331298828125" text="年休簿作成日" />
             <TableColumn fx:id="granted_paid_leave_days_col" prefWidth="113.3333740234375" text="有給休暇付与日数" />
-            <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="83.99993896484375" text="有給休暇残日" />
+            <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="99.99993896484375" text="有給休暇残日" />
         </columns>
       </TableView>
    </children>
