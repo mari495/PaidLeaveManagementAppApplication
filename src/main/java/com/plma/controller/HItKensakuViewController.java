@@ -113,12 +113,15 @@ public class HItKensakuViewController {
 	private TableColumn<EmployeeInfoDto, Integer> remaining_paid_leave_days_col;
 
 
-
 	@FXML
 	private TableColumn<EmployeeInfoDto, Integer> working_days_col;
 
     @FXML
     private TableView<EmployeeInfoDto> datatable;
+    
+    //a,b,cで追加TableColumn<EmployeeInfoDto, Integer> working_days_col;する
+  //a,b,cで追加TableColumn<EmployeeInfoDto, Integer> working_days_col;する
+  //a,b,cで追加TableColumn<EmployeeInfoDto, Integer> working_days_col;する
 	
 	
     void setTableViewEmployeeInfoDto(EmployeeInfoDto emp) {
@@ -136,43 +139,10 @@ public class HItKensakuViewController {
 				emp.getReference_date(),
 				emp.getAnnual_paid_leave_report_date(),
 				emp.getGranted_paid_leave_days(),
-				emp.getRemaining_paid_leave_days()
+				emp.getRemaining_paid_leave_days()//a,b,cの分を追加する
 				));
     }
 
-    
-    /*System.out.println(empDto)で各項目を出力するためにメソッド
-    @Override
-    public String toString() {
-        String id = null;
-		String code = null;
-		String joinDate = null;
-		String huriganaLastname= null;
-		String huriganaFirstname= null;
-		String lastname = null;
-		String firstname = null;
-		String departmentName= null;
-		String workingDays = null;
-		String referenceDate = null;
-		String annualPaidLeaveReportDate= null;
-		String grantedPaidLeaveDays= null;
-		String remainingPaidLeaveDays= null;
-		return "EmployeeInfoDto{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", joinDate='" + joinDate + '\'' +
-                ", huriganaLastname='" + huriganaLastname + '\'' +
-                ", huriganaFirstname='" + huriganaFirstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", departmentName='" + departmentName + '\'' +
-                ", workingDays=" + workingDays +
-                ", referenceDate='" + referenceDate + '\'' +
-                ", annualPaidLeaveReportDate='" + annualPaidLeaveReportDate + '\'' +
-                ", grantedPaidLeaveDays=" + grantedPaidLeaveDays +
-                ", remainingPaidLeaveDays=" + remainingPaidLeaveDays +
-                '}';
-    }*/
     
 	@FXML
 	void initialize() {
