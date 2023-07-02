@@ -185,18 +185,29 @@ public class KensakuSceneController {
 	@FXML//全取得
 	void allBtn_OnClick(ActionEvent event) {
 
-		Iterable<com.plma.model.entity.EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
+		//Iterable<EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
 
-		for (com.plma.model.entity.EmployeeInfoDto model : employeeInfoDtoList) {
-			System.out.println(model.getCode());
-		}
-
+		Iterable<EmployeeInfo> iterable = service.selectAll();
+		
 		try {
-			for(com.plma.model.entity.EmployeeInfoDto emp : employeeInfoDtoList) {
-				System.out.println(emp);
-
-
-			}
+			sd.setEmployeeInfo(iterable);
+			/*
+			 * 現在表示されている画面を閉じる
+			 */
+			Scene s = ((Node)event.getSource()).getScene();
+			Window window = s.getWindow();
+			window.hide();
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/hitKensakuView.fxml"));
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("メインメニュー");
+			stage.show();
+			
+			
+			
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			if (e.getCause() instanceof InvocationTargetException) {
