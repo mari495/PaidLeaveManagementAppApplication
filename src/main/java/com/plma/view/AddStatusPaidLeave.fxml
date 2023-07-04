@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dbtest.db.controller.TestSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.AddStatusPaidLeaveSceneController">
    <children>
       <TableView fx:id="datatable" layoutX="14.0" layoutY="14.0" prefHeight="211.0" prefWidth="1087.0">
         <columns>
@@ -19,14 +19,9 @@
             <TableColumn fx:id="lastname_col" prefWidth="75.0" text="名字" />
             <TableColumn fx:id="firstname_col" prefWidth="76.6666259765625" text="名前" />
             <TableColumn fx:id="department_col" prefWidth="69.33328247070312" text="部署名" />
-            <TableColumn fx:id="working_days_col" prefWidth="86.666748046875" text="所定労働日数" />
-            <TableColumn fx:id="reference_date_col" prefWidth="88.66668701171875" text="基準日" />
-            <TableColumn fx:id="annual_paid_leave_report_date_col" prefWidth="99.33331298828125" text="年休簿作成日" />
-            <TableColumn fx:id="granted_paid_leave_days_col" prefWidth="113.3333740234375" text="有給休暇付与日数" />
-            <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="83.99993896484375" text="有給休暇残日" />
+            <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="134.0" text="有給休暇取得日" />
         </columns>
       </TableView>
-      <Button fx:id="allBtn" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#allBtn_OnClick" prefHeight="32.0" prefWidth="87.0" text="全取得" />
       <Button fx:id="insertBtn" layoutX="14.0" layoutY="280.0" mnemonicParsing="false" onAction="#insertBtn_OnClick" prefHeight="32.0" prefWidth="87.0" text="データ挿入" />
       <Label layoutX="122.0" layoutY="288.0" text="山田太郎のデータを挿入" />
       <Button fx:id="findCodeBtn" layoutX="14.0" layoutY="328.0" mnemonicParsing="false" onAction="#findCodeBtn_OnClick" prefHeight="32.0" prefWidth="105.0" text="社員コードで検索" />

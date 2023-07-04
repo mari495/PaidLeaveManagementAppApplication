@@ -204,7 +204,7 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	}
 	
 	@Override
-	public Iterable<Department> getDepartment() {// すべての従業員情報を取得
+	public Iterable<Department> getDepartment() {
 		return dep_repository.findAll();
 	}
 
