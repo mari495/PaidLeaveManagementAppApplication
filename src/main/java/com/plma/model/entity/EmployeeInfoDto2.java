@@ -9,6 +9,36 @@ public class EmployeeInfoDto2 extends EmployeeInfoDto {
 	private String Alert;//有給接近情報アラート
 	
 
+	public Integer getNumber_of_days_used() {
+		return Number_of_days_used;
+	}
+
+
+	public void setNumber_of_days_used(Integer number_of_days_used) {
+		Number_of_days_used = number_of_days_used;
+	}
+
+
+	public Date getExpiry_date() {
+		return Expiry_date;
+	}
+
+
+	public void setExpiry_date(Date expiry_date) {
+		Expiry_date = expiry_date;
+	}
+
+
+	public String getAlert() {
+		return Alert;
+	}
+
+
+	public void setAlert(String alert) {
+		Alert = alert;
+	}
+
+
 	public EmployeeInfoDto2(Integer id, String code, Date join_date, String hurigana_lastname,
 			String hurigana_firstname, String lastname, String firstname, String department_name, Integer working_days,
 			Date reference_date, Date annual_paid_leave_report_date, Integer granted_paid_leave_days,

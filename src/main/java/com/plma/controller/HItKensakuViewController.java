@@ -176,9 +176,9 @@ public class HItKensakuViewController {
 				emp.getAnnual_paid_leave_report_date(),//年休簿作成日
 				emp.getGranted_paid_leave_days(),//有給休暇付与日数
 				emp.getRemaining_paid_leave_days(),//有給休暇残数
-				Number_of_days_used, // 有給接近情報アラート,//仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+				Number_of_days_used, // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
 				Date.valueOf(expiryDateString),//消滅日（基準日からに二年後）
-				alertMessage
+				alertMessage// 有給接近情報アラート
 				));
     }
 
