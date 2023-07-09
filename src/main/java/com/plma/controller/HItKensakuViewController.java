@@ -2,6 +2,7 @@ package com.plma.controller;
 import java.awt.Button;
 import java.awt.Label;
 import java.awt.TextField;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,10 +21,16 @@ import com.plma.model.entity.EmployeeInfoDto2;
 import com.plma.model.service.EmployeeInfoService;
 import com.plma.model.shareddata.SharedData;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 @Controller
 public class HItKensakuViewController {
@@ -130,8 +137,10 @@ public class HItKensakuViewController {
 	@FXML
 	private TableColumn <EmployeeInfoDto2, String>Alert;
 
-    
-   
+
+	//@FXML
+	//private Button menu_button;
+
 	
 	
     void setTableViewEmployeeInfoDto(EmployeeInfoDto2 emp) {
@@ -151,7 +160,7 @@ public class HItKensakuViewController {
         long monthsUntilExpiry = ChronoUnit.MONTHS.between(currentDate, expiryDate); // 当日と消滅日の月数の差
         String alertMessage;
         if (monthsUntilExpiry < 1) {
-            alertMessage = "一か月切っています";
+            alertMessage = "１か月切っています";
         } else if (monthsUntilExpiry < 3) {
             alertMessage = "３か月切っています";
         } else if (monthsUntilExpiry < 6) {
@@ -211,7 +220,7 @@ public class HItKensakuViewController {
 		assert Expiry_date != null : "fx:id=\"Expiry_date\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert Alert != null : "fx:id=\"Alert\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		
-		
+		//assert menu_button != null : "fx:id=\"menu_button\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		
 		id_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, Integer>("id"));
 	        code_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, Integer>("code"));
@@ -264,11 +273,34 @@ public class HItKensakuViewController {
 		}
 
 		
-		 //empinfo1.setJoin_date(sqlDate);
        	
 		
-	   
-
 	}
+	
+	
+	
+	@FXML
+	void Menu_button_onClick(ActionEvent event) {
+		/*
+		 * 現在表示されている画面を閉じる
+		 */
+		Scene s = ((Node)event.getSource()).getScene();
+		Window window = s.getWindow();
+		window.hide();
 
+		/*
+		 * 新しい画面を生成する
+		 */
+		try {
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("メインメニュー");
+			stage.show();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

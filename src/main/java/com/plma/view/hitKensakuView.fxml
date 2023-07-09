@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,5 +27,6 @@
             <TableColumn fx:id="Alert" prefWidth="58.000244140625" text="アラート" />
         </columns>
       </TableView>
+      <Button fx:id="menu_button" layoutX="1157.0" layoutY="489.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="メニュー" />
    </children>
 </AnchorPane>

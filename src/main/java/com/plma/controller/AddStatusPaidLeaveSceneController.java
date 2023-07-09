@@ -7,9 +7,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +32,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -53,157 +49,171 @@ public class AddStatusPaidLeaveSceneController {
 	DepartmentRepository dep_repository;
 	@Autowired
 	PaidLeaveRepository pl_repository;
-    
-
-    @FXML
-    private TableView<PaidLeaveDto> datatable;
-
-    @FXML
-    private TableColumn<PaidLeaveDto, Integer> id_col;
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> code_col;
-
-    @FXML
-    private TableColumn<PaidLeaveDto, Date> joindate_col;
-    
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> hurigana_last_col;
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> hurigana_first_col;
-    
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> lastname_col;
-    
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> firstname_col;
-    
-
-    @FXML
-    private TableColumn<PaidLeaveDto, String> department_col;
-    
-
-    @FXML
-    private TableColumn<PaidLeaveDto, Integer> working_days_col;
-
-    @FXML
-   private TableColumn<PaidLeaveDto, Date> reference_date_col;
 
 
-    @FXML
-    private TableColumn<PaidLeaveDto, Integer> granted_paid_leave_days_col;
+	@FXML
+	private TableView<PaidLeaveDto> datatable;
 
-    @FXML
-    private TableColumn<PaidLeaveDto, Integer> remaining_paid_leave_days_col;
-    
-    
-    @FXML
-    private TableColumn<PaidLeaveDto, Date> paid_leave_date_col;
+	@FXML
+	private TableColumn<PaidLeaveDto, Integer> id_col;
 
+	@FXML
+	private TableColumn<PaidLeaveDto, String> code_col;
 
-
-
+	@FXML
+	private TableColumn<PaidLeaveDto, Date> joindate_col;
 
 
+	@FXML
+	private TableColumn<PaidLeaveDto, String> hurigana_last_col;
+
+	@FXML
+	private TableColumn<PaidLeaveDto, String> hurigana_first_col;
 
 
-    @FXML
-    private Button allBtn;
-    @FXML
-    private Button insertBtn;
-    @FXML
-    private Button all_button;
-
-    @FXML
-    private TextArea codeBox;
-
-    @FXML
-    private TextField deleteBox;
-
-    @FXML
-    private Button deleteBtn;
-
-    
-    @FXML
-    private Button add_button;
+	@FXML
+	private TableColumn<PaidLeaveDto, String> lastname_col;
 
 
-    @FXML
-    private TextArea firstname_hurigana_text;
+	@FXML
+	private TableColumn<PaidLeaveDto, String> firstname_col;
 
-    @FXML
-    private TextArea firstname_text;
 
-    @FXML
-    private Button kensaku_button;
+	@FXML
+	private TableColumn<PaidLeaveDto, String> department_col;
 
-    @FXML
-    private TextArea lastname_hurigana_text;
 
-    @FXML
-    private TextArea lastname_text;
+	@FXML
+	private TableColumn<PaidLeaveDto, Integer> working_days_col;
 
-    @FXML
+	@FXML
+	private TableColumn<PaidLeaveDto, Date> reference_date_col;
+
+
+	@FXML
+	private TableColumn<PaidLeaveDto, Integer> granted_paid_leave_days_col;
+
+	@FXML
+	private TableColumn<PaidLeaveDto, Integer> remaining_paid_leave_days_col;
+
+
+	@FXML
+	private TableColumn<PaidLeaveDto, Date> paid_leave_date_col;
+
+
+	/**
+	 * 登録で使用
+	 */
+	////////////////////////////////////////////////////
+	@FXML
+	private ComboBox<Integer> Addmonth;
+	@FXML
+	private ComboBox<Integer> Addday;
+	@FXML
+	private ComboBox<Integer> Addyear;
+
+	@FXML
+	private TextArea codeBox;
+
+
+	@FXML
+	private Button add_button;
+
+	/**
+	 * 全検索で使用
+	 */
+	////////////////////////////////////////////////////
+	@FXML
+	private Button all_button;
+
+	///////////////////////////////////////////////
+
+	/**
+	 * 複数＆＆条件検索で使用
+	 */
+
+	@FXML
+	private ComboBox<String> syaincode_ComboBox;
+
+
+	@FXML
+	private TextArea lastname_text;
+
+	@FXML
+	private TextArea firstname_text;
+
+	@FXML
+	private TextArea lastname_hurigana_text;
+
+	@FXML
+	private TextArea firstname_hurigana_text;
+
+
+	@FXML
 	private ComboBox<Integer> month;
-    @FXML
- 	private ComboBox<Integer> day;
-    @FXML
- 	private ComboBox<Integer> year;
-    @FXML
-  	private ComboBox<Integer> Addmonth;
-      @FXML
-   	private ComboBox<Integer> Addday;
-      @FXML
-   	private ComboBox<Integer> Addyear;
-      @FXML
-  	private ComboBox<String> department;
+	@FXML
+	private ComboBox<Integer> day;
+	@FXML
+	private ComboBox<Integer> year;
 
-    
+	@FXML
+	private ComboBox<String> department;
 
-	
+	@FXML
+	private ComboBox<Integer> working_days;
 
-    @FXML
-    void initialize() {
-    	
-    	
-    	 assert datatable != null : "fx:id=\"datatable\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert id_col != null : "fx:id=\"id_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert code_col != null : "fx:id=\"code_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert joindate_col != null : "fx:id=\"joindate_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert hurigana_last_col != null : "fx:id=\"hurigana_last_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert hurigana_first_col != null : "fx:id=\"hurigana_first_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert lastname_col != null : "fx:id=\"lastname_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert firstname_col != null : "fx:id=\"firstname_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert department_col != null : "fx:id=\"department_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert working_days_col != null : "fx:id=\"department_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert reference_date_col != null : "fx:id=\"granted_paid_leave_days_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert granted_paid_leave_days_col != null : "fx:id=\"granted_paid_leave_days_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert remaining_paid_leave_days_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 assert paid_leave_date_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-    	 
-    	 
-    	 
-    	  assert add_button != null : "fx:id=\"add_button\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-          assert all_button != null : "fx:id=\"all_button\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-          
-          assert codeBox != null : "fx:id=\"codeBox\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-          
-         
-          assert day != null : "fx:id=\"day\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";        
-          assert month != null : "fx:id=\"month\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";     
-          assert year != null : "fx:id=\"year\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-          assert Addmonth != null : "fx:id=\"day\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-          assert Addday != null : "fx:id=\"month\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";    
-          assert Addyear != null : "fx:id=\"year\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
-        
-        
-        id_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Integer>("id"));
-        code_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, String>("code"));
-        joindate_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Date>("join_date"));
+
+	@FXML
+	private Button kensaku_button;
+
+
+	///////////////////////////////////////////////
+
+
+
+
+	@FXML
+	void initialize() {
+
+
+		assert datatable != null : "fx:id=\"datatable\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert id_col != null : "fx:id=\"id_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert code_col != null : "fx:id=\"code_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert joindate_col != null : "fx:id=\"joindate_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert hurigana_last_col != null : "fx:id=\"hurigana_last_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert hurigana_first_col != null : "fx:id=\"hurigana_first_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert lastname_col != null : "fx:id=\"lastname_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert firstname_col != null : "fx:id=\"firstname_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert department_col != null : "fx:id=\"department_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert working_days_col != null : "fx:id=\"department_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert reference_date_col != null : "fx:id=\"granted_paid_leave_days_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert granted_paid_leave_days_col != null : "fx:id=\"granted_paid_leave_days_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert remaining_paid_leave_days_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert paid_leave_date_col != null : "fx:id=\"annual_paid_leave_report_date_col\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+
+		assert codeBox != null : "fx:id=\"codeBox\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert add_button != null : "fx:id=\"add_button\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert Addmonth != null : "fx:id=\"day\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert Addday != null : "fx:id=\"month\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";    
+		assert Addyear != null : "fx:id=\"year\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+
+		assert all_button != null : "fx:id=\"all_button\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+
+		assert syaincode_ComboBox != null : "fx:id=\"syaincode_ComboBox\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert working_days != null : "fx:id=\"working_days\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert department != null : "fx:id=\"department\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert kensaku_button != null : "fx:id=\"kensaku_button\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert firstname_text != null : "fx:id=\"firstname_text\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert lastname_text != null : "fx:id=\"lastname_text\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert day != null : "fx:id=\"day\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";        
+		assert month != null : "fx:id=\"month\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";     
+		assert year != null : "fx:id=\"year\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert lastname_hurigana_text != null : "fx:id=\"lastname_hurigana_text\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+		assert firstname_hurigana_text != null : "fx:id=\"firstname_hurigana_text\" was not injected: check your FXML file 'AddStatusPaidLeave.fxml'.";
+
+		id_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Integer>("id"));
+		code_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, String>("code"));
+		joindate_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Date>("join_date"));
 		hurigana_last_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, String>("hurigana_lastname"));
 		hurigana_first_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, String>("hurigana_firstname"));
 		lastname_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, String>("lastname"));
@@ -215,8 +225,8 @@ public class AddStatusPaidLeaveSceneController {
 		remaining_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Integer>("remaining_paid_leave_days"));
 		paid_leave_date_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto, Date>("PaidLeave_date"));
 
-		
-		
+
+
 
 
 		// ComboBoxに値を登録
@@ -231,35 +241,43 @@ public class AddStatusPaidLeaveSceneController {
 		for (int d = 1; d < 32; d++) {
 			day.getItems().add(Integer.valueOf(d));
 		}
-		// ComboBoxに値を登録
-				for (int y = 2000; y < 2024; y++) {
-					Addyear.getItems().add(Integer.valueOf(y));
-				}
 
-				for (int m = 1; m < 13; m++) {
-					Addmonth.getItems().add(Integer.valueOf(m));
-				}
+		for (int y = 2000; y < 2024; y++) {
+			Addyear.getItems().add(Integer.valueOf(y));
+		}
 
-				for (int d = 1; d < 32; d++) {
-					Addday.getItems().add(Integer.valueOf(d));
-				}
-				
-				
-				//DepartmentDBからgetDepartment_nameを取得して表示
-				Iterable<Department> departments = service.getDepartment();
+		for (int m = 1; m < 13; m++) {
+			Addmonth.getItems().add(Integer.valueOf(m));
+		}
 
-				for (Department dep : departments) {
-					String departmentName = dep.getDepartment_name();
-					department.getItems().add(departmentName);
-				}
-    }
-    
-    
-    
-    
-    @FXML
-    void Menu_button_onClick(ActionEvent event) {
-    	/*
+		for (int d = 1; d < 32; d++) {
+			Addday.getItems().add(Integer.valueOf(d));
+		}
+		for (int y = 1; y < 6; y++) {
+			working_days.getItems().add(Integer.valueOf(y));
+		}
+
+		for(int syaincode = 1; syaincode < 100; syaincode++) {
+			syaincode_ComboBox.getItems().add(Integer.toString(syaincode));
+		}
+
+
+
+		//DepartmentDBからgetDepartment_nameを取得して表示
+		Iterable<Department> departments = service.getDepartment();
+
+		for (Department dep : departments) {
+			String departmentName = dep.getDepartment_name();
+			department.getItems().add(departmentName);
+		}
+	}
+
+
+
+
+	@FXML
+	void Menu_button_onClick(ActionEvent event) {
+		/*
 		 * 現在表示されている画面を閉じる
 		 */
 		Scene s = ((Node)event.getSource()).getScene();
@@ -279,171 +297,171 @@ public class AddStatusPaidLeaveSceneController {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-    }
-    
-    @FXML//
-    void addNumber_of_days_usedOnClick(ActionEvent event) {
+	}
 
-    	
-Date date = null;
-		
+	@FXML//テキストボックスに入力された数値と一致する社員コードの行に有給休暇登録をするメソッド
+	void addNumber_of_days_usedOnClick(ActionEvent event) {
+
+
+		Date date = null;
+
 		Integer yearItem = Addyear.getValue();
 		Integer monthItem = Addmonth.getValue();
 		Integer dayItem = Addday.getValue();
 		System.out.println("yearItem"+yearItem);
 		System.out.println("monthItem"+monthItem);
 		System.out.println("dayItem"+dayItem);
-		
-		
-		if(!(yearItem == null && monthItem == null && dayItem == null)) {
-			
 
-			
-						// コンボボックスの値から日付を作成
+
+		if(!(yearItem == null && monthItem == null && dayItem == null)) {
+			// コンボボックスの値から日付を作成
 			LocalDate selectedDate = LocalDate.of(Addyear.getValue(), Addmonth.getValue(), Addday.getValue());
 			// java.sql.Dateに変換
 			date = Date.valueOf(selectedDate);
 			System.out.println("date"+date);
-			
+
 		}
-    	
-        try  {
-        	
-        	
-        	
-        	
-        	String inputCode = codeBox.getText(); // テキストボックスから入力された値を取得
 
-        	
-        	
-        	ObservableList<PaidLeaveDto> all_pld = datatable.getItems();
-        	
-        	
-        	for(PaidLeaveDto pld : all_pld) {
-        		String code_pld = pld.getCode();
-        		System.out.println(code_pld);
-        		if (inputCode.equals(code_pld)){
-                	PaidLeave pl = new PaidLeave();
-                	pl.setId(null); // 登録IDを設定
-                	pl.setCode(code_pld); // 社員コードを設定
-                	pl.setPaid_leave_date(date); // 有給休暇取得日を設定
-                    // Departmentをデータベースに保存
-                	service.insertPaidLeave(pl);
-            } else {
-               
-                System.out.println("一致するレコードが見つかりませんでした");
-                //一致する社員コードが見つからなかった場合メッセージボックス実装予定
-        	
-       
-        	
-        	}
-        		
-        	}
-        	    
-        	
-                
-        	  
-        	
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e.getCause() instanceof InvocationTargetException) {
-                Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
-                targetException.printStackTrace();
-            }
-        }
+		try  {
 
-        /*
-         * 現在表示されている画面を閉じる
-         */
-        Scene s = ((Node)event.getSource()).getScene();
-        Window window = s.getWindow();
-        window.hide();
-    }
+			String inputCode = codeBox.getText(); // テキストボックスから入力された値を取得
+
+			ObservableList<PaidLeaveDto> all_pld = datatable.getItems();
 
 
-    void setTableViewPaidLeaveDto(PaidLeaveDto emp) {
-        datatable.getItems().add(new PaidLeaveDto(
-        		 emp.getId(),
-        		    emp.getCode(),
-        		    emp.getJoin_date(),
-        		    emp.getHurigana_lastname(),
-        		    emp.getHurigana_firstname(),
-        		    emp.getLastname(),
-        		    emp.getFirstname(),
-        		    emp.getDepartment_name(),
-        		    emp.getWorking_days(),
-        		    emp.getReference_date(),
-        		    emp.getGranted_paid_leave_days(),
-        		    emp.getRemaining_paid_leave_days(),
-        		    emp.getPaidLeave_date()
-        		));
-    }
+			for(PaidLeaveDto pld : all_pld) {
+				String code_pld = pld.getCode();
+				System.out.println(code_pld);
+				if (inputCode.equals(code_pld)){
+					PaidLeave pl = new PaidLeave();
+					pl.setId(null); // 登録IDを設定
+					pl.setCode(code_pld); // 社員コードを設定
+					pl.setPaid_leave_date(date); // 有給休暇取得日を設定
+					// Departmentをデータベースに保存
+					service.insertPaidLeave(pl);
+				} else {
 
+					System.out.println("一致するレコードが見つかりませんでした");
+					//一致する社員コードが見つからなかった場合メッセージボックス実装予定
+				}
 
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof InvocationTargetException) {
+				Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
+				targetException.printStackTrace();
+			}
+		}
 
-
-    
-    
-    public EmployeeInfoDto convertToPaidLeave(EmployeeInfoDto EmployeeInfoDto) {
-    	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(service.selectDepAll().spliterator(), false)
-    		    .collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
-
-	    return new EmployeeInfoDto(
-	    		EmployeeInfoDto.getId(),
-	    		EmployeeInfoDto.getCode(),
-	    		EmployeeInfoDto.getJoin_date(),
-	    		EmployeeInfoDto.getHurigana_lastname(),
-	    		EmployeeInfoDto.getHurigana_firstname(),
-	    		EmployeeInfoDto.getLastname(),
-	    		EmployeeInfoDto.getFirstname(),
-	        departmentNumberToNameMap.get(EmployeeInfoDto.getDepartment_name()),
-	        EmployeeInfoDto.getWorking_days(),
-	        EmployeeInfoDto.getReference_date(),
-	        EmployeeInfoDto.getAnnual_paid_leave_report_date(),
-	        EmployeeInfoDto.getGranted_paid_leave_days(),
-	        EmployeeInfoDto.getRemaining_paid_leave_days()
-	    );
+		/*
+		 * 現在表示されている画面を閉じる
+		 */
+		Scene s = ((Node)event.getSource()).getScene();
+		Window window = s.getWindow();
+		window.hide();
 	}
 
-    
-    @FXML//全取得
-    void allBtn_OnClick(ActionEvent event) {
 
-    	Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
-    	System.out.println("PaidLeaveDtoList"+EmployeeInfoDtoList);
-//PaidLeaveDto型からPaidLeaveDtoへコンバート
-    	
-    	List<PaidLeaveDto> PaidLiaveList = new ArrayList<>();
-    	
-    	for (EmployeeInfoDto emp : EmployeeInfoDtoList) {
-		    //EmployeeInfoDto empDto = convertToPaidLeave(emp);
-		    PaidLeaveDto paid = new PaidLeaveDto(
-		    		emp.getId(),
-		    		emp.getCode(),
-		    		emp.getJoin_date(),
-		    		emp.getHurigana_lastname(),
-		    		emp.getHurigana_firstname(),
-		    		emp.getLastname(),
-		    		emp.getFirstname(),
-		    		emp.getDepartment_name(),
-		    		emp.getWorking_days(),
-		    		emp.getReference_date(),
-		    		emp.getRemaining_paid_leave_days(),
-		    		emp.getGranted_paid_leave_days(),
-		    		null);   //PaidLeaveDBから取得のためNullで登録
-		    PaidLiaveList.add(paid); // リストに要素を追加
-		    	
+
+	//取得したデータをテーブルに表示するメソッド
+	void setTableViewPaidLeaveDto(PaidLeaveDto emp) {
+		datatable.getItems().add(new PaidLeaveDto(
+				emp.getId(),
+				emp.getCode(),
+				emp.getJoin_date(),
+				emp.getHurigana_lastname(),
+				emp.getHurigana_firstname(),
+				emp.getLastname(),
+				emp.getFirstname(),
+				emp.getDepartment_name(),//
+				emp.getWorking_days(),
+				emp.getReference_date(),
+				emp.getGranted_paid_leave_days(),
+				emp.getRemaining_paid_leave_days(),
+				emp.getPaidLeave_date()
+				));
+	}
+
+
+	//やりたいことDBから取得した日付をすべてもってくる
+	// getPaidLeaveDateメソッドの実装
+	private List<Date> getPaidLeaveDates(Integer syaincode) {
+		List<Date> dates = new ArrayList<>();
+		Iterable<PaidLeave> paidLeaves = pl_repository.findAll();
+
+		for (PaidLeave paidLeave : paidLeaves) {
+			System.out.println("paidLeave!!!!"+paidLeave);
+			if (paidLeave.getCode().equals(syaincode.toString())) {
+				dates.add(paidLeave.getPaid_leave_date());
+				StringBuilder sb = new StringBuilder();
+				sb.append("Dates: ").append(dates);
+				System.out.println(sb.toString());
+			}
 		}
 
-        try {
-        	for(PaidLeaveDto paid : PaidLiaveList) {
-        		System.out.println(paid);
 
-        		// サンプルデータを1行追加
-        		setTableViewPaidLeaveDto(paid);
-        	}
+		return dates;
+
+
+	}
+
+
+	@FXML//全取得
+	void allBtn_OnClick(ActionEvent event) {
+
+		Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
+		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
+
+		System.out.println("PaidLeaveDtoList"+EmployeeInfoDtoList);
+
+		List<PaidLeaveDto> PaidLiaveList = new ArrayList<>();
+
+
+		for (EmployeeInfoDto emp : EmployeeInfoDtoList) {
+			//EmployeeInfoDto empDto = convertToPaidLeave(emp);
+			PaidLeaveDto paid = new PaidLeaveDto(
+					emp.getId(),
+					emp.getCode(),
+					emp.getJoin_date(),
+					emp.getHurigana_lastname(),
+					emp.getHurigana_firstname(),
+					emp.getLastname(),
+					emp.getFirstname(),
+					emp.getDepartment_name(),
+					emp.getWorking_days(),
+					emp.getReference_date(),
+					emp.getRemaining_paid_leave_days(),
+					emp.getGranted_paid_leave_days(),
+					null);   //PaidLeaveDBから取得のためNullで登録
+			
+			int plcnt = 0;
+			
+			for(PaidLeave pltmp : PaidLeaveList) {
+				if(pltmp.getCode().equals(emp.getCode())) {
+					paid.setPaidLeave_date(pltmp.getPaid_leave_date());
+					PaidLiaveList.add(paid); // リストに要素を追加
+					plcnt++;
+				}
+
+			}
+			
+			if(plcnt == 0) {
+				PaidLiaveList.add(paid); // リストに要素を追加
+			}
+
+		}
+
+		try {
+			for(PaidLeaveDto paid : PaidLiaveList) {
+				System.out.println("paid="+paid);
+
+				// サンプルデータを1行追加
+				setTableViewPaidLeaveDto(paid);
+
+
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			if (e.getCause() instanceof InvocationTargetException) {
@@ -451,15 +469,137 @@ Date date = null;
 				targetException.printStackTrace();
 			}
 		}
-    }
+	}
 
-    
 
-    
-    
+	//DepartmentDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
+	private Integer getDepartmentNumber(String departmentName) {
+		Iterable<Department> departments = service.getDepartment();
 
-   
-   
+		for (Department department : departments) {
+			if (department.getDepartment_name().equals(departmentName)) {
+				return department.getDepartment_number();
+			}
+		}
+
+		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
+	}
+
+	public String getTextAreaContent(TextArea textArea) {
+		String content = textArea.getText();
+		return (content == null || content.isEmpty()) ? null : content;
+	}
+
+
+
+	@FXML//複数の&&条件による検索
+	void kensaku_button_onClick(ActionEvent event) {
+
+		Date date = null;
+
+		Integer yearItem = year.getSelectionModel().getSelectedItem();
+		Integer monthItem = month.getSelectionModel().getSelectedItem();
+		Integer dayItem = day.getSelectionModel().getSelectedItem();
+
+
+
+		if(!(yearItem == null && monthItem == null && dayItem == null)) {
+
+
+
+			// コンボボックスの値から日付を作成
+			LocalDate selectedDate = LocalDate.of(year.getValue(), month.getValue(), day.getValue());
+			// java.sql.Dateに変換
+			date = Date.valueOf(selectedDate);
+		}
+
+
+		//部署名をDBで照らし合わせてDepartmentNumberを取得する
+		String selectedDepartment = department.getValue();
+		Integer departmentNumber = getDepartmentNumber(selectedDepartment);
+
+		try {
+
+
+
+
+
+			Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
+			System.out.println("PaidLeaveDtoList"+EmployeeInfoDtoList);
+
+			List<PaidLeaveDto> PaidLiaveList = new ArrayList<>();
+			for (EmployeeInfoDto emp : EmployeeInfoDtoList) {
+				//EmployeeInfoDto empDto = convertToPaidLeave(emp);
+				PaidLeaveDto paid = new PaidLeaveDto(
+						emp.getId(),
+						emp.getCode(),
+						emp.getJoin_date(),
+						emp.getHurigana_lastname(),
+						emp.getHurigana_firstname(),
+						emp.getLastname(),
+						emp.getFirstname(),
+						null,//表示の際にDBと照らし合わせるためNULLで登録
+						emp.getWorking_days(),
+						emp.getReference_date(),
+						emp.getRemaining_paid_leave_days(),
+						emp.getGranted_paid_leave_days(),
+						null);   //PaidLeaveDBから取得のためNullで登録
+
+				PaidLiaveList.add(paid); // リストに要素を追加
+
+			}
+
+			System.out.println("----------------------------------------------");
+			System.out.println(syaincode_ComboBox.getPromptText());
+			System.out.println(date);
+			System.out.println(firstname_text.getText());
+			System.out.println( lastname_text.getText());
+			System.out.println( firstname_hurigana_text.getText());
+			System.out.println(lastname_hurigana_text.getText());
+			System.out.println(year.getValue());
+			System.out.println(month.getValue());
+			System.out.println(day.getValue());
+			System.out.println(department.getValue());
+			System.out.println(departmentNumber);
+			System.out.println(working_days.getValue());
+			System.out.println("----------------------------------------------");
+
+
+			for(PaidLeaveDto paid : PaidLiaveList) {
+				System.out.println("paid!!!!!!="+paid);
+
+				// サンプルデータを1行追加
+				setTableViewPaidLeaveDto(paid);
+			}
+
+			/*
+			 * 現在表示されている画面を閉じる
+			 */
+			Scene s = ((Node)event.getSource()).getScene();
+			Window window = s.getWindow();
+			window.hide();
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/hitKensakuView.fxml"));
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("メインメニュー");
+			stage.show();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			if (e.getCause() instanceof InvocationTargetException) {
+				Throwable targetException = ((InvocationTargetException) e.getCause()).getTargetException();
+				targetException.printStackTrace();
+			}
+		}
+
+	}
+
+
+
+
+
+
 }
 
 
