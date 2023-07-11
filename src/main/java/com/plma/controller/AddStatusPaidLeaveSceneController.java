@@ -528,15 +528,15 @@ public class AddStatusPaidLeaveSceneController {
 			// java.sql.Dateに変換
 			date = Date.valueOf(selectedDate);
 		}
-		System.out.println("date!!!!!!"+date);//
+		
 
 		//部署名をDBで照らし合わせてDepartmentNumberを取得する
 		String selectedDepartment = department.getValue();
 		Integer departmentNumber = getDepartmentNumber(selectedDepartment);
-		System.out.println("syaincode_ComboBox.getPromptText()!!!!!!"+syaincode_ComboBox.getPromptText());//
+		System.out.println("syaincode_ComboBox.getEditor().getText()!!!!!!"+1);//"syaincode_ComboBoxがうまく取得できていない
 		
 		Iterable<EmployeeInfo> empInfo = service.findByEightParams(
-				syaincode_ComboBox.getPromptText(),//社員コード
+				syaincode_ComboBox.getSelectionModel().getSelectedItem(),//社員コード
 				date,//入社日
 				getTextAreaContent(firstname_hurigana_text),//名前ふりがな
 				getTextAreaContent(lastname_hurigana_text),//苗字ふりがな
@@ -545,7 +545,7 @@ public class AddStatusPaidLeaveSceneController {
 				departmentNumber,    //部署名      		
 				working_days.getValue());
 		System.out.println("----------------------------------------------");
-		System.out.println(syaincode_ComboBox.getPromptText());
+		System.out.println(syaincode_ComboBox.getEditor().getText());
 		System.out.println(date);
 		System.out.println(firstname_text.getText());
 		System.out.println( lastname_text.getText());

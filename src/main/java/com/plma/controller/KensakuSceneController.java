@@ -253,7 +253,7 @@ public class KensakuSceneController {
 
 
 			Iterable<EmployeeInfo> searchResults = service.findByEightParams(
-					syaincode_ComboBox.getPromptText(),//社員コード
+					syaincode_ComboBox.getSelectionModel().getSelectedItem(),//社員コード
 					date,//入社日
 					getTextAreaContent(firstname_hurigana_text),//名前ふりがな
 					getTextAreaContent(lastname_hurigana_text),//苗字ふりがな
