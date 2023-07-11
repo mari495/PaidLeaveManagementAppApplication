@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfoDto;
@@ -37,6 +38,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+
+@Controller
 public class ViewPaidVacationExpiryDateController {
 	@Autowired
 	private SpringFXMLLoader fxmlLoader;
@@ -48,7 +51,6 @@ public class ViewPaidVacationExpiryDateController {
 	@Autowired
 	SharedData sd;
 	
-	@Autowired
 	EmployeeInfoDto employeeInfoDto;
 	
 

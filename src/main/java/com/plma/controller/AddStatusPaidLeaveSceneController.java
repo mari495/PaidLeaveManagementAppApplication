@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.Department;
+import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.entity.EmployeeInfoDto;
 import com.plma.model.entity.PaidLeave;
 import com.plma.model.entity.PaidLeaveDto;
@@ -414,9 +415,9 @@ public class AddStatusPaidLeaveSceneController {
 		Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
 		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
 
-		System.out.println("PaidLeaveDtoList"+EmployeeInfoDtoList);
+		System.out.println("EmployeeInfoDtoList"+EmployeeInfoDtoList);
 
-		List<PaidLeaveDto> PaidLiaveList = new ArrayList<>();
+		List<PaidLeaveDto> PaidLiaveDtoList = new ArrayList<>();
 
 
 		for (EmployeeInfoDto emp : EmployeeInfoDtoList) {
@@ -435,26 +436,26 @@ public class AddStatusPaidLeaveSceneController {
 					emp.getRemaining_paid_leave_days(),
 					emp.getGranted_paid_leave_days(),
 					null);   //PaidLeaveDBから取得のためNullで登録
-			
+
 			int plcnt = 0;
-			
+
 			for(PaidLeave pltmp : PaidLeaveList) {
 				if(pltmp.getCode().equals(emp.getCode())) {
 					paid.setPaidLeave_date(pltmp.getPaid_leave_date());
-					PaidLiaveList.add(paid); // リストに要素を追加
+					PaidLiaveDtoList.add(paid); // リストに要素を追加
 					plcnt++;
 				}
 
 			}
-			
+
 			if(plcnt == 0) {
-				PaidLiaveList.add(paid); // リストに要素を追加
+				PaidLiaveDtoList.add(paid); // リストに要素を追加
 			}
 
 		}
 
 		try {
-			for(PaidLeaveDto paid : PaidLiaveList) {
+			for(PaidLeaveDto paid : PaidLiaveDtoList) {
 				System.out.println("paid="+paid);
 
 				// サンプルデータを1行追加
@@ -485,6 +486,19 @@ public class AddStatusPaidLeaveSceneController {
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
 
+	
+	private String getDepartmentName(Integer departmentNumber) {
+	    Iterable<Department> departments = service.getDepartment();
+
+	    for (Department department : departments) {
+	        if (department.getDepartment_number().equals(departmentNumber)) {
+	            return department.getDepartment_name();
+	        }
+	    }
+
+	    return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
+	}
+	
 	public String getTextAreaContent(TextArea textArea) {
 		String content = textArea.getText();
 		return (content == null || content.isEmpty()) ? null : content;
@@ -492,6 +506,7 @@ public class AddStatusPaidLeaveSceneController {
 
 
 
+	
 	@FXML//複数の&&条件による検索
 	void kensaku_button_onClick(ActionEvent event) {
 
@@ -500,7 +515,8 @@ public class AddStatusPaidLeaveSceneController {
 		Integer yearItem = year.getSelectionModel().getSelectedItem();
 		Integer monthItem = month.getSelectionModel().getSelectedItem();
 		Integer dayItem = day.getSelectionModel().getSelectedItem();
-
+//textBoxがブランクだったらnullを渡す
+		
 
 
 		if(!(yearItem == null && monthItem == null && dayItem == null)) {
@@ -512,79 +528,96 @@ public class AddStatusPaidLeaveSceneController {
 			// java.sql.Dateに変換
 			date = Date.valueOf(selectedDate);
 		}
-
+		System.out.println("date!!!!!!"+date);//
 
 		//部署名をDBで照らし合わせてDepartmentNumberを取得する
 		String selectedDepartment = department.getValue();
 		Integer departmentNumber = getDepartmentNumber(selectedDepartment);
+		System.out.println("syaincode_ComboBox.getPromptText()!!!!!!"+syaincode_ComboBox.getPromptText());//
+		
+		Iterable<EmployeeInfo> empInfo = service.findByEightParams(
+				syaincode_ComboBox.getPromptText(),//社員コード
+				date,//入社日
+				getTextAreaContent(firstname_hurigana_text),//名前ふりがな
+				getTextAreaContent(lastname_hurigana_text),//苗字ふりがな
+				getTextAreaContent(firstname_text),//名前
+				getTextAreaContent(lastname_text),//苗字
+				departmentNumber,    //部署名      		
+				working_days.getValue());
+		System.out.println("----------------------------------------------");
+		System.out.println(syaincode_ComboBox.getPromptText());
+		System.out.println(date);
+		System.out.println(firstname_text.getText());
+		System.out.println( lastname_text.getText());
+		System.out.println( firstname_hurigana_text.getText());
+		System.out.println(lastname_hurigana_text.getText());
+		System.out.println(year.getValue());
+		System.out.println(month.getValue());
+		System.out.println(day.getValue());
+		System.out.println(department.getValue());
+		System.out.println(departmentNumber);
+		System.out.println(working_days.getValue());
+		System.out.println("----------------------------------------------");
 
-		try {
+		System.out.println("EmployeeInfo"+empInfo);//
+		//Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
+		
+		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
+		List<PaidLeaveDto> PaidLiaveDtoList = new ArrayList<>();
+		
+		//String departmentname=getDepartmentNumber(selectedDepartment);
+		
+		//EmployeeInfoの情報を
+		for (EmployeeInfo emp : empInfo) {
+			System.out.println("EmployeeInfo"+empInfo);//
+			
+			String dptmname = getDepartmentName(emp.getDepartment_number());
+			
+			PaidLeaveDto paid = new PaidLeaveDto(
+					emp.getId(),
+					emp.getCode(),
+					emp.getJoin_date(),
+					emp.getHurigana_lastname(),
+					emp.getHurigana_firstname(),
+					emp.getLastname(),
+					emp.getFirstname(),
+					dptmname,//departmentnameDBからDepartmentNunberと一致するDepartmentNameを取得
+					emp.getWorking_days(),
+					emp.getReference_date(),
+					emp.getRemaining_paid_leave_days(),
+					emp.getGranted_paid_leave_days(),
+					null);   //PaidLeaveDBから取得のためNullで登録
+		    		
+			
+			
 
+			int plcnt = 0;
 
-
-
-
-			Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
-			System.out.println("PaidLeaveDtoList"+EmployeeInfoDtoList);
-
-			List<PaidLeaveDto> PaidLiaveList = new ArrayList<>();
-			for (EmployeeInfoDto emp : EmployeeInfoDtoList) {
-				//EmployeeInfoDto empDto = convertToPaidLeave(emp);
-				PaidLeaveDto paid = new PaidLeaveDto(
-						emp.getId(),
-						emp.getCode(),
-						emp.getJoin_date(),
-						emp.getHurigana_lastname(),
-						emp.getHurigana_firstname(),
-						emp.getLastname(),
-						emp.getFirstname(),
-						null,//表示の際にDBと照らし合わせるためNULLで登録
-						emp.getWorking_days(),
-						emp.getReference_date(),
-						emp.getRemaining_paid_leave_days(),
-						emp.getGranted_paid_leave_days(),
-						null);   //PaidLeaveDBから取得のためNullで登録
-
-				PaidLiaveList.add(paid); // リストに要素を追加
+			for(PaidLeave pltmp : PaidLeaveList) {
+				if(pltmp.getCode().equals(emp.getCode())) {
+					paid.setPaidLeave_date(pltmp.getPaid_leave_date());
+					
+					PaidLiaveDtoList.add(paid); // リストに要素を追加
+					plcnt++;
+				}
 
 			}
 
-			System.out.println("----------------------------------------------");
-			System.out.println(syaincode_ComboBox.getPromptText());
-			System.out.println(date);
-			System.out.println(firstname_text.getText());
-			System.out.println( lastname_text.getText());
-			System.out.println( firstname_hurigana_text.getText());
-			System.out.println(lastname_hurigana_text.getText());
-			System.out.println(year.getValue());
-			System.out.println(month.getValue());
-			System.out.println(day.getValue());
-			System.out.println(department.getValue());
-			System.out.println(departmentNumber);
-			System.out.println(working_days.getValue());
-			System.out.println("----------------------------------------------");
+			if(plcnt == 0) {
+				PaidLiaveDtoList.add(paid); // リストに要素を追加
+			}
 
+		}
 
-			for(PaidLeaveDto paid : PaidLiaveList) {
-				System.out.println("paid!!!!!!="+paid);
+		try {
+			for(PaidLeaveDto paid : PaidLiaveDtoList) {
+				System.out.println("paid="+paid);
 
 				// サンプルデータを1行追加
 				setTableViewPaidLeaveDto(paid);
+
+
 			}
-
-			/*
-			 * 現在表示されている画面を閉じる
-			 */
-			Scene s = ((Node)event.getSource()).getScene();
-			Window window = s.getWindow();
-			window.hide();
-			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/hitKensakuView.fxml"));
-			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.setTitle("メインメニュー");
-			stage.show();
-
 		}catch(Exception e) {
 			e.printStackTrace();
 			if (e.getCause() instanceof InvocationTargetException) {
@@ -592,7 +625,6 @@ public class AddStatusPaidLeaveSceneController {
 				targetException.printStackTrace();
 			}
 		}
-
 	}
 
 
