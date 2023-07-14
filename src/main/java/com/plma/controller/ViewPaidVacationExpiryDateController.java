@@ -41,6 +41,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -130,6 +131,8 @@ public class ViewPaidVacationExpiryDateController {
 	private Button kensaku_button;
 
 	private String approach;//ViewApproachInfomationControllerから受け取った情報を入れる
+	
+	//String alertMessage;
 
 	@FXML
 	void initialize() {
@@ -170,12 +173,15 @@ public class ViewPaidVacationExpiryDateController {
 		Expiry_date.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, Date>("Expiry_date"));
 		Alert.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, String>("Alert"));
 
+		
+		
+		
 		//ComboBoxへ値を登録
 		approach_Infomation_ComboBox.getItems().addAll("１か月切っています", "３か月切っています", "６か月切っています", "全件取得");
 
 
 	}
-
+	
 
 	//選択された文字情報を受け取るためのメソッド
 	//public void setApproach(String approach) {
@@ -185,6 +191,7 @@ public class ViewPaidVacationExpiryDateController {
 
 
 	void setTableViewEmployeeInfoDto(EmployeeInfoDto2 emp) {
+		String alertMessage;
 		approach=approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
 		System.out.println("approach!!!!!!!!!!!!!!!!!"+approach);
 		if (this.approach != null) {
@@ -201,7 +208,7 @@ public class ViewPaidVacationExpiryDateController {
 			/////////////////////////////////////////////////////////////////      
 			LocalDate currentDate = LocalDate.now(); // 現在の日付
 			long monthsUntilExpiry = ChronoUnit.MONTHS.between(currentDate, expiryDate); // 当日と消滅日の月数の差
-			String alertMessage;
+			//String alertMessage;
 			if (monthsUntilExpiry < 1) {
 				alertMessage = "１か月切っています";
 			} else if (monthsUntilExpiry < 3) {
@@ -282,7 +289,7 @@ public class ViewPaidVacationExpiryDateController {
 				}
 			} else if (approach.equals("６か月切っています")) {
 				if (alertMessage.equals("６か月切っています")) {
-					System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+					
 					// ６か月切っている場合の処理
 					datatable.getItems().add(new EmployeeInfoDto2(
 							emp.getId(),
@@ -304,6 +311,35 @@ public class ViewPaidVacationExpiryDateController {
 							));
 				}
 			}
+			
+			//バグ発生中！！
+			//setRowFactoryメソッドを呼び出して、行ファクトリーを設定
+			datatable.setRowFactory(tv -> {
+				
+				//TableRow<EmployeeInfoDto2> row = new TableRow<>();：新しい行オブジェクトを作成し、rowという変数に割り当て
+			    TableRow<EmployeeInfoDto2> row = new TableRow<>();
+			    //行のitemProperty（アイテムプロパティ）にリスナーを追加します。これにより、行のアイテムが変更されたときに呼び出されるコードが指定
+			    row.itemProperty().addListener((obs, prevItem, currItem) -> {
+			    	//現在のアイテムがnullでない場合に処理を実行
+			        if (currItem != null) {
+			            
+			                if ("１か月切っています".equals(alertMessage)) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			                    row.setStyle("-fx-background-color: red;");
+			                } else if ("３か月切っています".equals(alertMessage)) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			                    row.setStyle("-fx-background-color: orange;");
+			                } else if ("６か月切っています".equals(alertMessage)) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			                    row.setStyle("-fx-background-color: yellow;");
+			                } else {
+			                    row.setStyle(""); // スタイルをリセットする場合
+			                }
+			            
+			        }
+			    });
+			    return row;
+			});
 		}
 
 	}
@@ -344,24 +380,8 @@ public class ViewPaidVacationExpiryDateController {
 		}
 
 		for (EmployeeInfoDto2 empDto2 : resultDtoList) {
-			//取得されているかの確認OK！
-			System.out.println("empDto2"+empDto2);
-			System.out.println("ID: " + empDto2.getId());
-			System.out.println("Code: " + empDto2.getCode());
-			System.out.println("Join Date: " + empDto2.getJoin_date());
-			System.out.println("Hurigana Lastname: " + empDto2.getHurigana_lastname());
-			System.out.println("Hurigana Firstname: " + empDto2.getHurigana_firstname());
-			System.out.println("Lastname: " + empDto2.getLastname());
-			System.out.println("Firstname: " + empDto2.getFirstname());
-			System.out.println("Department Name: " + empDto2.getDepartment_name());
-			System.out.println("Working Days: " + empDto2.getWorking_days());
-			System.out.println("Reference Date: " + empDto2.getReference_date());
-			System.out.println("Annual Paid Leave Report Date: " + empDto2.getAnnual_paid_leave_report_date());
-			System.out.println("Granted Paid Leave Days: " + empDto2.getGranted_paid_leave_days());
-			System.out.println("Remaining Paid Leave Days: " + empDto2.getRemaining_paid_leave_days());
-			System.out.println("Number of Days Used: " + empDto2.getNumber_of_days_used());
-			System.out.println("Expiry Date: " + empDto2.getExpiry_date());
-			System.out.println("Alert Message: " + empDto2.getAlert());
+			
+			
 			
 			setTableViewEmployeeInfoDto(empDto2);
 		}
