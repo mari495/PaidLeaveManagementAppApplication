@@ -10,15 +10,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.AddStatusPaidLeaveSceneController">
    <children>
-      <Label layoutX="295.0" layoutY="486.0" prefHeight="17.0" prefWidth="17.0" text="月" />
-      <Label layoutX="178.0" layoutY="486.0" prefHeight="17.0" prefWidth="17.0" text="年" />
-      <Button fx:id="menu_button" layoutX="994.0" layoutY="488.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="32.0" prefWidth="87.0" text="メニュー" />
-      <Button fx:id="add_button" layoutX="441.0" layoutY="479.0" mnemonicParsing="false" onAction="#addNumber_of_days_usedOnClick" prefHeight="32.0" prefWidth="87.0" text="登録" />
-      <Button fx:id="all_button" layoutX="30.0" layoutY="248.0" mnemonicParsing="false" onAction="#allBtn_OnClick" prefHeight="32.0" prefWidth="87.0" text="全データ検索" />
-      <Label layoutX="405.0" layoutY="486.0" prefHeight="17.0" prefWidth="17.0" text="日" />
-      <ComboBox fx:id="Addyear" layoutX="90.0" layoutY="482.0" prefHeight="25.0" prefWidth="75.0" />
-      <ComboBox fx:id="Addmonth" layoutX="202.0" layoutY="482.0" prefHeight="25.0" prefWidth="75.0" />
-      <ComboBox fx:id="Addday" layoutX="316.0" layoutY="482.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label layoutX="432.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="月" />
+      <Label layoutX="277.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="年" />
+      <Button fx:id="menu_button" layoutX="978.0" layoutY="495.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="32.0" prefWidth="115.0" text="メニュー" />
+      <Button fx:id="add_button" layoutX="673.0" layoutY="495.0" mnemonicParsing="false" onAction="#addNumber_of_days_usedOnClick" prefHeight="32.0" prefWidth="147.0" text="有給休暇取得日登録" />
+      <Button fx:id="all_button" layoutX="813.0" layoutY="346.0" mnemonicParsing="false" onAction="#allBtn_OnClick" prefHeight="32.0" prefWidth="115.0" text="全データ検索" />
+      <Label layoutX="578.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="日" />
+      <ComboBox fx:id="Addyear" layoutX="151.0" layoutY="498.0" prefHeight="25.0" prefWidth="115.0" />
+      <ComboBox fx:id="Addmonth" layoutX="304.0" layoutY="498.0" prefHeight="25.0" prefWidth="115.0" />
+      <ComboBox fx:id="Addday" layoutX="457.0" layoutY="498.0" prefHeight="25.0" prefWidth="103.0" />
       <TableView fx:id="datatable" layoutX="25.0" layoutY="21.0" prefHeight="211.0" prefWidth="1087.0">
          <columns>
             <TableColumn fx:id="id_col" prefWidth="50.00000190734863" text="登録ID" />
@@ -36,28 +36,28 @@
             <TableColumn fx:id="paid_leave_date_col" prefWidth="99.33331298828125" text="休暇取得日" />
          </columns>
       </TableView>
-      <ComboBox fx:id="syaincode_ComboBox" layoutX="414.0" layoutY="243.0" prefHeight="25.0" prefWidth="115.0" />
-      <TextArea id="name_textArea" fx:id="lastname_text" layoutX="416.0" layoutY="272.0" prefHeight="40.0" prefWidth="115.0" />
-      <TextArea id="name_textArea" fx:id="firstname_text" layoutX="562.0" layoutY="270.0" prefHeight="40.0" prefWidth="115.0" />
-      <TextArea id="name_textArea" fx:id="lastname_hurigana_text" layoutX="416.0" layoutY="312.0" prefHeight="40.0" prefWidth="115.0" />
-      <TextArea id="name_textArea" fx:id="firstname_hurigana_text" layoutX="562.0" layoutY="312.0" prefHeight="40.0" prefWidth="115.0" />
-      <ComboBox fx:id="year" layoutX="414.0" layoutY="362.0" prefHeight="27.0" prefWidth="115.0" />
-      <ComboBox fx:id="month" layoutX="561.0" layoutY="363.0" prefHeight="24.0" prefWidth="115.0" />
-      <ComboBox fx:id="day" layoutX="707.0" layoutY="365.0" prefHeight="25.0" prefWidth="103.0" />
-      <ComboBox fx:id="department" layoutX="414.0" layoutY="394.0" prefHeight="25.0" prefWidth="115.0" />
-      <ComboBox fx:id="working_days" layoutX="561.0" layoutY="393.0" prefHeight="27.0" prefWidth="115.0" />
-      <Button fx:id="kensaku_button" layoutX="709.0" layoutY="243.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="82.0" text="検索" />
-      <Label layoutX="30.0" layoutY="445.0" prefHeight="17.0" prefWidth="641.0" text="社員コードを左のテキストボックスに入力し、有給休暇取得日をプルダウンより選択し、登録ボタンを押してください" />
-      <TextArea id="name_textArea" fx:id="codeBox" layoutX="30.0" layoutY="473.0" prefHeight="32.0" prefWidth="31.0" />
-      <Label layoutX="32.0" layoutY="437.0" prefHeight="17.0" prefWidth="1075.0" text="---------------------------------------------------------------------------------ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー" />
-      <Label layoutX="346.0" layoutY="247.0" prefHeight="17.0" prefWidth="57.0" text="社員コード" />
-      <Label layoutX="706.0" layoutY="231.0" prefHeight="17.0" prefWidth="87.0" text="複数条件で検索" />
-      <Label layoutX="30.0" layoutY="234.0" prefHeight="17.0" prefWidth="87.0" text="全件取得" />
-      <Label layoutX="325.0" layoutY="282.0" prefHeight="17.0" prefWidth="82.0" text="名前（姓・名）" />
-      <Label layoutX="304.0" layoutY="323.0" prefHeight="17.0" prefWidth="103.0" text="読み仮名（姓・名）" />
-      <Label layoutX="354.0" layoutY="367.0" prefHeight="17.0" prefWidth="42.0" text="入社日" />
-      <Label layoutX="533.0" layoutY="367.0" prefHeight="17.0" prefWidth="17.0" text="年" />
-      <Label layoutX="679.0" layoutY="367.0" prefHeight="17.0" prefWidth="17.0" text="月" />
-      <Label layoutX="825.0" layoutY="367.0" prefHeight="17.0" prefWidth="17.0" text="日" />
+      <ComboBox fx:id="syaincode_ComboBox" layoutX="151.0" layoutY="243.0" prefHeight="25.0" prefWidth="115.0" />
+      <TextArea id="name_textArea" fx:id="lastname_text" layoutX="151.0" layoutY="278.0" prefHeight="40.0" prefWidth="115.0" />
+      <TextArea id="name_textArea" fx:id="firstname_text" layoutX="304.0" layoutY="278.0" prefHeight="40.0" prefWidth="115.0" />
+      <TextArea id="name_textArea" fx:id="lastname_hurigana_text" layoutX="151.0" layoutY="322.0" prefHeight="40.0" prefWidth="115.0" />
+      <TextArea id="name_textArea" fx:id="firstname_hurigana_text" layoutX="304.0" layoutY="322.0" prefHeight="40.0" prefWidth="115.0" />
+      <ComboBox fx:id="year" layoutX="151.0" layoutY="370.0" prefHeight="27.0" prefWidth="115.0" />
+      <ComboBox fx:id="month" layoutX="304.0" layoutY="371.0" prefHeight="24.0" prefWidth="115.0" />
+      <ComboBox fx:id="day" layoutX="457.0" layoutY="369.0" prefHeight="25.0" prefWidth="103.0" />
+      <ComboBox fx:id="department" layoutX="151.0" layoutY="402.0" prefHeight="25.0" prefWidth="115.0" />
+      <ComboBox fx:id="working_days" layoutX="151.0" layoutY="436.0" prefHeight="27.0" prefWidth="115.0" />
+      <Button fx:id="kensaku_button" layoutX="659.0" layoutY="349.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="115.0" text="検索" />
+      <Label layoutX="41.0" layoutY="463.0" prefHeight="17.0" prefWidth="641.0" text="社員コードを左のテキストボックスに入力し、有給休暇取得日をプルダウンより選択し、登録ボタンを押してください" />
+      <TextArea id="name_textArea" fx:id="codeBox" layoutX="84.0" layoutY="491.0" prefHeight="32.0" prefWidth="31.0" />
+      <Label layoutX="76.0" layoutY="247.0" prefHeight="17.0" prefWidth="57.0" text="社員コード" />
+      <Label layoutX="659.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="複数条件で検索" />
+      <Label layoutX="56.0" layoutY="289.0" prefHeight="17.0" prefWidth="82.0" text="名前（姓・名）" />
+      <Label layoutX="34.0" layoutY="333.0" prefHeight="17.0" prefWidth="103.0" text="読み仮名（姓・名）" />
+      <Label layoutX="89.0" layoutY="375.0" prefHeight="17.0" prefWidth="42.0" text="入社日" />
+      <Label layoutX="286.0" layoutY="379.0" prefHeight="17.0" prefWidth="17.0" text="年" />
+      <Label layoutX="432.0" layoutY="370.0" prefHeight="17.0" prefWidth="17.0" text="月" />
+      <Label layoutX="578.0" layoutY="375.0" prefHeight="17.0" prefWidth="17.0" text="日" />
+      <Label layoutX="89.0" layoutY="398.0" prefHeight="17.0" prefWidth="42.0" text="入社日" />
+      <Label layoutX="806.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="全件取得" />
    </children>
 </AnchorPane>

@@ -15,7 +15,6 @@ import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
 import com.plma.model.shareddata.SharedData;
 
-//import ch.qos.logback.core.pattern.parser.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
