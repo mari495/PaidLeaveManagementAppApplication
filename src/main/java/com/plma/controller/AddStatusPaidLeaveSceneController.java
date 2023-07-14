@@ -411,6 +411,8 @@ public class AddStatusPaidLeaveSceneController {
 
 	@FXML//全取得
 	void allBtn_OnClick(ActionEvent event) {
+		//表をクリア
+		datatable.getItems().clear();
 
 		Iterable<EmployeeInfoDto> EmployeeInfoDtoList = service.getAllEmployeeInfoDto();
 		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
@@ -509,6 +511,8 @@ public class AddStatusPaidLeaveSceneController {
 	
 	@FXML//複数の&&条件による検索
 	void kensaku_button_onClick(ActionEvent event) {
+		//表をクリア
+		datatable.getItems().clear();
 
 		Date date = null;
 

@@ -171,7 +171,7 @@ public class ViewPaidVacationExpiryDateController {
 		Alert.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, String>("Alert"));
 
 		//ComboBoxへ値を登録
-		approach_Infomation_ComboBox.getItems().addAll("１か月切っています", "３か月切っています", "６か月切っています");
+		approach_Infomation_ComboBox.getItems().addAll("１か月切っています", "３か月切っています", "６か月切っています", "全件取得");
 
 
 	}
@@ -212,7 +212,27 @@ public class ViewPaidVacationExpiryDateController {
 				alertMessage = ""; // 条件に合致しない場合は空文字を設定するなど適宜処理を追加してください
 			}
 			////////////////////////////////////////////////////////////////ビューしたあとに、絞る処理を入れるできなければビューする前に入れる
-			//選択された文字情報の利用
+			if (approach.equals("全件取得") && (alertMessage.equals("１か月切っています") || alertMessage.equals("３か月切っています") || alertMessage.equals("６か月切っています"))) {
+			    System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			    datatable.getItems().add(new EmployeeInfoDto2(
+			        emp.getId(),
+			        emp.getCode(),
+			        emp.getJoin_date(),
+			        emp.getHurigana_lastname(),
+			        emp.getHurigana_firstname(),
+			        emp.getLastname(),
+			        emp.getFirstname(),
+			        emp.getDepartment_name(),
+			        emp.getWorking_days(),  // 所定労働日数
+			        emp.getReference_date(),  // 基準日（有給発生日入社から１年６か月後）
+			        emp.getAnnual_paid_leave_report_date(),  // 年休簿作成日
+			        emp.getGranted_paid_leave_days(),  // 有給休暇付与日数
+			        emp.getRemaining_paid_leave_days(),  // 有給休暇残数
+			        Number_of_days_used,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+			        Date.valueOf(expiryDateString),  // 消滅日（基準日からに二年後）
+			        alertMessage  // 有給接近情報アラート
+			    ));
+			}
 			if (approach.equals("１か月切っています")) {
 				if (alertMessage.equals("１か月切っています")) {
 					// １か月切っている場合の処理
@@ -291,6 +311,8 @@ public class ViewPaidVacationExpiryDateController {
 
 	@FXML
 	void Kensaku_button_onClick(ActionEvent event) {
+		
+		datatable.getItems().clear();
 		//ComboBoxから値を取り出して変数へ保存
 		//DBから
 		Iterable<EmployeeInfo> result = service.selectAll();;//全データ抽出各columnに入れていく
