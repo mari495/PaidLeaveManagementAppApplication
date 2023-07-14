@@ -613,7 +613,7 @@ public class AddStatusPaidLeaveSceneController {
 			for(PaidLeaveDto paid : PaidLiaveDtoList) {
 				System.out.println("paid="+paid);
 
-				// サンプルデータを1行追加
+				
 				setTableViewPaidLeaveDto(paid);
 
 
