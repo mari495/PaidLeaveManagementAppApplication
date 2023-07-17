@@ -258,7 +258,7 @@ public class AddStatusPaidLeaveSceneController {
 			working_days.getItems().add(Integer.valueOf(y));
 		}
 
-		for(int syaincode = 1; syaincode < 100; syaincode++) {
+		for(int syaincode = 100; syaincode < 201; syaincode++) {
 			syaincode_ComboBox.getItems().add(Integer.toString(syaincode));
 		}
 
@@ -356,12 +356,7 @@ public class AddStatusPaidLeaveSceneController {
 			}
 		}
 
-		/*
-		 * 現在表示されている画面を閉じる
-		 */
-		Scene s = ((Node)event.getSource()).getScene();
-		Window window = s.getWindow();
-		window.hide();
+		
 	}
 
 
@@ -537,7 +532,7 @@ public class AddStatusPaidLeaveSceneController {
 		//部署名をDBで照らし合わせてDepartmentNumberを取得する
 		String selectedDepartment = department.getValue();
 		Integer departmentNumber = getDepartmentNumber(selectedDepartment);
-		System.out.println("syaincode_ComboBox.getEditor().getText()!!!!!!"+1);//"syaincode_ComboBoxがうまく取得できていない
+		
 		
 		Iterable<EmployeeInfo> empInfo = service.findByEightParams(
 				syaincode_ComboBox.getSelectionModel().getSelectedItem(),//社員コード

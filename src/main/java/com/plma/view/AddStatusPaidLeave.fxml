@@ -44,8 +44,8 @@
       <ComboBox fx:id="year" layoutX="151.0" layoutY="370.0" prefHeight="27.0" prefWidth="115.0" />
       <ComboBox fx:id="month" layoutX="304.0" layoutY="371.0" prefHeight="24.0" prefWidth="115.0" />
       <ComboBox fx:id="day" layoutX="457.0" layoutY="369.0" prefHeight="25.0" prefWidth="103.0" />
-      <ComboBox fx:id="department" layoutX="151.0" layoutY="402.0" prefHeight="25.0" prefWidth="115.0" />
-      <ComboBox fx:id="working_days" layoutX="151.0" layoutY="436.0" prefHeight="27.0" prefWidth="115.0" />
+      <ComboBox fx:id="department" layoutX="151.0" layoutY="437.0" prefHeight="25.0" prefWidth="115.0" />
+      <ComboBox fx:id="working_days" layoutX="151.0" layoutY="404.0" prefHeight="27.0" prefWidth="115.0" />
       <Button fx:id="kensaku_button" layoutX="659.0" layoutY="349.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="115.0" text="検索" />
       <Label layoutX="41.0" layoutY="463.0" prefHeight="17.0" prefWidth="641.0" text="社員コードを左のテキストボックスに入力し、有給休暇取得日をプルダウンより選択し、登録ボタンを押してください" />
       <TextArea id="name_textArea" fx:id="codeBox" layoutX="84.0" layoutY="491.0" prefHeight="32.0" prefWidth="31.0" />
@@ -57,7 +57,8 @@
       <Label layoutX="286.0" layoutY="379.0" prefHeight="17.0" prefWidth="17.0" text="年" />
       <Label layoutX="432.0" layoutY="370.0" prefHeight="17.0" prefWidth="17.0" text="月" />
       <Label layoutX="578.0" layoutY="375.0" prefHeight="17.0" prefWidth="17.0" text="日" />
-      <Label layoutX="89.0" layoutY="398.0" prefHeight="17.0" prefWidth="42.0" text="入社日" />
+      <Label layoutX="59.0" layoutY="404.0" prefHeight="17.0" prefWidth="75.0" text="所定労働日数" />
       <Label layoutX="806.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="全件取得" />
+      <Label layoutX="89.0" layoutY="441.0" prefHeight="17.0" prefWidth="42.0" text="部署名" />
    </children>
 </AnchorPane>
