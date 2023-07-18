@@ -193,7 +193,7 @@ public class ViewPaidVacationExpiryDateController {
 	void setTableViewEmployeeInfoDto(EmployeeInfoDto2 emp) {
 		String alertMessage;
 		approach=approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
-		System.out.println("approach!!!!!!!!!!!!!!!!!"+approach);
+		System.out.println("approach"+approach);
 		if (this.approach != null) {
 			//////////////////////////////////////////////////////////////////
 			LocalDate referenceDate = emp.getReference_date().toLocalDate(); // 基準日の取得
@@ -220,7 +220,7 @@ public class ViewPaidVacationExpiryDateController {
 			}
 			////////////////////////////////////////////////////////////////ビューしたあとに、絞る処理を入れるできなければビューする前に入れる
 			if (approach.equals("全件取得") && (alertMessage.equals("１か月切っています") || alertMessage.equals("３か月切っています") || alertMessage.equals("６か月切っています"))) {
-			    System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			    System.out.println("alertMessage"+alertMessage);
 			    datatable.getItems().add(new EmployeeInfoDto2(
 			        emp.getId(),
 			        emp.getCode(),
@@ -244,7 +244,7 @@ public class ViewPaidVacationExpiryDateController {
 				if (alertMessage.equals("１か月切っています")) {
 					// １か月切っている場合の処理
 					
-					System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+					System.out.println("alertMessage"+alertMessage);
 					datatable.getItems().add(new EmployeeInfoDto2(
 							emp.getId(),
 							emp.getCode(),
@@ -266,7 +266,7 @@ public class ViewPaidVacationExpiryDateController {
 				}
 			} else if (approach.equals("３か月切っています")) {
 				if (alertMessage.equals("３か月切っています")) {
-					System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+					System.out.println("alertMessage"+alertMessage);
 					// ３か月切っている場合の処理
 					datatable.getItems().add(new EmployeeInfoDto2(
 							emp.getId(),
@@ -387,18 +387,6 @@ public class ViewPaidVacationExpiryDateController {
 		}
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

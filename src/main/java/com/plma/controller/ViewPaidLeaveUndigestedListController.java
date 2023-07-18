@@ -181,9 +181,54 @@ public class ViewPaidLeaveUndigestedListController{
 		}
 	}
 	
+	private boolean isDuplicateNameRow(PaidLeaveDto paidLeaveDto) {
+	    String lastname = paidLeaveDto.getLastname();
+	    String firstname = paidLeaveDto.getFirstname();
+
+	    for (PaidLeaveDto row : datatable.getItems()) {
+	        if (row.getLastname().equals(lastname) && row.getFirstname().equals(firstname)) {
+	            return true;
+	        }
+	    }
+
+	    return false;
+	}
+
+private int calculateRequiredRows(String approach) {
+    int requiredRows = 0;
+
+    switch (approach) {
+        case "２日間":
+            requiredRows = 2;
+            break;
+        case "３日間":
+            requiredRows = 3;
+            break;
+        case "４日間":
+            requiredRows = 4;
+            break;
+        case "５日間":
+            requiredRows = 5;
+            break;
+        case "全件取得":
+            requiredRows = -1; // 全件取得の場合は-1を指定
+            break;
+        default:
+            break;
+    }
+
+    return requiredRows;
+}
+
 
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto(PaidLeaveDto emp) {
+		// 同じ名前の行が1行しかない場合のみ表示する
+		//if (approach.equals("１日間") && isDuplicateNameRow(emp)) {
+		   // return;
+		//}
+		
+		
 		datatable.getItems().add(new PaidLeaveDto(
 				emp.getId(),
 				emp.getCode(),
@@ -200,10 +245,83 @@ public class ViewPaidLeaveUndigestedListController{
 				emp.getPaidLeave_date()
 				));
 	}
-	
-
-	@FXML//全取得
+	@FXML
 	void kensaku_button_onClick(ActionEvent event) {
+	    approach = approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
+	    System.out.println("approach: " + approach);
+
+	    // 表をクリア
+	    datatable.getItems().clear();
+
+	    Iterable<EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
+	    Iterable<PaidLeave> paidLeaveList = pl_repository.findAll();
+
+	    List<PaidLeaveDto> paidLeaveDtoList = new ArrayList<>();
+
+	    int requiredRows = calculateRequiredRows(approach);
+
+	    if (requiredRows >= 0) {
+	        for (EmployeeInfoDto emp : employeeInfoDtoList) {
+	            List<PaidLeaveDto> employeePaidLeaveDtoList = new ArrayList<>();
+	            String code = emp.getCode();
+	           
+
+	            for (PaidLeave pltmp : paidLeaveList) {
+	                if (pltmp.getCode().equals(code)) {
+	                    PaidLeaveDto paidLeaveDto = new PaidLeaveDto(
+	                            emp.getId(),
+	                            emp.getCode(),
+	                            emp.getJoin_date(),
+	                            emp.getHurigana_lastname(),
+	                            emp.getHurigana_firstname(),
+	                            emp.getLastname(),
+	                            emp.getFirstname(),
+	                            emp.getDepartment_name(),
+	                            emp.getWorking_days(),
+	                            emp.getReference_date(),
+	                            emp.getRemaining_paid_leave_days(),
+	                            emp.getGranted_paid_leave_days(),
+	                            pltmp.getPaid_leave_date());
+	                    employeePaidLeaveDtoList.add(paidLeaveDto);
+	                }
+	            }
+
+	            if (employeePaidLeaveDtoList.size() == requiredRows) {
+	                paidLeaveDtoList.addAll(employeePaidLeaveDtoList);
+	            }
+	        }
+	    } else {
+	        for (EmployeeInfoDto emp : employeeInfoDtoList) {
+	            
+
+	            PaidLeaveDto paidLeaveDto = new PaidLeaveDto(
+	                    emp.getId(),
+	                    emp.getCode(),
+	                    emp.getJoin_date(),
+	                    emp.getHurigana_lastname(),
+	                    emp.getHurigana_firstname(),
+	                    emp.getLastname(),
+	                    emp.getFirstname(),
+	                    emp.getDepartment_name(),
+	                    emp.getWorking_days(),
+	                    emp.getReference_date(),
+	                    emp.getRemaining_paid_leave_days(),
+	                    emp.getGranted_paid_leave_days(),
+	                    null); // PaidLeaveDBから取得のためNullで登録
+
+	            paidLeaveDtoList.add(paidLeaveDto);
+	        }
+	    }
+
+	    // テーブルにデータを設定
+	    datatable.getItems().addAll(paidLeaveDtoList);
+	}
+	@FXML//全取得
+	void kkensaku_button_onClick(ActionEvent event) {
+		approach=approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
+		System.out.println("approach"+approach);
+		
+		
 		//表をクリア
 		datatable.getItems().clear();
 
