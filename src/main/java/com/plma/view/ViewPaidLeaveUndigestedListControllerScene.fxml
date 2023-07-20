@@ -100,7 +100,7 @@
                   <TableColumn fx:id="reference_date_col" prefWidth="88.66668701171875" text="基準日" />
                   <TableColumn fx:id="granted_paid_leave_days_col" prefWidth="113.3333740234375" text="有給休暇付与日数" />
                   <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="83.99993896484375" text="有給休暇残日" />
-                  <TableColumn fx:id="paid_leave_date_col" prefWidth="99.33331298828125" text="休暇取得日" />
+                  <TableColumn fx:id="paid_leave_date_col" prefWidth="99.33331298828125" text="休暇取得日数" />
                </columns>
             </TableView>
             <Button fx:id="menu_button" layoutX="973.0" layoutY="322.0" mnemonicParsing="false" onAction="#menu_button_onClick" prefHeight="25.0" prefWidth="79.0" text="メニュー" />

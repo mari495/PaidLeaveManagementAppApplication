@@ -312,30 +312,29 @@ public class ViewPaidVacationExpiryDateController {
 				}
 			}
 			
-			//バグ発生中！！
-			//setRowFactoryメソッドを呼び出して、行ファクトリーを設定
 			datatable.setRowFactory(tv -> {
-				
+
 				//TableRow<EmployeeInfoDto2> row = new TableRow<>();：新しい行オブジェクトを作成し、rowという変数に割り当て
 			    TableRow<EmployeeInfoDto2> row = new TableRow<>();
 			    //行のitemProperty（アイテムプロパティ）にリスナーを追加します。これにより、行のアイテムが変更されたときに呼び出されるコードが指定
 			    row.itemProperty().addListener((obs, prevItem, currItem) -> {
 			    	//現在のアイテムがnullでない場合に処理を実行
 			        if (currItem != null) {
-			            
-			                if ("１か月切っています".equals(alertMessage)) {
-			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+
+			                if ("１か月切っています".equals(currItem.getAlert())) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+currItem.getAlert());
 			                    row.setStyle("-fx-background-color: red;");
-			                } else if ("３か月切っています".equals(alertMessage)) {
-			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			                } else if ("３か月切っています".equals(currItem.getAlert())) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+currItem.getAlert());
 			                    row.setStyle("-fx-background-color: orange;");
-			                } else if ("６か月切っています".equals(alertMessage)) {
-			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+alertMessage);
+			                } else if ("６か月切っています".equals(currItem.getAlert())) {
+			                	System.out.println("alertMessage!!!!!!!!!!!!!!!!!"+currItem.getAlert());
 			                    row.setStyle("-fx-background-color: yellow;");
-			                } else {
+			                } 
+
+			        }
+			        else {
 			                    row.setStyle(""); // スタイルをリセットする場合
-			                }
-			            
 			        }
 			    });
 			    return row;

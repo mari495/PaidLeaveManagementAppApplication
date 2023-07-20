@@ -137,7 +137,7 @@ public class MainSceneController {
 	        Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.setTitle("設定");
+			stage.setTitle("有給休暇使用状況登録");
 			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -162,7 +162,7 @@ public class MainSceneController {
 	        Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.setTitle("新規社員登録");
+			stage.setTitle("有給休暇消滅接近者情報");
 			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -186,7 +186,7 @@ public class MainSceneController {
 	        Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.setTitle("新規社員登録");
+			stage.setTitle("有給休暇未消化者情報");
 			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();
