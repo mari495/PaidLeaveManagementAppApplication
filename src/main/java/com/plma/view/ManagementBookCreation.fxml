@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1372.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.ManagementBookCreationController">
+   <children>
+      <TableView fx:id="datatable" layoutX="8.0" layoutY="14.0" prefHeight="219.0" prefWidth="1346.0">
+        <columns>
+            <TableColumn fx:id="fiscal_year_col" prefWidth="44.000000953674316" text="年度" />
+            <TableColumn fx:id="id_col" prefWidth="55.333309173583984" text="登録ID" />
+          <TableColumn fx:id="code_col" prefWidth="56.000038146972656" text="社員コード" />
+          <TableColumn fx:id="joindate_col" prefWidth="122.66661071777344" text="入社日" />
+            <TableColumn fx:id="lastname_col" prefWidth="72.0" text="名字" />
+            <TableColumn fx:id="firstname_col" prefWidth="77.33331298828125" text="名前" />
+            <TableColumn fx:id="hurigana_last_col" prefWidth="72.66661071777344" text="ふりがな名字" />
+            <TableColumn fx:id="hurigana_first_col" prefWidth="76.6666259765625" text="ふりがな名前" />
+            <TableColumn fx:id="department_name_col" prefWidth="73.33334350585938" text="部署名" />
+            <TableColumn fx:id="working_days_col" prefWidth="91.33331298828125" text="所定労働日数" />
+            <TableColumn fx:id="reference_date_col" prefWidth="82.0" text="基準日" />
+            <TableColumn fx:id="annual_paid_leave_report_date_col" prefWidth="94.66668701171875" text="年休簿作成日" />
+            <TableColumn fx:id="fiscal_year_Carried_Over_day_col" prefWidth="82.0" text="前年度繰越日数" />
+            <TableColumn fx:id="granted_paid_leave_days_col" prefWidth="62.00018310546875" text="付与日数" />
+            <TableColumn fx:id="Number_of_days_used_col" prefWidth="70.666748046875" text="使用日数" />
+            <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="50.666748046875" text="残日" />
+            <TableColumn fx:id="PaidLeave_date_col" prefWidth="202.666748046875" text="取得日" />
+        </columns>
+      </TableView>
+      <Button fx:id="menu_button" layoutX="1249.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="メニュー" />
+   </children>
+</AnchorPane>

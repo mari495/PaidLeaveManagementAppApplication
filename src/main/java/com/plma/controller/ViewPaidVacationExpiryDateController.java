@@ -58,9 +58,6 @@ public class ViewPaidVacationExpiryDateController {
 	EmployeeInfoService service;
 	//EmployeeInfoServiceImpl service;
 
-
-	EmployeeInfoDto employeeInfoDto;
-
 	@FXML
 	private TableColumn<EmployeeInfoDto2, String> firstNameColumn;
 
