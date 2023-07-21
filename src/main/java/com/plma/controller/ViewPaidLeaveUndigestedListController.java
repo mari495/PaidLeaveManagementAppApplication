@@ -30,7 +30,6 @@ import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
 import com.plma.model.service.EmployeeInfoServiceImpl;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -122,6 +121,7 @@ public class ViewPaidLeaveUndigestedListController{
 	private Button menu_button;
 
 	private String approach;//ViewApproachInfomationControllerから受け取った情報を入れる
+	
 
 	@FXML
 	void initialize() {
@@ -181,21 +181,8 @@ public class ViewPaidLeaveUndigestedListController{
 			e.printStackTrace();
 		}
 	}
-
-	/*
-	private boolean isDuplicateNameRow(PaidLeaveDto paidLeaveDto) {
-		String lastname = paidLeaveDto.getLastname();
-		String firstname = paidLeaveDto.getFirstname();
-
-		for (PaidLeaveDto2 row : datatable.getItems()) {
-			if (row.getLastname().equals(lastname) && row.getFirstname().equals(firstname)) {
-				return true;
-			}
-		}
-
-		return false;
-	}*/
-
+	
+	
 	private int calculateRequiredRows(String approach) {
 		int requiredRows = 0;
 
@@ -247,9 +234,12 @@ public class ViewPaidLeaveUndigestedListController{
 		System.out.println("emp.getPaidLeave_date()"+emp.getPaidLeave_date());
 
 	}
-	//countした回数をString型として保持するための変数
-	String daysText ="";
+	
+	
+	
 
+	
+	
 	@FXML
 	void kensaku_button_onClick(ActionEvent event) {
 		approach = approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
@@ -270,6 +260,11 @@ public class ViewPaidLeaveUndigestedListController{
 
 
 		if (requiredRows >= 0) {
+			
+			//countした回数をString型として保持するための変数
+			String daysText ="";
+			
+			
 			for (EmployeeInfoDto emp : employeeInfoDtoList) {
 				String code = emp.getCode();
 				int count = 0;
@@ -292,30 +287,39 @@ public class ViewPaidLeaveUndigestedListController{
 								emp.getRemaining_paid_leave_days(),
 								emp.getGranted_paid_leave_days(),
 								null);//型が違うのであとから追加する
-						paidLeaveDto.setPaidLeave_date(String.valueOf(count));
-						System.out.println("(String.valueOf(count)"+String.valueOf(count));
-
+						
 
 						// カウントに応じて日数を設定
 
-
-
-
 						if (count == 1) {
-							// １行の場合はpaidLeaveDtoListに追加
-							paidLeaveDtoList.add(paidLeaveDto);
-
+							
+		
 							// カウントに応じて日数を設定
 							daysText = count + "日間";
 							System.out.println("daysText"+daysText);
-							paid_leave_date_col.setCellValueFactory(cellData -> new SimpleStringProperty(daysText));
-
+							paidLeaveDto.setPaidLeave_date(daysText);
+							// １行の場合はpaidLeaveDtoListに追加
+							paidLeaveDtoList.add(paidLeaveDto);
+							
+							//一回目はテーブルビューにセット
+							for (PaidLeaveDto2 paidLeaveDto2 : paidLeaveDtoList) {
+								
+								
+								
+								setTableViewPaidLeaveDto2(paidLeaveDto2);
+							}
+							//２回目以降はPaidLeave_dateの上書きのみ
 						}else if (count >= 2) {
-							// ２行目の場合はcountした文を日数として表示するだけ
 							daysText = count + "日間";
 							System.out.println("daysText"+daysText);
-							paid_leave_date_col.setCellValueFactory(cellData -> new SimpleStringProperty(daysText));
+							paidLeaveDto.setPaidLeave_date(daysText);
+							
+							
+							
 						}
+						
+
+						
 					}
 				}
 			}
@@ -323,7 +327,7 @@ public class ViewPaidLeaveUndigestedListController{
 
 
 			// テーブルビューにデータを設定
-			datatable.getItems().addAll(paidLeaveDtoList);
+			//datatable.getItems().addAll(paidLeaveDtoList);
 		}
 	}
 }

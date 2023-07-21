@@ -216,7 +216,7 @@ public class ViewPaidVacationExpiryDateController {
 			} else if (monthsUntilExpiry < 6) {
 				alertMessage = "６か月切っています";
 			} else {
-				alertMessage = ""; // 条件に合致しない場合は空文字を設定するなど適宜処理を追加してください
+				alertMessage = ""; // 
 			}
 			////////////////////////////////////////////////////////////////ビューしたあとに、絞る処理を入れるできなければビューする前に入れる
 			if (approach.equals("全件取得") && (alertMessage.equals("１か月切っています") || alertMessage.equals("３か月切っています") || alertMessage.equals("６か月切っています"))) {
