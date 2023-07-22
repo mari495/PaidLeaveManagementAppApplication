@@ -1,5 +1,11 @@
 /**このクラスは有給休暇管理簿を作成するためのクラスです
  * PaidLeaveDto3というクラスを表示用に作成しました。
+ * 流れ（全てのDBからデータを取得する）
+ * EnployeeInfoTable]から情報を出データを取得する
+ * 部署名テーブルを取得して名前を取得する
+ * PaidLeaveテーブルを取得して有給休暇取得日を取得する
+ * 
+ * 個人単位での作成なので、プルダウンは個人名での検索作成
  * 
  * 
  * 
@@ -15,8 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.plma.SpringFXMLLoader;
+import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
+import com.plma.model.entity.PaidLeave;
 import com.plma.model.entity.PaidLeaveDto3;
+import com.plma.model.repository.DepartmentRepository;
+import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
@@ -42,7 +52,10 @@ public class ManagementBookCreationController {
 
     @FXML
     private URL location;
-
+    @Autowired
+	DepartmentRepository dep_repository;
+	@Autowired
+	PaidLeaveRepository pl_repository;
 
 	@Autowired
 	EmployeeInfoService service;
@@ -119,7 +132,8 @@ public class ManagementBookCreationController {
 
     @FXML
     private Button menu_button;
-
+    @FXML
+	private Button kensaku_button;
 
 
 
@@ -175,7 +189,6 @@ public class ManagementBookCreationController {
 		
 		//ComboBoxの初期化処理
 
-		//ComboBoxから値を取り出して変数へ保存
 		//DBから
 		Iterable<EmployeeInfo> result = service.selectAll();;//全データ抽出各columnに入れていく
 		System.out.println("result"+result);
@@ -206,4 +219,40 @@ public class ManagementBookCreationController {
 			e.printStackTrace();
 		}
 	}
+    
+
+	//DepartmentDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
+	private Integer getDepartmentNumber(String departmentName) {
+		Iterable<Department> departments = service.getDepartment();
+
+		for (Department department : departments) {
+			if (department.getDepartment_name().equals(departmentName)) {
+				return department.getDepartment_number();
+			}
+		}
+
+		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
+	}
+	
+	//PaidLeaveDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
+		private Date getPaidLeaveDays(String Code) {
+			//Iterable<Department> departments = service.getDepartment();
+			Iterable<PaidLeave> paidLeaves = pl_repository.findAll();
+			for (PaidLeave paidLeave : paidLeaves) {
+				if (paidLeave.getCode().equals(Code)) {
+					return paidLeave.getPaid_leave_date();
+				}
+			}
+
+			return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
+		}
+	
+	
+    @FXML
+	void Kensaku_button_onClick(ActionEvent event) {
+    	System.out.println("検索ボタンが押された");
+    	
+
+		datatable.getItems().clear();
+    }
 }

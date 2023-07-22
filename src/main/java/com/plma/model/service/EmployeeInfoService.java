@@ -71,4 +71,5 @@ public interface EmployeeInfoService {
     void insertPaidLeave(PaidLeave pl);
     Iterable<Department> getDepartment();
 	EmployeeInfoDto convertToDto(EmployeeInfo emp);
+	Iterable<PaidLeave> getPaidLeave();
 }
