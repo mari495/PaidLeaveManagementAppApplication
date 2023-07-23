@@ -25,10 +25,7 @@ import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfoDto;
 import com.plma.model.entity.PaidLeave;
 import com.plma.model.entity.PaidLeaveDto2;
-import com.plma.model.repository.DepartmentRepository;
-import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
-import com.plma.model.service.EmployeeInfoServiceImpl;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,11 +55,7 @@ public class ViewPaidLeaveUndigestedListController{
 
 	@Autowired
 	EmployeeInfoService service;
-	EmployeeInfoServiceImpl employeeInfoServiceImpl;
-	@Autowired
-	DepartmentRepository dep_repository;
-	@Autowired
-	PaidLeaveRepository pl_repository;
+
 
 	@FXML
 	private ComboBox<String> approach_Infomation_ComboBox;
@@ -121,7 +114,7 @@ public class ViewPaidLeaveUndigestedListController{
 	private Button menu_button;
 
 	private String approach;//ViewApproachInfomationControllerから受け取った情報を入れる
-	
+
 
 	@FXML
 	void initialize() {
@@ -158,6 +151,7 @@ public class ViewPaidLeaveUndigestedListController{
 		remaining_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto2, Integer>("remaining_paid_leave_days"));
 		paid_leave_date_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto2, String>("PaidLeave_date"));
 	}
+
 	@FXML
 	void menu_button_onClick(ActionEvent event) {
 		/*
@@ -181,8 +175,8 @@ public class ViewPaidLeaveUndigestedListController{
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	private int calculateRequiredRows(String approach) {
 		int requiredRows = 0;
 
@@ -213,33 +207,16 @@ public class ViewPaidLeaveUndigestedListController{
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto2(PaidLeaveDto2 emp) {
 
-		datatable.getItems().add(new PaidLeaveDto2(
-
-				emp.getId(),
-				emp.getCode(),
-				emp.getJoin_date(),
-				emp.getHurigana_lastname(),
-				emp.getHurigana_firstname(),
-				emp.getLastname(),
-				emp.getFirstname(),
-				emp.getDepartment_name(),//
-				emp.getWorking_days(),
-				emp.getReference_date(),
-				emp.getGranted_paid_leave_days(),
-				emp.getRemaining_paid_leave_days(),
-				emp.getPaidLeave_date()
-
-
-				));
+		datatable.getItems().add(emp);
 		System.out.println("emp.getPaidLeave_date()"+emp.getPaidLeave_date());
 
 	}
-	
-	
-	
 
-	
-	
+
+
+
+
+
 	@FXML
 	void kensaku_button_onClick(ActionEvent event) {
 		approach = approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
@@ -250,84 +227,68 @@ public class ViewPaidLeaveUndigestedListController{
 
 
 		Iterable<EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
-		Iterable<PaidLeave> paidLeaveList = pl_repository.findAll();
+		Iterable<PaidLeave> paidLeaveList =service.getPaidLeave();
 
 		List<PaidLeaveDto2> paidLeaveDtoList = new ArrayList<>();
 
 		int requiredRows = calculateRequiredRows(approach);
-
-
-
+		int count = 0;
+		// countした回数をString型として保持するための変数
+		
+		//countした回数をString型として保持するための変数
+		String daysText ="";
 
 		if (requiredRows >= 0) {
-			
-			//countした回数をString型として保持するための変数
-			String daysText ="";
-			
-			
-			for (EmployeeInfoDto emp : employeeInfoDtoList) {
-				String code = emp.getCode();
-				int count = 0;
+		    for (EmployeeInfoDto emp : employeeInfoDtoList) {//一人ひとりのデータを取り出し
+		        String code = emp.getCode();
 
-				for (PaidLeave pltmp : paidLeaveList) {
-					if (pltmp.getCode().equals(code)) {
-						count++;
-						System.out.println("count!!!!!!!!!"+count);
-						PaidLeaveDto2 paidLeaveDto = new PaidLeaveDto2(
-								emp.getId(),
-								emp.getCode(),
-								emp.getJoin_date(),
-								emp.getHurigana_lastname(),
-								emp.getHurigana_firstname(),
-								emp.getLastname(),
-								emp.getFirstname(),
-								emp.getDepartment_name(),
-								emp.getWorking_days(),
-								emp.getReference_date(),
-								emp.getRemaining_paid_leave_days(),
-								emp.getGranted_paid_leave_days(),
-								null);//型が違うのであとから追加する
-						
+		        count = 0; // countを初期化
 
-						// カウントに応じて日数を設定
+		        PaidLeaveDto2 paidLeaveDto = new PaidLeaveDto2(
+		            emp.getId(),
+		            emp.getCode(),
+		            emp.getJoin_date(),
+		            emp.getHurigana_lastname(),
+		            emp.getHurigana_firstname(),
+		            emp.getLastname(),
+		            emp.getFirstname(),
+		            emp.getDepartment_name(),
+		            emp.getWorking_days(),
+		            emp.getReference_date(),
+		            emp.getRemaining_paid_leave_days(),
+		            emp.getGranted_paid_leave_days(),
+		            null
+		        );
 
-						if (count == 1) {
-							
-		
-							// カウントに応じて日数を設定
-							daysText = count + "日間";
-							System.out.println("daysText"+daysText);
-							paidLeaveDto.setPaidLeave_date(daysText);
-							// １行の場合はpaidLeaveDtoListに追加
-							paidLeaveDtoList.add(paidLeaveDto);
-							
-							//一回目はテーブルビューにセット
-							for (PaidLeaveDto2 paidLeaveDto2 : paidLeaveDtoList) {
-								
-								
-								
-								setTableViewPaidLeaveDto2(paidLeaveDto2);
-							}
-							//２回目以降はPaidLeave_dateの上書きのみ
-						}else if (count >= 2) {
-							daysText = count + "日間";
-							System.out.println("daysText"+daysText);
-							paidLeaveDto.setPaidLeave_date(daysText);
-							
-							
-							
-						}
-						
+		        for (PaidLeave paidLeave : paidLeaveList) {
+		            if (code.equals(paidLeave.getCode())) {
+		                count++;
+		            }
+		        }
 
-						
-					}
-				}
-			}
+		        // カウントに応じて日数を設定
+		        daysText = count + "日間";
+		        System.out.println("daysText" + daysText);
 
-
-
-			// テーブルビューにデータを設定
-			//datatable.getItems().addAll(paidLeaveDtoList);
+		        paidLeaveDto.setPaidLeave_date(daysText);
+		        // １行の場合はpaidLeaveDtoListに追加
+		        paidLeaveDtoList.add(paidLeaveDto);
+		        setTableViewPaidLeaveDto2(paidLeaveDto);
+		        // ２回目以降はPaidLeave_dateの上書きのみ
+		        if (count == 0) {
+		            String dasText = "０日間";
+		            // １行の場合はpaidLeaveDtoListに追加
+		            paidLeaveDto.setPaidLeave_date(dasText);
+		            paidLeaveDtoList.add(paidLeaveDto);
+		            setTableViewPaidLeaveDto2(paidLeaveDto);
+		        }
+		    }
 		}
 	}
+
+
+
+
+
+
 }

@@ -207,6 +207,10 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	public Iterable<Department> getDepartment() {
 		return dep_repository.findAll();
 	}
+	@Override
+	public Iterable<PaidLeave> getPaidLeave() {
+		return pl_repository.findAll();
+	}
 
 /*
  * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド

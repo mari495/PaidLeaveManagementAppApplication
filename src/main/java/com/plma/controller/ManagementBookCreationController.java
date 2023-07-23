@@ -25,8 +25,6 @@ import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.entity.PaidLeave;
 import com.plma.model.entity.PaidLeaveDto3;
-import com.plma.model.repository.DepartmentRepository;
-import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
@@ -52,10 +50,10 @@ public class ManagementBookCreationController {
 
     @FXML
     private URL location;
-    @Autowired
-	DepartmentRepository dep_repository;
-	@Autowired
-	PaidLeaveRepository pl_repository;
+   // @Autowired
+	//DepartmentRepository dep_repository;
+	//@Autowired
+	//PaidLeaveRepository pl_repository;
 
 	@Autowired
 	EmployeeInfoService service;
@@ -237,7 +235,7 @@ public class ManagementBookCreationController {
 	//PaidLeaveDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
 		private Date getPaidLeaveDays(String Code) {
 			//Iterable<Department> departments = service.getDepartment();
-			Iterable<PaidLeave> paidLeaves = pl_repository.findAll();
+			Iterable<PaidLeave> paidLeaves = service.getPaidLeave();
 			for (PaidLeave paidLeave : paidLeaves) {
 				if (paidLeave.getCode().equals(Code)) {
 					return paidLeave.getPaid_leave_date();
