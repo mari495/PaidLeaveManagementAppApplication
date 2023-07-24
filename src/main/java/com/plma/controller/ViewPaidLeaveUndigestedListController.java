@@ -14,8 +14,6 @@ package com.plma.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -177,6 +176,7 @@ public class ViewPaidLeaveUndigestedListController{
 	}
 
 
+	
 	private int calculateRequiredRows(String approach) {
 		int requiredRows = 0;
 
@@ -238,7 +238,7 @@ public class ViewPaidLeaveUndigestedListController{
 					count++;
 				}
 			}
-
+			//日数に応じて表示
 			if (requiredRows >=1 && count == requiredRows) {
 				// カウントに応じて日数を設定
 				String daysText = count + "日間";
@@ -261,7 +261,7 @@ public class ViewPaidLeaveUndigestedListController{
 						);
 
 				setTableViewPaidLeaveDto2(paidLeaveDto);
-			}
+			}//全件取得
 			else if(requiredRows==-1){
 				// カウントに応じて日数を設定
 				String daysText = count + "日間";
@@ -284,60 +284,10 @@ public class ViewPaidLeaveUndigestedListController{
 						);
 
 				setTableViewPaidLeaveDto2(paidLeaveDto);
-				
-			}else if(requiredRows==5&&count>=5) {String daysText = count + "日間";
-			System.out.println("daysText" + daysText);
-
-			PaidLeaveDto2 paidLeaveDto = new PaidLeaveDto2(
-					emp.getId(),
-					emp.getCode(),
-					emp.getJoin_date(),
-					emp.getHurigana_lastname(),
-					emp.getHurigana_firstname(),
-					emp.getLastname(),
-					emp.getFirstname(),
-					emp.getDepartment_name(),
-					emp.getWorking_days(),
-					emp.getReference_date(),
-					emp.getRemaining_paid_leave_days(),
-					emp.getGranted_paid_leave_days(),
-					daysText
-					);
-
-			setTableViewPaidLeaveDto2(paidLeaveDto);}
-
-		}
-	}
-
-
-
-	@FXML
-	void kkensaku_button_onClick(ActionEvent event) {
-		approach = approach_Infomation_ComboBox.getSelectionModel().getSelectedItem();
-		System.out.println("approach" + approach);
-		// 表をクリア
-		datatable.getItems().clear();
-
-
-
-		Iterable<EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
-		Iterable<PaidLeave> paidLeaveList =service.getPaidLeave();
-
-		List<PaidLeaveDto2> paidLeaveDtoList = new ArrayList<>();
-
-		int requiredRows = calculateRequiredRows(approach);
-		int count = 0;
-		// countした回数をString型として保持するための変数
-
-		//countした回数をString型として保持するための変数
-		String daysText ="";
-
-		if (requiredRows >= 0) {
-			System.out.println("requiredRows" + requiredRows);
-			for (EmployeeInfoDto emp : employeeInfoDtoList) {//一人ひとりのデータを取り出し
-				String code = emp.getCode();
-
-				count = 0; // countを初期化
+				//5日以上の人表示
+			}else if(requiredRows==5&&count>=5) {
+				String daysText = count + "日間";
+				System.out.println("daysText" + daysText);
 
 				PaidLeaveDto2 paidLeaveDto = new PaidLeaveDto2(
 						emp.getId(),
@@ -352,39 +302,52 @@ public class ViewPaidLeaveUndigestedListController{
 						emp.getReference_date(),
 						emp.getRemaining_paid_leave_days(),
 						emp.getGranted_paid_leave_days(),
-						null
+						daysText
 						);
 
-				for (PaidLeave paidLeave : paidLeaveList) {
-					if (code.equals(paidLeave.getCode())) {
-						count++;
-					}
-				}
-				if(count==1) {
-					// カウントに応じて日数を設定
-					daysText = count + "日間";
-					System.out.println("daysText" + daysText);
-
-					paidLeaveDto.setPaidLeave_date(daysText);
-					// １行の場合はpaidLeaveDtoListに追加
-					paidLeaveDtoList.add(paidLeaveDto);
-					setTableViewPaidLeaveDto2(paidLeaveDto);
-				}else if(count==2) {
-					// カウントに応じて日数を設定
-					daysText = count + "日間";
-					System.out.println("daysText" + daysText);
-
-					paidLeaveDto.setPaidLeave_date(daysText);
-					// １行の場合はpaidLeaveDtoListに追加
-					paidLeaveDtoList.add(paidLeaveDto);
-					setTableViewPaidLeaveDto2(paidLeaveDto);
-				}
+				setTableViewPaidLeaveDto2(paidLeaveDto);
 			}
 
-			// ２回目以降はPaidLeave_dateの上書きのみ
-
-		}
+		}datatable.setRowFactory(tv -> {
+			
+			 System.out.println("alertMessage!!!!!!!!!!!!!!!!!");
+		    TableRow<PaidLeaveDto2> row = new TableRow<>();
+		    row.itemProperty().addListener((obs, prevItem, currItem) -> {
+		        //現在のアイテムがnullでない場合に処理を実行
+		        if (currItem != null) {
+		            String alertText = currItem.getPaidLeave_date();
+		            System.out.println("alertText!!"+alertText);
+		            if ("1日間".equals(alertText)) {
+		                System.out.println("alert1日間"+alertText);
+		                row.setStyle("-fx-background-color: red;");
+		            } else if ("2日間".equals(alertText)) {
+		                System.out.println("alert2日間"+alertText);
+		                row.setStyle("-fx-background-color: orange;");
+		            } else if ("3日間".equals(alertText)) {
+		                System.out.println("alert３日間"+alertText);
+		                row.setStyle("-fx-background-color: yellow;");
+		            } else if ("4日間".equals(alertText)) {
+		                System.out.println("alert4日間"+alertText);
+		                row.setStyle("-fx-background-color: green;");
+		            } else{
+		                System.out.println("alertM５日間"+alertText);
+		                row.setStyle("-fx-background-color: blue;");
+		            }
+		        } else {
+		            row.setStyle(""); // スタイルをリセットする場合
+		        }
+		    });
+		    return row;
+		});
+		
+		
+		
+		        
+		 
 	}
+
+
+
 }
 
 
