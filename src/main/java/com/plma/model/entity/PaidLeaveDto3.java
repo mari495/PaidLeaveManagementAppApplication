@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class PaidLeaveDto3  {
 	/* 年度 */
-	private Date fiscal_year;
+	private String fiscal_year;
 	/* 登録ID */
 	private Integer id;
 	/* 社員コード */
@@ -48,13 +48,13 @@ public class PaidLeaveDto3  {
 	/* 有給休暇残数 */
 	private Integer remaining_paid_leave_days;
 	/* 有給休暇取得日 */
-	private String PaidLeave_date;
+	private Date PaidLeave_date;
 	
 	
 	
-	public PaidLeaveDto3(Date fiscal_year,Integer id, String code, Date join_date, String hurigana_lastname, String hurigana_firstname,
+	public PaidLeaveDto3(String fiscal_year,Integer id, String code, Date join_date, String hurigana_lastname, String hurigana_firstname,
 			String lastname, String firstname, String department_name, Integer working_days, Date reference_date,Date annual_paid_leave_report_date,Integer fiscal_year_Carried_Over_day,
-			Integer granted_paid_leave_days,Integer Number_of_days_used, Integer remaining_paid_leave_days, String paidLeave_date) {
+			Integer granted_paid_leave_days,Integer Number_of_days_used, Integer remaining_paid_leave_days, Date paidLeave_date) {
 		super();
 		this.fiscal_year=fiscal_year;
 		this.id = id;
@@ -78,10 +78,10 @@ public class PaidLeaveDto3  {
 		this.PaidLeave_date = paidLeave_date;
 	}
 	
-	public Date getfiscal_yeare() {
+	public String getFiscal_year() {
 		return fiscal_year;
 	}
-	public void setfiscal_year(Date fiscal_year) {
+	public void setFiscal_year(String fiscal_year) {
 		this.fiscal_year = fiscal_year;
 	}
 	
@@ -146,10 +146,10 @@ public class PaidLeaveDto3  {
 	public void setReference_date(Date reference_date) {
 		this.reference_date = reference_date;
 	}
-	public Date getannual_paid_leave_report_date() {
+	public Date getAnnual_paid_leave_report_date() {
 		return annual_paid_leave_report_date;
 	}
-	public void setannual_paid_leave_report_date(Date annual_paid_leave_report_date) {
+	public void setAnnual_paid_leave_report_date(Date annual_paid_leave_report_date) {
 		this.annual_paid_leave_report_date = annual_paid_leave_report_date;
 	}
 	
@@ -158,13 +158,13 @@ public class PaidLeaveDto3  {
 	
 	
 	
-	public Integer getfiscal_year_Carried_Over_day() {
+
+	public Integer getFiscal_year_Carried_Over_day() {
 		return fiscal_year_Carried_Over_day;
 	}
-	public void setfiscal_year_Carried_Over_day(Integer fiscal_year_Carried_Over_day) {
+	public void setFiscal_year_Carried_Over_day(Integer fiscal_year_Carried_Over_day) {
 		this.fiscal_year_Carried_Over_day = fiscal_year_Carried_Over_day;
 	}
-	
 	
 	public Integer getGranted_paid_leave_days() {
 		return granted_paid_leave_days;
@@ -188,10 +188,10 @@ public class PaidLeaveDto3  {
 	public void setRemaining_paid_leave_days(Integer remaining_paid_leave_days) {
 		this.remaining_paid_leave_days = remaining_paid_leave_days;
 	}
-	public String getPaidLeave_date() {
+	public Date getPaidLeave_date() {
 		return PaidLeave_date;
 	}
-	public void setPaidLeave_date(String paidLeave_date) {
+	public void setPaidLeave_date(Date paidLeave_date) {
 		this.PaidLeave_date = paidLeave_date;
 	}
 	
