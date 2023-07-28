@@ -111,7 +111,7 @@ public class ManagementBookCreationController {
 
 
 	@FXML
-	private TableColumn<PaidLeaveDto3, Integer> fiscal_year_Carried_Over_day_col;
+	private TableColumn<PaidLeaveDto3, Integer> fiscal_year_carried_over_day_col;
 
 	@FXML
 	private TableColumn<PaidLeaveDto3, Integer> granted_paid_leave_days_col;
@@ -149,7 +149,7 @@ public class ManagementBookCreationController {
 		assert datatable != null : "fx:id=\"datatable\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
 		assert department_name_col != null : "fx:id=\"department_name_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
 		assert firstname_col != null : "fx:id=\"firstname_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
-		assert fiscal_year_Carried_Over_day_col != null : "fx:id=\"fiscal_year_Carried_Over_day_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
+		assert fiscal_year_carried_over_day_col != null : "fx:id=\"fiscal_year_carried_over_day_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
 		assert fiscal_year_col != null : "fx:id=\"fiscal_year_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
 		assert granted_paid_leave_days_col != null : "fx:id=\"granted_paid_leave_days_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
 		assert hurigana_first_col != null : "fx:id=\"hurigana_first_col\" was not injected: check your FXML file 'ManagementBookCreation.fxml'.";
@@ -183,8 +183,8 @@ public class ManagementBookCreationController {
 
 		reference_date_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Date>("reference_date"));
 		annual_paid_leave_report_date_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Date>("annual_paid_leave_report_date"));
-		
-		fiscal_year_Carried_Over_day_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("fiscal_year_Carried_Over_day_col"));
+
+		fiscal_year_carried_over_day_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("fiscal_year_carried_over_day"));
 		granted_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("granted_paid_leave_days"));
 		remaining_paid_leave_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("remaining_paid_leave_days"));
 		Number_of_days_used_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("Number_of_days_used"));
@@ -202,6 +202,7 @@ public class ManagementBookCreationController {
 			name_ComboBox.getItems().add(fullName);
 		}
 	}
+
 	@FXML
 	void Menu_button_onClick(ActionEvent event) {
 
@@ -250,12 +251,11 @@ public class ManagementBookCreationController {
 
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
+
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto3(PaidLeaveDto3 emp) {
 
 		datatable.getItems().add(emp);
-
-
 	}
 
 
@@ -297,8 +297,8 @@ public class ManagementBookCreationController {
 					null,//使用日数Number_of_days_used
 					empDto.getRemaining_paid_leave_days(),//残数remaining_paid_leave_days
 					null);//取得日 PaidLeave_date
-			
-			
+
+
 			// 現在の年を取得
 			int currentYear = LocalDate.now().getYear();
 			// 現在の月を取得
@@ -306,36 +306,58 @@ public class ManagementBookCreationController {
 			// 年度をテキストとしてフォーマット（例: "2023"）
 			String fiscalYearText;
 			if (currentMonth >= 4 && currentMonth <= 12) {
-			    // 4月から12月の場合はそのままの年を使用
-			    fiscalYearText = currentYear + "";
+				// 4月から12月の場合はそのままの年を使用
+				fiscalYearText = currentYear + "";
 			} else {
-			    // 1月から3月の場合は前の年を使用
-			    fiscalYearText = (currentYear - 1) + "";
+				// 1月から3月の場合は前の年を使用
+				fiscalYearText = (currentYear - 1) + "";
 			}
 			paDto3.setFiscal_year(fiscalYearText);
-			
-/////////////////////////////////////////////////////////////////
-			Iterable<PaidLeave> PaidLeaveList =service.getPaidLeave();
-			
+
+
+
+			paDto3.setFiscal_year_carried_over_day(8);//前年度繰越日数まだ未設定！！！
+
+			/////////////////////////////////////////////////////////////////
+			Iterable<PaidLeave> PaidLeaveList =service.getPaidLeave();//有給休暇日時を取得するため
+
+
 			int count=0;//回数をカウントして使用回数へ代入するための変数
+
+			////////////////////////////////////////////////////////////////
+
+
+
+
 			for(PaidLeave pltmp : PaidLeaveList) {
 				if(pltmp.getCode().equals(emp.getCode())) {
 					count++;
-					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());}
+					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
+					paDto3.setNumber_of_days_used(count);///* 有給休暇使用日数をセット */
+					paidLeaveDto3List.add(paDto3);
+				}
 			}
-////////////////////////////////////////////////////////////////
-			
-			paDto3.setFiscal_year_Carried_Over_day(8);//反応しない
-			paDto3.setNumber_of_days_used(count);///* 有給休暇使用日数 */
-			
 
-			paidLeaveDto3List.add(paDto3);
+			 // paid_leave_date_col以外の列をnullに設定
+		    paDto3.setReference_date(null); // １行完全に情報を入れて行をセットしたあと備考の列をnullに設定（適宜他の列もnullに設定
+
+
+
+			if(count==0) {
+				//その他の列は空でひく
+				paidLeaveDto3List.add(paDto3);
+			}
+
+
+
+
 
 		}for (PaidLeaveDto3 paDto3 : paidLeaveDto3List) {
 
 
 
 			setTableViewPaidLeaveDto3(paDto3);
+			
 		}
 	}
 }

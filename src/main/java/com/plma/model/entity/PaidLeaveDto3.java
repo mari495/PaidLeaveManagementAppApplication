@@ -38,7 +38,7 @@ public class PaidLeaveDto3  {
 	private Date annual_paid_leave_report_date;
 	
 	/* 前年度繰越日数 */
-	private Integer fiscal_year_Carried_Over_day;
+	private Integer fiscal_year_carried_over_day;
 	
 	/* 有給休暇付与日数 */
 	private Integer granted_paid_leave_days;
@@ -53,7 +53,7 @@ public class PaidLeaveDto3  {
 	
 	
 	public PaidLeaveDto3(String fiscal_year,Integer id, String code, Date join_date, String hurigana_lastname, String hurigana_firstname,
-			String lastname, String firstname, String department_name, Integer working_days, Date reference_date,Date annual_paid_leave_report_date,Integer fiscal_year_Carried_Over_day,
+			String lastname, String firstname, String department_name, Integer working_days, Date reference_date,Date annual_paid_leave_report_date,Integer fiscal_year_carried_over_day,
 			Integer granted_paid_leave_days,Integer Number_of_days_used, Integer remaining_paid_leave_days, Date paidLeave_date) {
 		super();
 		this.fiscal_year=fiscal_year;
@@ -69,7 +69,7 @@ public class PaidLeaveDto3  {
 		this.reference_date = reference_date;
 		this.annual_paid_leave_report_date = annual_paid_leave_report_date;
 		
-		this.fiscal_year_Carried_Over_day=fiscal_year_Carried_Over_day;
+		this.fiscal_year_carried_over_day=fiscal_year_carried_over_day;
 		
 		this.granted_paid_leave_days = granted_paid_leave_days;
 		this.Number_of_days_used = Number_of_days_used;
@@ -159,12 +159,13 @@ public class PaidLeaveDto3  {
 	
 	
 
-	public Integer getFiscal_year_Carried_Over_day() {
-		return fiscal_year_Carried_Over_day;
+	public Integer getFiscal_year_carried_over_day() {
+		return fiscal_year_carried_over_day;
 	}
-	public void setFiscal_year_Carried_Over_day(Integer fiscal_year_Carried_Over_day) {
-		this.fiscal_year_Carried_Over_day = fiscal_year_Carried_Over_day;
+	public void setFiscal_year_carried_over_day(Integer fiscal_year_carried_over_day) {
+		this.fiscal_year_carried_over_day = fiscal_year_carried_over_day;
 	}
+	
 	
 	public Integer getGranted_paid_leave_days() {
 		return granted_paid_leave_days;

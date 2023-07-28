@@ -24,7 +24,7 @@
             <TableColumn fx:id="working_days_col" prefWidth="91.33331298828125" text="所定労働日数" />
             <TableColumn fx:id="reference_date_col" prefWidth="82.0" text="基準日" />
             <TableColumn fx:id="annual_paid_leave_report_date_col" prefWidth="94.66668701171875" text="年休簿作成日" />
-            <TableColumn fx:id="fiscal_year_Carried_Over_day_col" prefWidth="82.0" text="前年度繰越日数" />
+            <TableColumn fx:id="fiscal_year_carried_over_day_col" prefWidth="82.0" text="前年度繰越日数" />
             <TableColumn fx:id="granted_paid_leave_days_col" prefWidth="62.00018310546875" text="付与日数" />
             <TableColumn fx:id="Number_of_days_used_col" prefWidth="70.666748046875" text="使用日数" />
             <TableColumn fx:id="remaining_paid_leave_days_col" prefWidth="50.666748046875" text="残日" />
