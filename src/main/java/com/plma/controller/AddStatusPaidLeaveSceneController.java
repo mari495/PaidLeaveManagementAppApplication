@@ -332,7 +332,7 @@ public class AddStatusPaidLeaveSceneController {
 
 			for(PaidLeaveDto pld : all_pld) {
 				String code_pld = pld.getCode();
-				System.out.println(code_pld);
+				System.out.println("code_pld"+code_pld);
 				if (inputCode.equals(code_pld)){
 					PaidLeave pl = new PaidLeave();
 					pl.setId(null); // 登録IDを設定

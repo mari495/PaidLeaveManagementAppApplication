@@ -177,7 +177,8 @@ public class ManagementBookCreationController {
 		hurigana_first_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("hurigana_firstname"));
 		lastname_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("lastname"));
 		firstname_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("firstname"));
-
+		
+		
 		department_name_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("department_name"));
 		working_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("working_days"));
 
@@ -198,10 +199,15 @@ public class ManagementBookCreationController {
 		System.out.println("result"+result);
 		// ComboBoxに値を追加
 		for (EmployeeInfo employeeInfo : result) {
+			String code=employeeInfo.getCode();
+
 			String fullName = employeeInfo.getFirstname()  + employeeInfo.getLastname();
-			name_ComboBox.getItems().add(fullName);
+			name_ComboBox.getItems().add(code+":"+fullName);
 		}
 	}
+
+
+	
 
 	@FXML
 	void Menu_button_onClick(ActionEvent event) {
@@ -226,6 +232,8 @@ public class ManagementBookCreationController {
 	}
 
 
+	
+	
 	//DepartmentDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
 	private Integer getDepartmentNumber(String departmentName) {
 		Iterable<Department> departments = service.getDepartment();
@@ -235,9 +243,12 @@ public class ManagementBookCreationController {
 				return department.getDepartment_number();
 			}
 		}
-
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
+
+	
+	
+	
 
 	//PaidLeaveDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
 	private Date getPaidLeaveDays(String Code) {
@@ -248,10 +259,12 @@ public class ManagementBookCreationController {
 				return paidLeave.getPaid_leave_date();
 			}
 		}
-
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
+	
+	
 
+	
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto3(PaidLeaveDto3 emp) {
 
@@ -259,15 +272,20 @@ public class ManagementBookCreationController {
 	}
 
 
+	
+	
 	@FXML
 	void Kensaku_button_onClick(ActionEvent event) {
 
 
 		datatable.getItems().clear();
 
-		System.out.println("検索ボタンが押された");
+//Conboboxからデータを取得
 		approach = name_ComboBox.getSelectionModel().getSelectedItem();
 		System.out.println("approach" + approach);
+		//conboboxから取得したデータの頭３文字を取得して社員コードをString型として保持
+		String firstThreeDigits = approach.substring(0, 3);
+		System.out.println("firstThreeDigits"+firstThreeDigits);
 
 
 
@@ -326,27 +344,32 @@ public class ManagementBookCreationController {
 
 			////////////////////////////////////////////////////////////////
 
-
+//最初にequalでチェックしてnew するながれ
 
 
 			for(PaidLeave pltmp : PaidLeaveList) {
 				if(pltmp.getCode().equals(emp.getCode())) {
 					count++;
+
 					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
 					paDto3.setNumber_of_days_used(count);///* 有給休暇使用日数をセット */
 					paidLeaveDto3List.add(paDto3);
+
 				}
 			}
 
-			 // paid_leave_date_col以外の列をnullに設定
-		    paDto3.setReference_date(null); // １行完全に情報を入れて行をセットしたあと備考の列をnullに設定（適宜他の列もnullに設定
+
+			
+
+			// paid_leave_date_col以外の列をnullに設定
+			//paDto3.setReference_date(null); // １行完全に情報を入れて行をセットしたあと備考の列をnullに設定（適宜他の列もnullに設定
 
 
-
+			/*
 			if(count==0) {
 				//その他の列は空でひく
 				paidLeaveDto3List.add(paDto3);
-			}
+			}*/
 
 
 
@@ -357,7 +380,7 @@ public class ManagementBookCreationController {
 
 
 			setTableViewPaidLeaveDto3(paDto3);
-			
+
 		}
 	}
 }

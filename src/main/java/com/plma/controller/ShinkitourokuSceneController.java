@@ -184,6 +184,7 @@ public class ShinkitourokuSceneController {
     }
     
     
+    
   //部署名追加する際にDepartmentDBよりDepartment_numberを取得メソッド
     private Integer getDepartmentNumber(String departmentName) {
         Iterable<Department> departments = Service.getDepartment();
