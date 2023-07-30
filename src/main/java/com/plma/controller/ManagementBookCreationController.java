@@ -177,8 +177,8 @@ public class ManagementBookCreationController {
 		hurigana_first_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("hurigana_firstname"));
 		lastname_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("lastname"));
 		firstname_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("firstname"));
-		
-		
+
+
 		department_name_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, String>("department_name"));
 		working_days_col.setCellValueFactory(new PropertyValueFactory<PaidLeaveDto3, Integer>("working_days"));
 
@@ -207,7 +207,7 @@ public class ManagementBookCreationController {
 	}
 
 
-	
+
 
 	@FXML
 	void Menu_button_onClick(ActionEvent event) {
@@ -232,8 +232,8 @@ public class ManagementBookCreationController {
 	}
 
 
-	
-	
+
+
 	//DepartmentDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
 	private Integer getDepartmentNumber(String departmentName) {
 		Iterable<Department> departments = service.getDepartment();
@@ -246,9 +246,9 @@ public class ManagementBookCreationController {
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
 
-	
-	
-	
+
+
+
 
 	//PaidLeaveDBよりDepartment_nameとequalsDepartment_numberを取得メソッド
 	private Date getPaidLeaveDays(String Code) {
@@ -261,10 +261,10 @@ public class ManagementBookCreationController {
 		}
 		return null; // 該当する部署が見つからなかった場合は null を返す（適宜エラーハンドリングを行ってください）
 	}
-	
-	
 
-	
+
+
+
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto3(PaidLeaveDto3 emp) {
 
@@ -272,115 +272,108 @@ public class ManagementBookCreationController {
 	}
 
 
-	
-	
+
+
 	@FXML
 	void Kensaku_button_onClick(ActionEvent event) {
-
-
 		datatable.getItems().clear();
 
-//Conboboxからデータを取得
+		// ComboBoxからデータを取得
 		approach = name_ComboBox.getSelectionModel().getSelectedItem();
 		System.out.println("approach" + approach);
-		//conboboxから取得したデータの頭３文字を取得して社員コードをString型として保持
+		// ComboBoxから取得したデータの頭３文字を取得して社員コードをString型として保持
 		String firstThreeDigits = approach.substring(0, 3);
-		System.out.println("firstThreeDigits"+firstThreeDigits);
-
-
-
-		Iterable<EmployeeInfo> result = service.selectAll();;//全データ抽出各columnに入れていく
-		System.out.println("result"+result);
+		System.out.println("firstThreeDigits" + firstThreeDigits);
+		
+		
+		
+		
 
 		List<PaidLeaveDto3> paidLeaveDto3List = new ArrayList<>();
 
+		Iterable<EmployeeInfo> result = service.selectAll();
+
+		
+		// 社員コードに対応する有給休暇情報を取得
+			Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();
+			
 		for (EmployeeInfo emp : result) {
 			EmployeeInfoDto empDto = service.convertToDto(emp);
-
-			PaidLeaveDto3 paDto3 = new PaidLeaveDto3(
-					null, //年度fiscal_year
-					empDto.getId(),
-					empDto.getCode(),
-					empDto.getJoin_date(),
-					empDto.getHurigana_lastname(),
-					empDto.getHurigana_firstname(),
-					empDto.getLastname(),
-					empDto.getFirstname(),
-					empDto.getDepartment_name(),
-					empDto.getWorking_days(),
-					empDto.getReference_date(),
-					empDto.getAnnual_paid_leave_report_date(),
-					null,/* 前年度繰越日数 */
-					empDto.getGranted_paid_leave_days(),/* 有給休暇付与日数 */
-					null,//使用日数Number_of_days_used
-					empDto.getRemaining_paid_leave_days(),//残数remaining_paid_leave_days
-					null);//取得日 PaidLeave_date
-
-
-			// 現在の年を取得
-			int currentYear = LocalDate.now().getYear();
-			// 現在の月を取得
-			int currentMonth = LocalDate.now().getMonthValue();
-			// 年度をテキストとしてフォーマット（例: "2023"）
-			String fiscalYearText;
-			if (currentMonth >= 4 && currentMonth <= 12) {
-				// 4月から12月の場合はそのままの年を使用
-				fiscalYearText = currentYear + "";
-			} else {
-				// 1月から3月の場合は前の年を使用
-				fiscalYearText = (currentYear - 1) + "";
-			}
-			paDto3.setFiscal_year(fiscalYearText);
-
-
-
-			paDto3.setFiscal_year_carried_over_day(8);//前年度繰越日数まだ未設定！！！
-
-			/////////////////////////////////////////////////////////////////
-			Iterable<PaidLeave> PaidLeaveList =service.getPaidLeave();//有給休暇日時を取得するため
-
-
-			int count=0;//回数をカウントして使用回数へ代入するための変数
-
-			////////////////////////////////////////////////////////////////
-
-//最初にequalでチェックしてnew するながれ
-
-
-			for(PaidLeave pltmp : PaidLeaveList) {
-				if(pltmp.getCode().equals(emp.getCode())) {
-					count++;
-
-					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
-					paDto3.setNumber_of_days_used(count);///* 有給休暇使用日数をセット */
-					paidLeaveDto3List.add(paDto3);
-
-				}
-			}
+int count = 0; // 回数をカウントして使用回数へ代入するための変数
 
 
 			
+			for (PaidLeave pltmp : PaidLeaveList) {
+
+				
+				// 新しいPaidLeaveDto3インスタンスをループ内で作成
+				PaidLeaveDto3 paDto3 = new PaidLeaveDto3(
+						null, // 年度fiscal_year
+						empDto.getId(),
+						empDto.getCode(),
+						empDto.getJoin_date(),
+						empDto.getHurigana_lastname(),
+						empDto.getHurigana_firstname(),
+						empDto.getLastname(),
+						empDto.getFirstname(),
+						empDto.getDepartment_name(),
+						empDto.getWorking_days(),
+						empDto.getReference_date(),
+						empDto.getAnnual_paid_leave_report_date(),
+						null, // 前年度繰越日数
+						empDto.getGranted_paid_leave_days(), // 有給休暇付与日数
+						null, // 使用日数Number_of_days_used
+						empDto.getRemaining_paid_leave_days(), // 残数remaining_paid_leave_days
+						null); // 取得日 PaidLeave_date
+
+				// 現在の年を取得
+				int currentYear = LocalDate.now().getYear();
+				// 現在の月を取得
+				int currentMonth = LocalDate.now().getMonthValue();
+				// 年度をテキストとしてフォーマット（例: "2023"）
+				String fiscalYearText;
+				if (currentMonth >= 4 && currentMonth <= 12) {
+					// 4月から12月の場合はそのままの年を使用
+					fiscalYearText = currentYear + "";
+				} else {
+					// 1月から3月の場合は前の年を使用
+					fiscalYearText = (currentYear - 1) + "";
+				}
+				paDto3.setFiscal_year(fiscalYearText);
+
+				paDto3.setFiscal_year_carried_over_day(8); // 前年度繰越日数まだ未設定！！！
+
+
+
+
+				//PaidLeave pa = new PaidLeave();
+
+				if (emp.getCode().equals(pltmp.getCode())) {
+					count++;
+
+					//pa.setPaid_leave_date(pltmp.getPaid_leave_date());
+					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
+					paDto3.setNumber_of_days_used(count); // 有給休暇使用日数をセット
+					System.out.println("+pltmp.getPaid_leave_date()" + pltmp.getPaid_leave_date());
+					System.out.println("count" + count);
+					System.out.println("pltmp.getCode()" + pltmp.getCode());
+
+					// ここで新しいインスタンスを追加する
+					paidLeaveDto3List.add(paDto3);
+				}
+			}
 
 			// paid_leave_date_col以外の列をnullに設定
 			//paDto3.setReference_date(null); // １行完全に情報を入れて行をセットしたあと備考の列をnullに設定（適宜他の列もnullに設定
+			/*if (count == 0) {
+	            // その他の列は空で追加
+	            paidLeaveDto3List.add(paDto3);
+	        }*/
+		}
 
-
-			/*
-			if(count==0) {
-				//その他の列は空でひく
-				paidLeaveDto3List.add(paDto3);
-			}*/
-
-
-
-
-
-		}for (PaidLeaveDto3 paDto3 : paidLeaveDto3List) {
-
-
-
+		// DataTableにリストの各要素を追加する
+		for (PaidLeaveDto3 paDto3 : paidLeaveDto3List) {
 			setTableViewPaidLeaveDto3(paDto3);
-
 		}
 	}
 }
