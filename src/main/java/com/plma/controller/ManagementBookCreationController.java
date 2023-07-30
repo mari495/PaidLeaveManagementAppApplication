@@ -284,28 +284,28 @@ public class ManagementBookCreationController {
 		// ComboBoxから取得したデータの頭３文字を取得して社員コードをString型として保持
 		String firstThreeDigits = approach.substring(0, 3);
 		System.out.println("firstThreeDigits" + firstThreeDigits);
-		
-		
-		
-		
+
+
+
+
 
 		List<PaidLeaveDto3> paidLeaveDto3List = new ArrayList<>();
 
 		Iterable<EmployeeInfo> result = service.selectAll();
 
-		
+
 		// 社員コードに対応する有給休暇情報を取得
-			Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();
-			
+		Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();
+
 		for (EmployeeInfo emp : result) {
 			EmployeeInfoDto empDto = service.convertToDto(emp);
-int count = 0; // 回数をカウントして使用回数へ代入するための変数
+			int count = 0; // 回数をカウントして使用回数へ代入するための変数
 
 
-			
+			System.out.println("emp" + emp);
 			for (PaidLeave pltmp : PaidLeaveList) {
 
-				
+
 				// 新しいPaidLeaveDto3インスタンスをループ内で作成
 				PaidLeaveDto3 paDto3 = new PaidLeaveDto3(
 						null, // 年度fiscal_year
@@ -339,6 +339,7 @@ int count = 0; // 回数をカウントして使用回数へ代入するため�
 					// 1月から3月の場合は前の年を使用
 					fiscalYearText = (currentYear - 1) + "";
 				}
+				
 				paDto3.setFiscal_year(fiscalYearText);
 
 				paDto3.setFiscal_year_carried_over_day(8); // 前年度繰越日数まだ未設定！！！
@@ -348,9 +349,9 @@ int count = 0; // 回数をカウントして使用回数へ代入するため�
 
 				//PaidLeave pa = new PaidLeave();
 
-				if (emp.getCode().equals(pltmp.getCode())) {
+				if (firstThreeDigits.equals(emp.getCode())&&emp.getCode().equals(pltmp.getCode())) {
 					count++;
-
+					System.out.println("テスト！！！");
 					//pa.setPaid_leave_date(pltmp.getPaid_leave_date());
 					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
 					paDto3.setNumber_of_days_used(count); // 有給休暇使用日数をセット
