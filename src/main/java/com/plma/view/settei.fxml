@@ -67,6 +67,10 @@
             </Text>
             <Button fx:id="Menu_button" layoutX="531.0" layoutY="301.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="25.0" prefWidth="82.0" text="メニュー" />
             <Button fx:id="Enployeeinfotable_delete_button" layoutX="52.0" layoutY="120.0" mnemonicParsing="false" onAction="#Enployeeinfotable_delete_button_onClick" prefHeight="25.0" prefWidth="158.0" text="従業員情報削除" />
+            <Button fx:id="Update_button" layoutX="52.0" layoutY="178.0" mnemonicParsing="false" onAction="#Update_button_onClick" prefHeight="25.0" prefWidth="158.0" text="更新" />
+            <Text layoutX="248.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規開設部署の追加" wrappingWidth="143.12432861328125" />
+            <Text layoutX="248.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="データベースから従業員情報の削除" wrappingWidth="180.45770263671875" />
+            <Text layoutX="248.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="データの更新のため毎日押す必要があります" wrappingWidth="214.80331420898438" />
       </children>
     </AnchorPane>
   </children>

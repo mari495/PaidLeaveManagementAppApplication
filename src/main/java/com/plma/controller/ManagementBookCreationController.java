@@ -351,7 +351,7 @@ public class ManagementBookCreationController {
 
 				if (firstThreeDigits.equals(emp.getCode())&&emp.getCode().equals(pltmp.getCode())) {
 					count++;
-					System.out.println("テスト！！！");
+					
 					//pa.setPaid_leave_date(pltmp.getPaid_leave_date());
 					paDto3.setPaidLeave_date(pltmp.getPaid_leave_date());
 					paDto3.setNumber_of_days_used(count); // 有給休暇使用日数をセット
