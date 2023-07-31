@@ -247,7 +247,7 @@ public class SetteiSceneController {
 	            Granted_paid_leave_days, // 有給休暇付与日数をセット
 	            remainingPaidLeaveDays //所定労働日数と有給休暇使用日数より残数を計算
 	        );
-
+	        System.out.println("remainingPaidLeaveDays" + remainingPaidLeaveDays);//残作業重複バグ発生中！！
 	        
 	        // データベースに更新を反映
 	        service.insertEmployeeInfo(paid);
