@@ -3,7 +3,6 @@ package com.plma.controller;//nakasone
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
 
 @Controller
 public class SetteiSceneController {
@@ -77,8 +77,8 @@ public class SetteiSceneController {
 
 	// 所定労働日数から有給休暇付与日数を計算するメソッド
 	public int calculateGrantedPaidLeaveDays(int workingDays,Date joinDate) {
-		// 入社日から経過した月数を計算
-		LocalDate joinLocalDate = joinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		 // java.sql.Dateをjava.time.LocalDateに変換
+	    LocalDate joinLocalDate = joinDate.toLocalDate();
 		LocalDate currentDate = LocalDate.now();
 		long monthsSinceJoin = ChronoUnit.MONTHS.between(joinLocalDate, currentDate);
 
@@ -249,10 +249,6 @@ public class SetteiSceneController {
 	        );
 
 	        
-
-	        
-	        
-
 	        // データベースに更新を反映
 	        service.insertEmployeeInfo(paid);
 	    }
