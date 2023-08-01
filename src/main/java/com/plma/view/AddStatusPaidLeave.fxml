@@ -13,7 +13,7 @@
       <Label layoutX="432.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="月" />
       <Label layoutX="277.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="年" />
       <Button fx:id="menu_button" layoutX="978.0" layoutY="495.0" mnemonicParsing="false" onAction="#Menu_button_onClick" prefHeight="32.0" prefWidth="115.0" text="メニュー" />
-      <Button fx:id="add_button" layoutX="673.0" layoutY="495.0" mnemonicParsing="false" onAction="#addNumber_of_days_usedOnClick" prefHeight="32.0" prefWidth="147.0" text="有給休暇取得日登録" />
+      <Button fx:id="add_button" layoutX="618.0" layoutY="495.0" mnemonicParsing="false" onAction="#addNumber_of_days_usedOnClick" prefHeight="32.0" prefWidth="147.0" text="有給休暇取得日登録" />
       <Button fx:id="all_button" layoutX="813.0" layoutY="346.0" mnemonicParsing="false" onAction="#allBtn_OnClick" prefHeight="32.0" prefWidth="115.0" text="全データ検索" />
       <Label layoutX="578.0" layoutY="502.0" prefHeight="17.0" prefWidth="17.0" text="日" />
       <ComboBox fx:id="Addyear" layoutX="151.0" layoutY="498.0" prefHeight="25.0" prefWidth="115.0" />
@@ -60,5 +60,6 @@
       <Label layoutX="59.0" layoutY="404.0" prefHeight="17.0" prefWidth="75.0" text="所定労働日数" />
       <Label layoutX="806.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="全件取得" />
       <Label layoutX="89.0" layoutY="441.0" prefHeight="17.0" prefWidth="42.0" text="部署名" />
+      <Button fx:id="delete_button" layoutX="776.0" layoutY="495.0" mnemonicParsing="false" onAction="#Delete_button_onClick" prefHeight="32.0" prefWidth="147.0" text="有給休暇取得日削除" />
    </children>
 </AnchorPane>

@@ -69,16 +69,17 @@
             <Text layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇未消化者情報" wrappingWidth="233.33333333333337" />
             <Text layoutX="319.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇情報登録" wrappingWidth="283.3333943684896" />
             <Text layoutX="319.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索画面" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規部署の追加" wrappingWidth="233.33333333333337" />
+            <Text layoutX="422.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規部署の追加" wrappingWidth="87.99995930989587" />
             <Text layoutX="319.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇発生後２年経過接近者情報" wrappingWidth="233.33333333333337" />
             <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メインメニュー" wrappingWidth="103.469970703125">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="319.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="従業員登録情報削除" wrappingWidth="233.33333333333337" />
+            <Text layoutX="319.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="従業員登録情報更新" wrappingWidth="118.66670735677087" />
             <Button fx:id="ManagementBookCreation_button" layoutX="56.0" layoutY="292.0" mnemonicParsing="false" onAction="#ManagementBookCreation_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇管理簿作成" />
             <Text layoutX="319.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇管理簿の作成" wrappingWidth="233.33333333333337" />
+            <Text layoutX="319.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇残数更新" wrappingWidth="103.46997070312506" />
       </children>
     </AnchorPane>
   </children>

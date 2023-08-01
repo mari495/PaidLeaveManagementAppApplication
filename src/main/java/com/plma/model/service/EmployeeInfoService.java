@@ -72,4 +72,7 @@ public interface EmployeeInfoService {
     Iterable<Department> getDepartment();
 	EmployeeInfoDto convertToDto(EmployeeInfo emp);
 	Iterable<PaidLeave> getPaidLeave();
+	
+	//PaidLeaveDBからデータ削除用
+	void deleteByPaidLeave(Date paid_leave_date,String co);
 }

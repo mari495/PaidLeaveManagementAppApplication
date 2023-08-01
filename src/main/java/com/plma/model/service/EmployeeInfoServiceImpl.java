@@ -85,39 +85,39 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 	}
 
 	@Override
-    public Iterable<EmployeeInfoDto> getAllEmployeeInfoDto() {//すべての従業員情報を従業員情報DTO（EmployeeInfoDto）のリストとして取得
+	public Iterable<EmployeeInfoDto> getAllEmployeeInfoDto() {//すべての従業員情報を従業員情報DTO（EmployeeInfoDto）のリストとして取得
 
-        // EmployeeInfoオブジェクトのリストを取得
-    	Iterable<EmployeeInfo> iterable = selectAll();
-    	Iterable<EmployeeInfoDto> employeeInfoDtoList = getEIDto(iterable);
+		// EmployeeInfoオブジェクトのリストを取得
+		Iterable<EmployeeInfo> iterable = selectAll();
+		Iterable<EmployeeInfoDto> employeeInfoDtoList = getEIDto(iterable);
 
-        // EmployeeInfoDtoオブジェクトのリストを返す
+		// EmployeeInfoDtoオブジェクトのリストを返す
 		return employeeInfoDtoList;
-    }
-/*EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換するためのメソッドです。
- * このメソッドでは、部署番号と部署名のマッピングを作成し、
+	}
+	/*EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換するためのメソッドです。
+	 * このメソッドでは、部署番号と部署名のマッピングを作成し、
 EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDtoオブジェクトを作成
- * */
+	 * */
 	@Override
 	public EmployeeInfoDto convertToDto(EmployeeInfo employeeInfo) {
-    	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
-    		    .collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
+		Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
+				.collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
 
-	    return new EmployeeInfoDto(
-	        employeeInfo.getId(),
-	        employeeInfo.getCode(),
-	        employeeInfo.getJoin_date(),
-	        employeeInfo.getHurigana_lastname(),
-	        employeeInfo.getHurigana_firstname(),
-	        employeeInfo.getLastname(),
-	        employeeInfo.getFirstname(),
-	        departmentNumberToNameMap.get(employeeInfo.getDepartment_number()),
-	        employeeInfo.getWorking_days(),
-	        employeeInfo.getReference_date(),
-	        employeeInfo.getAnnual_paid_leave_report_date(),
-	        employeeInfo.getGranted_paid_leave_days(),
-	        employeeInfo.getRemaining_paid_leave_days()
-	    );
+		return new EmployeeInfoDto(
+				employeeInfo.getId(),
+				employeeInfo.getCode(),
+				employeeInfo.getJoin_date(),
+				employeeInfo.getHurigana_lastname(),
+				employeeInfo.getHurigana_firstname(),
+				employeeInfo.getLastname(),
+				employeeInfo.getFirstname(),
+				departmentNumberToNameMap.get(employeeInfo.getDepartment_number()),
+				employeeInfo.getWorking_days(),
+				employeeInfo.getReference_date(),
+				employeeInfo.getAnnual_paid_leave_report_date(),
+				employeeInfo.getGranted_paid_leave_days(),
+				employeeInfo.getRemaining_paid_leave_days()
+				);
 	}
 
 	@Override
@@ -130,50 +130,50 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	@Override
 	public Iterable<EmployeeInfoDto> findByJoinDateAndDepartmentDto(Date joinDate, String department_name){
 
-        // EmployeeInfoオブジェクトのリストを取得
+		// EmployeeInfoオブジェクトのリストを取得
 		Iterable<EmployeeInfo> iterable = repository.findByJoinDateAndDepartment(joinDate, getDepNameToNumber(department_name));
 		Iterable<EmployeeInfoDto> employeeInfoDtoList = getEIDto(iterable);
 
-        // EmployeeInfoDtoオブジェクトのリストを返す
+		// EmployeeInfoDtoオブジェクトのリストを返す
 		return employeeInfoDtoList;
 	}
 
 	@Override
 	public Iterable<EmployeeInfoDto> findByParamsDto(String name, String department_name, Integer working_days){
 		System.out.println("findByParamsDto : " + getDepNameToNumber(department_name));
-        // EmployeeInfoオブジェクトのリストを取得
-    	Iterable<EmployeeInfo> iterable = repository.findByParams(name, getDepNameToNumber(department_name), working_days);
-    	Iterable<EmployeeInfoDto> employeeInfoDtoList = getEIDto(iterable);
+		// EmployeeInfoオブジェクトのリストを取得
+		Iterable<EmployeeInfo> iterable = repository.findByParams(name, getDepNameToNumber(department_name), working_days);
+		Iterable<EmployeeInfoDto> employeeInfoDtoList = getEIDto(iterable);
 
-        // EmployeeInfoDtoオブジェクトのリストを返す
+		// EmployeeInfoDtoオブジェクトのリストを返す
 		return employeeInfoDtoList;
 
 	}
 
 	@Override
 	public Iterable<EmployeeInfo> findByEightParamsWithDate(String code,
-															Date join_date,
-															String hurigana_lastname,
-															String hurigana_firstname,
-															String lastname,
-															String firstname,
-															Integer department_number,
-															Integer working_days)
+			Date join_date,
+			String hurigana_lastname,
+			String hurigana_firstname,
+			String lastname,
+			String firstname,
+			Integer department_number,
+			Integer working_days)
 	{
 		return repository.findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
-    }
+	}
 
 	@Override
 	public Iterable<EmployeeInfo> findByEightParamsWithoutDate(String code,
-															String hurigana_lastname,
-															String hurigana_firstname,
-															String lastname,
-															String firstname,
-															Integer department_number,
-															Integer working_days)
+			String hurigana_lastname,
+			String hurigana_firstname,
+			String lastname,
+			String firstname,
+			Integer department_number,
+			Integer working_days)
 	{
 		return repository.findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
-    }
+	}
 
 	@Override
 	public Iterable<EmployeeInfo> findByEightParams(String code,
@@ -186,9 +186,9 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 			Integer working_days)
 	{
 		if (join_date == null) {
-		    return findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+			return findByEightParamsWithoutDate(code, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
 		} else {
-		    return findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
+			return findByEightParamsWithDate(code, join_date, hurigana_lastname, hurigana_firstname, lastname, firstname, department_number, working_days);
 		}
 
 	}
@@ -202,7 +202,26 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 	public void insertPaidLeave(PaidLeave pl) {
 		pl_repository.save(pl);
 	}
-	
+
+	//PaidLeaveDBからデータ削除用
+	@Override
+	public void deleteByPaidLeave(Date paid_leave_date,String co) {//指定された従業員コードとに基づいて有給休暇情報を削除
+		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
+		
+		for(PaidLeave pltmp : PaidLeaveList) {
+			if(pltmp.getCode().equals(co) && pltmp.getPaid_leave_date().equals(paid_leave_date)) {
+
+
+				pl_repository.deleteById(pltmp.getId());;
+
+			}
+		}
+
+
+	}
+
+
+
 	@Override
 	public Iterable<Department> getDepartment() {
 		return dep_repository.findAll();
@@ -212,44 +231,44 @@ EmployeeInfoオブジェクトの各フィールドを使用してEmployeeInfoDt
 		return pl_repository.findAll();
 	}
 
-/*
- * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド
- * 部署番号と部署名のマッピングを作成し、EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換*/
+	/*
+	 * EmployeeInfoオブジェクトのリストをEmployeeInfoDtoオブジェクトのリストに変換するためのメソッド
+	 * 部署番号と部署名のマッピングを作成し、EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換*/
 	private Iterable<EmployeeInfoDto> getEIDto(Iterable<EmployeeInfo> iterable){
-        // 部署番号をキーとした部署名のMapを作成する処理
-    	Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
-    		    .collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
+		// 部署番号をキーとした部署名のMapを作成する処理
+		Map<Integer, String> departmentNumberToNameMap = StreamSupport.stream(selectDepAll().spliterator(), false)
+				.collect(Collectors.toMap(Department::getDepartment_number, Department::getDepartment_name));
 
-        // EmployeeInfoオブジェクトのリストを取得
+		// EmployeeInfoオブジェクトのリストを取得
 		List<EmployeeInfo> employeeInfoList = StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
+				.collect(Collectors.toList());
 
-        // EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換
+		// EmployeeInfoオブジェクトをEmployeeInfoDtoオブジェクトに変換
 		List<EmployeeInfoDto> employeeInfoDtoList = employeeInfoList.stream()
-			    .map(employeeInfo -> new EmployeeInfoDto(
-			        employeeInfo.getId(),
-			        employeeInfo.getCode(),
-			        employeeInfo.getJoin_date(),
-			        employeeInfo.getHurigana_lastname(),
-			        employeeInfo.getHurigana_firstname(),
-			        employeeInfo.getLastname(),
-			        employeeInfo.getFirstname(),
-			        departmentNumberToNameMap.get(employeeInfo.getDepartment_number()),
-			        employeeInfo.getWorking_days(),
-			        employeeInfo.getReference_date(),
-			        employeeInfo.getAnnual_paid_leave_report_date(),
-			        employeeInfo.getGranted_paid_leave_days(),
-			        employeeInfo.getRemaining_paid_leave_days()
-			    ))
-			    .collect(Collectors.toList());
+				.map(employeeInfo -> new EmployeeInfoDto(
+						employeeInfo.getId(),
+						employeeInfo.getCode(),
+						employeeInfo.getJoin_date(),
+						employeeInfo.getHurigana_lastname(),
+						employeeInfo.getHurigana_firstname(),
+						employeeInfo.getLastname(),
+						employeeInfo.getFirstname(),
+						departmentNumberToNameMap.get(employeeInfo.getDepartment_number()),
+						employeeInfo.getWorking_days(),
+						employeeInfo.getReference_date(),
+						employeeInfo.getAnnual_paid_leave_report_date(),
+						employeeInfo.getGranted_paid_leave_days(),
+						employeeInfo.getRemaining_paid_leave_days()
+						))
+				.collect(Collectors.toList());
 
 		return employeeInfoDtoList;
 	}
 
 	private Integer getDepNameToNumber(String department_name) {//、部署名を部署番号に変換するためのメソッドです。部署名と部署番号のマッピングを作成し、指定された部署名に対応する部署番号を返す
-	    Map<String, Integer> departmentNameToNumberMap = StreamSupport.stream(selectDepAll().spliterator(), false)
-	            .collect(Collectors.toMap(Department::getDepartment_name, Department::getDepartment_number));
-	    return departmentNameToNumberMap.get(department_name);
+		Map<String, Integer> departmentNameToNumberMap = StreamSupport.stream(selectDepAll().spliterator(), false)
+				.collect(Collectors.toMap(Department::getDepartment_name, Department::getDepartment_number));
+		return departmentNameToNumberMap.get(department_name);
 	}
 
 }

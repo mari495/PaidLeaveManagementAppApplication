@@ -22,7 +22,6 @@ import com.plma.model.repository.PaidLeaveRepository;
 import com.plma.model.service.EmployeeInfoService;
 import com.plma.model.service.EmployeeInfoServiceImpl;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -103,7 +102,7 @@ public class AddStatusPaidLeaveSceneController {
 
 
 	/**
-	 * 登録で使用
+	 * 登録&削除で使用
 	 */
 	////////////////////////////////////////////////////
 	@FXML
@@ -119,6 +118,8 @@ public class AddStatusPaidLeaveSceneController {
 
 	@FXML
 	private Button add_button;
+	@FXML
+	private Button delete_button;
 
 	/**
 	 * 全検索で使用
@@ -299,6 +300,30 @@ public class AddStatusPaidLeaveSceneController {
 			e.printStackTrace();
 		}
 	}
+	@FXML
+	void Delete_button_onClick(ActionEvent event) {
+		Date date = null;
+
+		Integer yearItem = Addyear.getValue();
+		Integer monthItem = Addmonth.getValue();
+		Integer dayItem = Addday.getValue();
+		System.out.println("yearItem"+yearItem);
+		System.out.println("monthItem"+monthItem);
+		System.out.println("dayItem"+dayItem);
+		
+		if(!(yearItem == null && monthItem == null && dayItem == null)) {
+			// コンボボックスの値から日付を作成
+			LocalDate selectedDate = LocalDate.of(Addyear.getValue(), Addmonth.getValue(), Addday.getValue());
+			// java.sql.Dateに変換
+			date = Date.valueOf(selectedDate);
+			System.out.println("date"+date);
+			String inputCode = codeBox.getText(); // テキストボックスから入力された値を取得
+			
+			service.deleteByPaidLeave(date,inputCode);
+			
+			
+		}
+	}
 
 	@FXML//テキストボックスに入力された数値と一致する社員コードの行に有給休暇登録をするメソッド
 	void addNumber_of_days_usedOnClick(ActionEvent event) {
@@ -327,13 +352,15 @@ public class AddStatusPaidLeaveSceneController {
 
 			String inputCode = codeBox.getText(); // テキストボックスから入力された値を取得
 
-			ObservableList<PaidLeaveDto> all_pld = datatable.getItems();
+			// 既存の有給休暇データを取得
+	        Iterable<PaidLeave> existingPaidLeaves = service.getPaidLeave();
 
-
-			for(PaidLeaveDto pld : all_pld) {
-				String code_pld = pld.getCode();
-				System.out.println("code_pld"+code_pld);
+	        for (PaidLeave paidLeave : existingPaidLeaves) {
+	            String code_pld = paidLeave.getCode();
 				if (inputCode.equals(code_pld)){
+					
+					
+					
 					PaidLeave pl = new PaidLeave();
 					pl.setId(null); // 登録IDを設定
 					pl.setCode(code_pld); // 社員コードを設定
