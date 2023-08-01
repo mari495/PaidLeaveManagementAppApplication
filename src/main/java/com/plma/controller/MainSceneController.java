@@ -140,7 +140,7 @@ public class MainSceneController {
 	        Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
-			stage.setTitle("有給休暇使用状況登録");
+			stage.setTitle("有給休暇使用状況登録/有給休暇使用状況削除");
 			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();

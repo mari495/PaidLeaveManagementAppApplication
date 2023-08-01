@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plma.controller.AddStatusPaidLeaveSceneController">
    <children>
@@ -47,7 +48,7 @@
       <ComboBox fx:id="department" layoutX="151.0" layoutY="437.0" prefHeight="25.0" prefWidth="115.0" />
       <ComboBox fx:id="working_days" layoutX="151.0" layoutY="404.0" prefHeight="27.0" prefWidth="115.0" />
       <Button fx:id="kensaku_button" layoutX="659.0" layoutY="349.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="115.0" text="検索" />
-      <Label layoutX="41.0" layoutY="463.0" prefHeight="17.0" prefWidth="641.0" text="社員コードを左のテキストボックスに入力し、有給休暇取得日をプルダウンより選択し、登録ボタンを押してください" />
+      <Label layoutX="41.0" layoutY="463.0" prefHeight="17.0" prefWidth="686.0" text="社員コードを左のテキストボックスに入力し、有給休暇取得日をプルダウンより選択し、有給休暇登録／有給休暇削除ボタンを押してください" />
       <TextArea id="name_textArea" fx:id="codeBox" layoutX="84.0" layoutY="491.0" prefHeight="32.0" prefWidth="31.0" />
       <Label layoutX="76.0" layoutY="247.0" prefHeight="17.0" prefWidth="57.0" text="社員コード" />
       <Label layoutX="659.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="複数条件で検索" />
@@ -61,5 +62,10 @@
       <Label layoutX="806.0" layoutY="324.0" prefHeight="17.0" prefWidth="87.0" text="全件取得" />
       <Label layoutX="89.0" layoutY="441.0" prefHeight="17.0" prefWidth="42.0" text="部署名" />
       <Button fx:id="delete_button" layoutX="776.0" layoutY="495.0" mnemonicParsing="false" onAction="#Delete_button_onClick" prefHeight="32.0" prefWidth="147.0" text="有給休暇取得日削除" />
+      <Label layoutX="2.0" prefHeight="27.0" prefWidth="248.0" text="有給休暇登録／有給休暇削除">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

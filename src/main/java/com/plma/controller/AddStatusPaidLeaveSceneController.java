@@ -356,24 +356,21 @@ public class AddStatusPaidLeaveSceneController {
 	        Iterable<PaidLeave> existingPaidLeaves = service.getPaidLeave();
 
 	        for (PaidLeave paidLeave : existingPaidLeaves) {
-	            String code_pld = paidLeave.getCode();
-				if (inputCode.equals(code_pld)){
+	           // String code_pld = paidLeave.getCode();
+	            
+				if (inputCode.equals(paidLeave.getCode())&&date.equals(paidLeave.getPaid_leave_date())){
+					System.out.println("すでに登録してある日付です");
+				//何もしない
 					
 					
-					
-					PaidLeave pl = new PaidLeave();
+				} 
+
+			}PaidLeave pl = new PaidLeave();
 					pl.setId(null); // 登録IDを設定
-					pl.setCode(code_pld); // 社員コードを設定
+					pl.setCode(inputCode); // 社員コードを設定
 					pl.setPaid_leave_date(date); // 有給休暇取得日を設定
 					// Departmentをデータベースに保存
 					service.insertPaidLeave(pl);
-				} else {
-
-					System.out.println("一致するレコードが見つかりませんでした");
-					//一致する社員コードが見つからなかった場合メッセージボックス実装予定
-				}
-
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

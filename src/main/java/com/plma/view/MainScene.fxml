@@ -67,7 +67,7 @@
             <Button fx:id="kensaku_button" layoutX="56.0" layoutY="242.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="233.0" text="個人データ検索" />
             <Text layoutX="319.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新しく従業員が入社した際の新規登録画面" wrappingWidth="233.33333333333337" />
             <Text layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇未消化者情報" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇情報登録" wrappingWidth="283.3333943684896" />
+            <Text layoutX="319.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇情報登録/ 有給休暇情報削除" wrappingWidth="283.3333943684896" />
             <Text layoutX="319.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索画面" wrappingWidth="233.33333333333337" />
             <Text layoutX="422.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規部署の追加" wrappingWidth="87.99995930989587" />
             <Text layoutX="319.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇発生後２年経過接近者情報" wrappingWidth="233.33333333333337" />
