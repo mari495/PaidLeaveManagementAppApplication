@@ -364,12 +364,7 @@ public class ManagementBookCreationController {
 				}
 			}
 
-			// paid_leave_date_col以外の列をnullに設定
-			//paDto3.setReference_date(null); // １行完全に情報を入れて行をセットしたあと備考の列をnullに設定（適宜他の列もnullに設定
-			/*if (count == 0) {
-	            // その他の列は空で追加
-	            paidLeaveDto3List.add(paDto3);
-	        }*/
+			
 		}
 
 		// DataTableにリストの各要素を追加する

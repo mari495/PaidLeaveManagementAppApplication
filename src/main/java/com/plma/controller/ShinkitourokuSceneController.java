@@ -11,13 +11,13 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.Department;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +30,8 @@ import javafx.stage.Window;
 
 @Controller
 public class ShinkitourokuSceneController {
-
+	@Autowired
+	private SpringFXMLLoader fxmlLoader;
 	 @Autowired
 	private EmployeeInfoService Service;
 	 //EmployeeInfoServiceImpl service;
@@ -90,7 +91,7 @@ public class ShinkitourokuSceneController {
 		 * 新しい画面を生成する
 		 */
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -172,7 +173,7 @@ public class ShinkitourokuSceneController {
 		 * 新しい画面を生成する
 		 */
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
+			Parent parent = fxmlLoader.load(getClass().getResource("/com/plma/view/MainScene.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
