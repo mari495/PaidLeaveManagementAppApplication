@@ -201,7 +201,7 @@ public class ViewPaidVacationExpiryDateController {
 
 
 			/////////////////////////////////////////////////////////////
-			Integer Number_of_days_used=1; // 有給休暇使用日数（PaidLeaveDBから回数を取得）
+			//Integer Number_of_days_used=1; // 有給休暇使用日数（PaidLeaveDBから回数を取得）
 			int count=0;
 			// 社員コードに対応する有給休暇情報を取得
 			Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();
