@@ -31,6 +31,7 @@ import com.plma.SpringFXMLLoader;
 import com.plma.model.entity.EmployeeInfo;
 import com.plma.model.entity.EmployeeInfoDto;
 import com.plma.model.entity.EmployeeInfoDto2;
+import com.plma.model.entity.PaidLeave;
 import com.plma.model.service.EmployeeInfoService;
 
 import javafx.event.ActionEvent;
@@ -200,8 +201,18 @@ public class ViewPaidVacationExpiryDateController {
 
 
 			/////////////////////////////////////////////////////////////
-
 			Integer Number_of_days_used=1; // 有給休暇使用日数（PaidLeaveDBから回数を取得）
+			int count=0;
+			// 社員コードに対応する有給休暇情報を取得
+			Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();
+			for (PaidLeave paid : PaidLeaveList) {
+				if(paid.getCode().equals(emp.getCode())) {
+					count++;
+				}
+			}
+			
+			
+			
 			/////////////////////////////////////////////////////////////////      
 			LocalDate currentDate = LocalDate.now(); // 現在の日付
 			long monthsUntilExpiry = ChronoUnit.MONTHS.between(currentDate, expiryDate); // 当日と消滅日の月数の差
@@ -232,7 +243,7 @@ public class ViewPaidVacationExpiryDateController {
 			        emp.getAnnual_paid_leave_report_date(),  // 年休簿作成日
 			        emp.getGranted_paid_leave_days(),  // 有給休暇付与日数
 			        emp.getRemaining_paid_leave_days(),  // 有給休暇残数
-			        Number_of_days_used,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+			        count,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
 			        Date.valueOf(expiryDateString),  // 消滅日（基準日からに二年後）
 			        alertMessage  // 有給接近情報アラート
 			    ));
@@ -256,7 +267,7 @@ public class ViewPaidVacationExpiryDateController {
 							emp.getAnnual_paid_leave_report_date(),  // 年休簿作成日
 							emp.getGranted_paid_leave_days(),  // 有給休暇付与日数
 							emp.getRemaining_paid_leave_days(),  // 有給休暇残数
-							Number_of_days_used,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+							count,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
 							Date.valueOf(expiryDateString),  // 消滅日（基準日からに二年後）
 							alertMessage  // 有給接近情報アラート
 							));
@@ -279,7 +290,7 @@ public class ViewPaidVacationExpiryDateController {
 							emp.getAnnual_paid_leave_report_date(),  // 年休簿作成日
 							emp.getGranted_paid_leave_days(),  // 有給休暇付与日数
 							emp.getRemaining_paid_leave_days(),  // 有給休暇残数
-							Number_of_days_used,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+							count,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
 							Date.valueOf(expiryDateString),  // 消滅日（基準日からに二年後）
 							alertMessage  // 有給接近情報アラート
 							));
@@ -302,7 +313,7 @@ public class ViewPaidVacationExpiryDateController {
 							emp.getAnnual_paid_leave_report_date(),  // 年休簿作成日
 							emp.getGranted_paid_leave_days(),  // 有給休暇付与日数
 							emp.getRemaining_paid_leave_days(),  // 有給休暇残数
-							Number_of_days_used,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
+							count,  // 仮登録有給休暇使用日数（PaidLeaveDBから回数を取得）
 							Date.valueOf(expiryDateString),  // 消滅日（基準日からに二年後）
 							alertMessage  // 有給接近情報アラート
 							));
