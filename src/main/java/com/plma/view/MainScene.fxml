@@ -62,14 +62,14 @@
             <Button fx:id="shinkitouroku_button" layoutX="56.0" layoutY="43.0" mnemonicParsing="false" onAction="#shinkitouroku_button_onClick" prefHeight="25.0" prefWidth="233.0" text="新規登録" />
             <Button fx:id="syoumetu_button" layoutX="56.0" layoutY="94.0" mnemonicParsing="false" onAction="#ViewPaidVacationEpiry_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇消滅接近者情報" />
             <Button fx:id="settei_button" layoutX="56.0" layoutY="336.0" mnemonicParsing="false" onAction="#settei_button_onClick" prefHeight="27.0" prefWidth="233.0" text="設定" />
-            <Button fx:id="misyouka_button" layoutX="56.0" layoutY="142.0" mnemonicParsing="false" onAction="#ViewPaidLeaveUndigestedList_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇年5日未消化者情報" />
+            <Button fx:id="misyouka_button" layoutX="56.0" layoutY="142.0" mnemonicParsing="false" onAction="#ViewPaidLeaveUndigestedList_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇未消化者情報" />
             <Button fx:id="yukyutouroku_button" layoutX="56.0" layoutY="191.0" mnemonicParsing="false" onAction="#AddStatusPaidLeave_button_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇使用状況登録" />
             <Button fx:id="kensaku_button" layoutX="56.0" layoutY="242.0" mnemonicParsing="false" onAction="#kensaku_button_onClick" prefHeight="25.0" prefWidth="233.0" text="個人データ検索" />
             <Text layoutX="319.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新しく従業員が入社した際の新規登録画面" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇未消化者情報" wrappingWidth="233.33333333333337" />
+            <Text layoutX="319.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇年５日未消化者情報" wrappingWidth="233.33333333333337" />
             <Text layoutX="319.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇情報登録/ 有給休暇情報削除" wrappingWidth="283.3333943684896" />
             <Text layoutX="319.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="検索画面" wrappingWidth="233.33333333333337" />
-            <Text layoutX="422.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規部署の追加" wrappingWidth="87.99995930989587" />
+            <Text layoutX="438.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新規部署の追加" wrappingWidth="87.99995930989587" />
             <Text layoutX="319.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇発生後２年経過接近者情報" wrappingWidth="233.33333333333337" />
             <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="メインメニュー" wrappingWidth="103.469970703125">
                <font>
@@ -79,7 +79,6 @@
             <Text layoutX="319.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="従業員登録情報更新" wrappingWidth="118.66670735677087" />
             <Button fx:id="ManagementBookCreation_button" layoutX="56.0" layoutY="292.0" mnemonicParsing="false" onAction="#ManagementBookCreation_onClick" prefHeight="25.0" prefWidth="233.0" text="有給休暇管理簿作成" />
             <Text layoutX="319.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇管理簿の作成" wrappingWidth="233.33333333333337" />
-            <Text layoutX="319.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="有給休暇残数更新" wrappingWidth="103.46997070312506" />
       </children>
     </AnchorPane>
   </children>

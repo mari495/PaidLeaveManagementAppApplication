@@ -79,7 +79,7 @@
             <TextArea id="name_textArea" fx:id="lastname_hurigana_text" layoutX="154.0" layoutY="122.0" prefHeight="24.0" prefWidth="115.0" />
             <TextArea id="name_textArea" fx:id="firstname_hurigana_text" layoutX="284.0" layoutY="122.0" prefHeight="27.0" prefWidth="115.0" />
             <TextArea id="name_textArea" fx:id="firstname_text" layoutX="284.0" layoutY="71.0" prefHeight="27.0" prefWidth="115.0" />
-            <Button fx:id="add_button" layoutX="143.0" layoutY="317.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="27.0" prefWidth="325.0" text="登録" />
+            <Button fx:id="add_button" layoutX="143.0" layoutY="317.0" mnemonicParsing="false" onAction="#addOnClick" prefHeight="27.0" prefWidth="325.0" text="新入社員情報登録" />
             <Text layoutX="54.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="所定労働日数" wrappingWidth="82.0" />
             <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="新入社員情報登録" wrappingWidth="214.80331420898438">
                <font>

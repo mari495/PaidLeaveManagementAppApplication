@@ -255,8 +255,8 @@ public class ViewPaidLeaveUndigestedListController{
 						emp.getDepartment_name(),
 						emp.getWorking_days(),
 						emp.getReference_date(),
-						emp.getRemaining_paid_leave_days(),
 						emp.getGranted_paid_leave_days(),
+						emp.getRemaining_paid_leave_days(),
 						daysText
 						);
 
@@ -278,8 +278,8 @@ public class ViewPaidLeaveUndigestedListController{
 						emp.getDepartment_name(),
 						emp.getWorking_days(),
 						emp.getReference_date(),
-						emp.getRemaining_paid_leave_days(),
 						emp.getGranted_paid_leave_days(),
+						emp.getRemaining_paid_leave_days(),
 						daysText
 						);
 
@@ -300,8 +300,8 @@ public class ViewPaidLeaveUndigestedListController{
 						emp.getDepartment_name(),
 						emp.getWorking_days(),
 						emp.getReference_date(),
-						emp.getRemaining_paid_leave_days(),
 						emp.getGranted_paid_leave_days(),
+						emp.getRemaining_paid_leave_days(),
 						daysText
 						);
 

@@ -59,7 +59,7 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="Addapartment_button" layoutX="52.0" layoutY="61.0" mnemonicParsing="false" onAction="#Addapartment_button_onClick" prefHeight="25.0" prefWidth="158.0" text="部署名追加" />
+            <Button fx:id="Addapartment_button" layoutX="52.0" layoutY="61.0" mnemonicParsing="false" onAction="#Addapartment_button_onClick" prefHeight="25.0" prefWidth="158.0" text="新規開設部署名追加" />
             <Text layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="設定" wrappingWidth="214.80331420898438">
                <font>
                   <Font size="18.0" />

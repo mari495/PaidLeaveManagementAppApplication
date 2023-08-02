@@ -228,7 +228,7 @@ public class SetteiSceneController {
 	        }
 	        
 	     // 有給休暇残数＝現在の残数ーPaidLeaveカウントした回数（使用日数）
-	        int remainingPaidLeaveDays = emp.getRemaining_paid_leave_days() - pacnt;
+	        int remainingPaidLeaveDays = emp.getGranted_paid_leave_days() - pacnt;
 	        
 	        
 	        // 新しいEmployeeInfoオブジェクトを作成するのではなく、既存のpaidオブジェクトを更新
