@@ -454,8 +454,8 @@ public class AddStatusPaidLeaveSceneController {
 					emp.getDepartment_name(),
 					emp.getWorking_days(),
 					emp.getReference_date(),
-					emp.getRemaining_paid_leave_days(),
 					emp.getGranted_paid_leave_days(),
+					emp.getRemaining_paid_leave_days(),
 					null);   //PaidLeaveDBから取得のためNullで登録
 
 			int plcnt = 0;
@@ -607,8 +607,8 @@ public class AddStatusPaidLeaveSceneController {
 					dptmname,//departmentnameDBからDepartmentNunberと一致するDepartmentNameを取得
 					emp.getWorking_days(),
 					emp.getReference_date(),
-					emp.getRemaining_paid_leave_days(),
 					emp.getGranted_paid_leave_days(),
+					emp.getRemaining_paid_leave_days(),
 					null);   //PaidLeaveDBから取得のためNullで登録
 		    		
 			

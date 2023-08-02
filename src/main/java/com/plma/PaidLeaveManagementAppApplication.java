@@ -22,7 +22,7 @@ public class PaidLeaveManagementAppApplication extends Application{
     public void init() {
     	springContext = SpringApplication.run(PaidLeaveManagementAppApplication.class);
         fxmlLoader = springContext.getBean(SpringFXMLLoader.class);
-    	System.out.println("initされた");
+    	System.out.println("main関数init処理");
     }
 
 	public static void main(String[] args) {
