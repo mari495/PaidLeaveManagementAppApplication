@@ -92,7 +92,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="536.0" layoutY="313.0" mnemonicParsing="false" onAction="#menu_button_onClick" text="メインメニュー" />
+            <Button layoutX="536.0" layoutY="313.0" mnemonicParsing="false" onAction="#menu_button_onClick" text="メニュー" />
             <Text layoutX="29.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="従業員情報削除">
                <font>
                   <Font size="18.0" />

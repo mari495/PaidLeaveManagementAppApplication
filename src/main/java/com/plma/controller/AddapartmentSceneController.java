@@ -93,11 +93,6 @@ public class AddapartmentSceneController {
             }
         }
 
-        /*
-         * 現在表示されている画面を閉じる
-         */
-        Scene s = ((Node)event.getSource()).getScene();
-        Window window = s.getWindow();
-        window.hide();
+       
     }
 }
