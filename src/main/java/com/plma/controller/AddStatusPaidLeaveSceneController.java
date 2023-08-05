@@ -391,27 +391,6 @@ public class AddStatusPaidLeaveSceneController {
 	}
 
 
-	//やりたいことDBから取得した日付をすべてもってくる
-	// getPaidLeaveDateメソッドの実装
-	private List<Date> getPaidLeaveDates(Integer syaincode) {
-		List<Date> dates = new ArrayList<>();
-		Iterable<PaidLeave> paidLeaves = pl_repository.findAll();
-
-		for (PaidLeave paidLeave : paidLeaves) {
-			System.out.println("paidLeave!!!!"+paidLeave);
-			if (paidLeave.getCode().equals(syaincode.toString())) {
-				dates.add(paidLeave.getPaid_leave_date());
-				StringBuilder sb = new StringBuilder();
-				sb.append("Dates: ").append(dates);
-				System.out.println(sb.toString());
-			}
-		}
-
-
-		return dates;
-
-
-	}
 
 
 	@FXML//全取得
@@ -569,20 +548,7 @@ public class AddStatusPaidLeaveSceneController {
 				getTextAreaContent(lastname_text),//苗字
 				departmentNumber,    //部署名      		
 				working_days.getValue());
-		System.out.println("----------------------------------------------");
-		System.out.println(syaincode_ComboBox.getEditor().getText());
-		System.out.println(date);
-		System.out.println(firstname_text.getText());
-		System.out.println( lastname_text.getText());
-		System.out.println( firstname_hurigana_text.getText());
-		System.out.println(lastname_hurigana_text.getText());
-		System.out.println(year.getValue());
-		System.out.println(month.getValue());
-		System.out.println(day.getValue());
-		System.out.println(department.getValue());
-		System.out.println(departmentNumber);
-		System.out.println(working_days.getValue());
-		System.out.println("----------------------------------------------");
+		
 
 		
 		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();//PaidLeaveDBから情報取得
