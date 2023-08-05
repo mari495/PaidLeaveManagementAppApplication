@@ -387,21 +387,7 @@ public class AddStatusPaidLeaveSceneController {
 
 	//取得したデータをテーブルに表示するメソッド
 	void setTableViewPaidLeaveDto(PaidLeaveDto emp) {
-		datatable.getItems().add(new PaidLeaveDto(
-				emp.getId(),
-				emp.getCode(),
-				emp.getJoin_date(),
-				emp.getHurigana_lastname(),
-				emp.getHurigana_firstname(),
-				emp.getLastname(),
-				emp.getFirstname(),
-				emp.getDepartment_name(),//
-				emp.getWorking_days(),
-				emp.getReference_date(),
-				emp.getGranted_paid_leave_days(),
-				emp.getRemaining_paid_leave_days(),
-				emp.getPaidLeave_date()
-				));
+		datatable.getItems().add(emp);
 	}
 
 
@@ -530,7 +516,7 @@ public class AddStatusPaidLeaveSceneController {
 	
 	@FXML//複数の&&条件による検索
 	void kensaku_button_onClick(ActionEvent event) {
-		//表をクリア
+		//押す度に表をクリア
 		datatable.getItems().clear();
 
 		Date date = null;
@@ -538,10 +524,10 @@ public class AddStatusPaidLeaveSceneController {
 		Integer yearItem = year.getSelectionModel().getSelectedItem();
 		Integer monthItem = month.getSelectionModel().getSelectedItem();
 		Integer dayItem = day.getSelectionModel().getSelectedItem();
-//textBoxがブランクだったらnullを渡す
+		
 		
 
-
+		//全てのプルダウンが選択されている場合のみ処理を行う
 		if(!(yearItem == null && monthItem == null && dayItem == null)) {
 
 
@@ -582,17 +568,12 @@ public class AddStatusPaidLeaveSceneController {
 		System.out.println(working_days.getValue());
 		System.out.println("----------------------------------------------");
 
-		System.out.println("EmployeeInfo"+empInfo);//
-		//Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
 		
-		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();
-		List<PaidLeaveDto> PaidLiaveDtoList = new ArrayList<>();
+		Iterable<PaidLeave> PaidLeaveList = pl_repository.findAll();//PaidLeaveDBから情報取得
+		List<PaidLeaveDto> PaidLiaveDtoList = new ArrayList<>();//表示用に新たに作成
 		
-		//String departmentname=getDepartmentNumber(selectedDepartment);
-		
-		//EmployeeInfoの情報を
 		for (EmployeeInfo emp : empInfo) {
-			System.out.println("EmployeeInfo"+empInfo);//
+			
 			
 			String dptmname = getDepartmentName(emp.getDepartment_number());
 			
@@ -615,18 +596,17 @@ public class AddStatusPaidLeaveSceneController {
 			
 
 			int plcnt = 0;
-
+			//PaidLeaveDBの中で社員コードと一致するかを判断
 			for(PaidLeave pltmp : PaidLeaveList) {
 				if(pltmp.getCode().equals(emp.getCode())) {
-					paid.setPaidLeave_date(pltmp.getPaid_leave_date());
-					
-					PaidLiaveDtoList.add(paid); // リストに要素を追加
-					plcnt++;
+					paid.setPaidLeave_date(pltmp.getPaid_leave_date());//一致したらリストに日付をセット				
+					PaidLiaveDtoList.add(paid); 
+					plcnt++;//一致の回数をカウント
 				}
 
 			}
 
-			if(plcnt == 0) {
+			if(plcnt == 0) {//一致しなかったら
 				PaidLiaveDtoList.add(paid); // リストに要素を追加
 			}
 
@@ -634,13 +614,11 @@ public class AddStatusPaidLeaveSceneController {
 
 		try {
 			for(PaidLeaveDto paid : PaidLiaveDtoList) {
-				System.out.println("paid="+paid);
-
 				
 				setTableViewPaidLeaveDto(paid);
 
-
 			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 			if (e.getCause() instanceof InvocationTargetException) {
