@@ -448,8 +448,24 @@ public class AddStatusPaidLeaveSceneController {
 
 			for(PaidLeave pltmp : PaidLeaveList) {
 				if(pltmp.getCode().equals(emp.getCode())) {
-					paid.setPaidLeave_date(pltmp.getPaid_leave_date());
-					PaidLiaveDtoList.add(paid); // リストに要素を追加
+					PaidLeaveDto paid_use = new PaidLeaveDto(
+							emp.getId(),
+							emp.getCode(),
+							emp.getJoin_date(),
+							emp.getHurigana_lastname(),
+							emp.getHurigana_firstname(),
+							emp.getLastname(),
+							emp.getFirstname(),
+							emp.getDepartment_name(),//departmentnameDBからDepartmentNunberと一致するDepartmentNameを取得
+							emp.getWorking_days(),
+							emp.getReference_date(),
+							emp.getGranted_paid_leave_days(),
+							emp.getRemaining_paid_leave_days(),
+							pltmp.getPaid_leave_date());   //PaidLeaveDBから取得のためNullで登録
+
+					System.out.println("pltmp.getPaid_leave_date()" + pltmp.getPaid_leave_date());
+					
+					PaidLiaveDtoList.add(paid_use); // リストに要素を追加
 					plcnt++;
 				}
 
