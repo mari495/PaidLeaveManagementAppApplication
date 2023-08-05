@@ -38,10 +38,6 @@ public class SetteiSceneController {
 	@Autowired
 	EmployeeInfoService service;
 
-	/*@FXML
-    void Addapartment_button_onClick(ActionEvent event) {
-
-    }*/
 
 	@FXML
 	void Menu_button_onClick(ActionEvent event) {

@@ -51,37 +51,7 @@ public class DeleteEnployeeInfoTableSceneController {
     }
 
     
-    /*
-    void deleteBtn_OnClick(ActionEvent event) {
-        System.out.println("deleteBox.getText()" + deleteBox.getText());
-        if (service.existsById(Integer.parseInt(deleteBox.getText()))) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("削除の確認");
-            alert.setContentText("本当に削除しますか？");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                service.deleteById(Integer.parseInt(deleteBox.getText()));
-                // clearTable();
-                // allBtn_OnClick(event);
-            }
-        } else {
-            System.out.println("Value was null");
-        }
-    }*/
-
-    /*
-   	@FXML
-   	private boolean confirmDelete() {
-   	    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-   	    alert.setTitle("Confirmation");
-   	    alert.setHeaderText("削除の確認");
-   	    alert.setContentText("本当に削除しますか？");
-
-   	    Optional<ButtonType> result = alert.showAndWait();
-   	    return result.isPresent() && result.get() == ButtonType.OK;
-   	}*/
+    
     
    
     

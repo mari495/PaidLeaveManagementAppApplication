@@ -68,12 +68,7 @@ public class AddapartmentSceneController {
     
     @FXML//
     void adddepartmentnameOnClick(ActionEvent event) {
-    	//departmentナンバーはとりあえず100から振っていく感じで作成
     	
-
-    	 // 部門番号を固定で100から振っていく
-        //Integer nextDepartmentNumber = 100;
-       //１仮入れ
     	 int currentRowCount = (int) dep_repository.count();
          Integer nextDepartmentNumber = currentRowCount + 100;
          //adddepartment.setDepartment_number(nextDepartmentNumber);

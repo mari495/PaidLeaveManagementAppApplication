@@ -57,7 +57,7 @@ public class ViewPaidVacationExpiryDateController {
 
 	@Autowired
 	EmployeeInfoService service;
-	//EmployeeInfoServiceImpl service;
+	
 
 	@FXML
 	private TableColumn<EmployeeInfoDto2, String> firstNameColumn;
@@ -130,7 +130,6 @@ public class ViewPaidVacationExpiryDateController {
 
 	private String approach;//ViewApproachInfomationControllerから受け取った情報を入れる
 	
-	//String alertMessage;
 
 	@FXML
 	void initialize() {
@@ -181,11 +180,6 @@ public class ViewPaidVacationExpiryDateController {
 	}
 	
 
-	//選択された文字情報を受け取るためのメソッド
-	//public void setApproach(String approach) {
-	//	this.approach = approach;
-		//System.out.println("approach"+this.approach);
-	//}
 
 
 	void setTableViewEmployeeInfoDto(EmployeeInfoDto2 emp) {
@@ -201,7 +195,7 @@ public class ViewPaidVacationExpiryDateController {
 
 
 			/////////////////////////////////////////////////////////////
-			//Integer Number_of_days_used=1; // 有給休暇使用日数（PaidLeaveDBから回数を取得）
+			
 			int count=0;
 			// 社員コードに対応する有給休暇情報を取得
 			Iterable<PaidLeave> PaidLeaveList = service.getPaidLeave();

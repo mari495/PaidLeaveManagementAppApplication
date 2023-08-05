@@ -45,8 +45,7 @@ public class HItKensakuViewController {
 	@Autowired
 	SharedData sd;
 	
-	/*@Autowired
-	EmployeeInfoDto employeeInfoDto;*/
+	
 	
 	
 
@@ -138,8 +137,7 @@ public class HItKensakuViewController {
 	private TableColumn <EmployeeInfoDto2, String>Alert;
 
 
-	//@FXML
-	//private Button menu_button;
+	
 
 	
 	
@@ -219,8 +217,6 @@ public class HItKensakuViewController {
 		assert Number_of_days_used != null : "fx:id=\"Number_of_days_used\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert Expiry_date != null : "fx:id=\"Expiry_date\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		assert Alert != null : "fx:id=\"Alert\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
-		
-		//assert menu_button != null : "fx:id=\"menu_button\" was not injected: check your FXML file 'hitKensakuView.fxml'.";
 		
 		id_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, Integer>("id"));
 	        code_col.setCellValueFactory(new PropertyValueFactory<EmployeeInfoDto2, Integer>("code"));

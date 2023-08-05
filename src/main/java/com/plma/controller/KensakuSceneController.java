@@ -37,7 +37,7 @@ public class KensakuSceneController {
 
 	@Autowired
 	EmployeeInfoService service;
-	//EmployeeInfoServiceImpl service;
+	
 
 	@Autowired
 	SharedData sd;
@@ -184,7 +184,7 @@ public class KensakuSceneController {
 	@FXML//全取得
 	void allBtn_OnClick(ActionEvent event) {
 
-		//Iterable<EmployeeInfoDto> employeeInfoDtoList = service.getAllEmployeeInfoDto();
+		
 
 		Iterable<EmployeeInfo> iterable = service.selectAll();
 		
@@ -234,7 +234,7 @@ public class KensakuSceneController {
 			
 
 			
-						// コンボボックスの値から日付を作成
+			// コンボボックスの値から日付を作成
 			LocalDate selectedDate = LocalDate.of(year.getValue(), month.getValue(), day.getValue());
 			// java.sql.Dateに変換
 			date = Date.valueOf(selectedDate);
